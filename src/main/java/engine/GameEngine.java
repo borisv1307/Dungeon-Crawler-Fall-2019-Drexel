@@ -74,27 +74,19 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		movePlayer(-1, 0);
+		// TODO Implement movement logic here
 	}
 
 	public void keyRight() {
-		movePlayer(1, 0);
+		// TODO Implement movement logic here
 	}
 
 	public void keyUp() {
-		movePlayer(0, -1);
+		// TODO Implement movement logic here
 	}
 
 	public void keyDown() {
-		movePlayer(0, 1);
-	}
-
-	private void movePlayer(int xDiff, int yDiff) {
-
-		if (getTileFromCoordinates(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff)
-				.equals(TileType.PASSABLE)) {
-			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-		}
+		// TODO Implement movement logic here
 	}
 
 	public void setExit(boolean exit) {
