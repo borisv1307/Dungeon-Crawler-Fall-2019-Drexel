@@ -77,27 +77,32 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(exit));
 	}
 
-	@Test
-	public void key_left() {
-		// TODO Should I start with this test?
-		gameEngine.keyLeft();
-	}
-
-	@Test
-	public void key_right() {
-		// TODO Should I start with this test?
-		gameEngine.keyRight();
-	}
-
-	@Test
-	public void key_up() {
-		// TODO Should I start with this test?
-		gameEngine.keyUp();
-	}
-
-	@Test
-	public void key_down() {
-		// TODO Should I start with this test?
-		gameEngine.keyDown();
-	}
+//	@Test
+//	public void key_left() {
+//		gameEngine.addTile(3, 3, TileType.PLAYER);
+//		gameEngine.keyLeft();
+//		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(2));
+//
+//	}
+//
+//	@Test
+//	public void key_right() {
+//		gameEngine.addTile(3, 3, TileType.PLAYER);
+//		gameEngine.keyRight();
+//		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(4));
+//	}
+//
+//	@Test
+//	public void key_up() {
+//		gameEngine.addTile(3, 3, TileType.PLAYER);
+//		gameEngine.keyUp();
+//		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(2));
+//	}
+//
+//	@Test
+//	public void key_down() {
+//		gameEngine.addTile(3, 3, TileType.PLAYER);
+//		gameEngine.keyDown();
+//		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(4));
+//	}
 }
