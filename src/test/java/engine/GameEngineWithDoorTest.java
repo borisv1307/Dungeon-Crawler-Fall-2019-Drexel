@@ -11,14 +11,14 @@ import parser.LevelCreator;
 import tiles.TileType;
 
 public class GameEngineWithDoorTest {
-	GameEngineWithDoor gameEngine;
+	GameEngine gameEngine;
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
 	
 	@Before
 	public void setUp() throws Exception {
 		
-		gameEngine = ObjectFactory.getGameEngineWithDoor();
+		gameEngine = ObjectFactory.getDefaultGameEngine();
 		TileType tileType = TileType.PLAYER;
 		gameEngine.addTile(ZERO, ONE, tileType);
 		tileType = TileType.EXIT;

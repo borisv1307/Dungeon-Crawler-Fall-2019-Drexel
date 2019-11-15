@@ -11,19 +11,41 @@ import ui.GameFrame;
 
 public class GameEngine {
 
+	private class Door{
+		private GameEngine gameEngine;
+		private int currentLevel;
+		Door(GameEngine gameEngine, int level){
+			this.gameEngine = gameEngine;
+			this.currentLevel = level;
+		}
+		private int goNextLevel() {
+			// TODO Auto-generated method stub
+			currentLevel ++;
+			levelCreator.createLevel(this.gameEngine, this.currentLevel);
+			return this.currentLevel;
+		}
+		
+		
+	}
+	
+	
+	
 	private boolean exit;
-	protected final LevelCreator levelCreator;
+	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
-	protected final int level;
-
+	private final int level;
+	private int currentLevel;
+	private Door door;
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+		door = new Door(this,level);
+		this.currentLevel = level;
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -63,6 +85,9 @@ public class GameEngine {
 
 	protected void setPlayer(int x, int y) {
 		player = new Point(x, y);
+		if(this.getTileFromCoordinates(x, y) == TileType.EXIT) {
+			this.currentLevel = door.goNextLevel();
+		}
 	}
 
 	public int getPlayerXCoordinate() {
@@ -104,4 +129,8 @@ public class GameEngine {
 	public boolean isExit() {
 		return exit;
 	}
+	public int getCurrentLevel() {
+		return this.currentLevel;
+	}
+	
 }
