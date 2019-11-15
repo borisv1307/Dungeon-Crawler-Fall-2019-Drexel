@@ -1,6 +1,7 @@
 package main;
 
 import engine.GameEngine;
+import engine.GameEngineWithDoor;
 import parser.LevelCreator;
 import timer.FramesPerSecondHandler;
 import ui.GameFrame;
@@ -21,7 +22,8 @@ public abstract class ObjectFactory {
 			new ReaderWrapper());
 
 	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
-
+	private static GameEngineWithDoor gameEngineWithDoor = new GameEngineWithDoor(defaultLevelCreator);
+	
 	private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
 			new WindowAdapterSystemExit(defaultGameEngine));
 
@@ -34,6 +36,9 @@ public abstract class ObjectFactory {
 
 	public static GameEngine getDefaultGameEngine() {
 		return defaultGameEngine;
+	}
+	public static GameEngineWithDoor getGameEngineWithDoor() {
+		return gameEngineWithDoor;
 	}
 
 	public static GameFrame getDefaultGameFrame() {

@@ -11,7 +11,7 @@ public class Launcher {
 
 	public static void main(String[] args) {
 		ThreadWrapper threadWrapper = ObjectFactory.getDefaultThreadWrapper();
-		GameEngine gameEngine = ObjectFactory.getDefaultGameEngine();
+		GameEngine gameEngine = ObjectFactory.getGameEngineWithDoor();
 		GameFrame gameFrame = ObjectFactory.getDefaultGameFrame();
 		FramesPerSecondHandler framesPerSecondHandler = ObjectFactory.getDefaultFramesPerSecondHandler();
 

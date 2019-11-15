@@ -2,6 +2,7 @@ package engine;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.Component;
 
@@ -17,15 +18,22 @@ public class GameEngineTest {
 
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
-
+	
 	GameEngine gameEngine;
-
+	int actualX;
+	int actualY;
+	
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
 		gameEngine = new GameEngine(levelCreator);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
+		TileType tileType = TileType.PLAYER;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		actualX = gameEngine.getPlayerXCoordinate();
+		actualY = gameEngine.getPlayerYCoordinate();
+		
 	}
 
 	@Test
@@ -61,10 +69,6 @@ public class GameEngineTest {
 
 	@Test
 	public void add_and_get_player_coordinates() {
-		TileType tileType = TileType.PLAYER;
-		gameEngine.addTile(ZERO, ONE, tileType);
-		int actualX = gameEngine.getPlayerXCoordinate();
-		int actualY = gameEngine.getPlayerYCoordinate();
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}
@@ -81,23 +85,35 @@ public class GameEngineTest {
 	public void key_left() {
 		// TODO Should I start with this test?
 		gameEngine.keyLeft();
+		assertEquals(actualX -1,gameEngine.getPlayerXCoordinate());
+		assertEquals(actualY,gameEngine.getPlayerYCoordinate());
 	}
 
 	@Test
 	public void key_right() {
 		// TODO Should I start with this test?
 		gameEngine.keyRight();
+		assertEquals(actualX +1,gameEngine.getPlayerXCoordinate());
+		assertEquals(actualY,gameEngine.getPlayerYCoordinate());
 	}
 
 	@Test
 	public void key_up() {
 		// TODO Should I start with this test?
 		gameEngine.keyUp();
+		assertEquals(actualX,gameEngine.getPlayerXCoordinate());
+		assertEquals(actualY-1,gameEngine.getPlayerYCoordinate());
 	}
 
 	@Test
 	public void key_down() {
 		// TODO Should I start with this test?
 		gameEngine.keyDown();
+		assertEquals(actualX,gameEngine.getPlayerXCoordinate());
+		assertEquals(actualY+1,gameEngine.getPlayerYCoordinate());
 	}
+	
+
+	
+	
 }

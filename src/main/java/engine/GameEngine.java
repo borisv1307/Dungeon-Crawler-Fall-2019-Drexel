@@ -12,12 +12,12 @@ import ui.GameFrame;
 public class GameEngine {
 
 	private boolean exit;
-	private final LevelCreator levelCreator;
+	protected final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
-	private final int level;
+	protected final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -61,7 +61,7 @@ public class GameEngine {
 		return tiles.get(new Point(x, y));
 	}
 
-	private void setPlayer(int x, int y) {
+	protected void setPlayer(int x, int y) {
 		player = new Point(x, y);
 	}
 
@@ -75,18 +75,26 @@ public class GameEngine {
 
 	public void keyLeft() {
 		// TODO Implement movement logic here
+		if(this.getTileFromCoordinates(this.getPlayerXCoordinate()-1,this.getPlayerYCoordinate()) != TileType.NOT_PASSABLE)
+			this.setPlayer(this.getPlayerXCoordinate()-1, this.getPlayerYCoordinate());
 	}
 
 	public void keyRight() {
 		// TODO Implement movement logic here
+		if(this.getTileFromCoordinates(this.getPlayerXCoordinate()+1,this.getPlayerYCoordinate()) != TileType.NOT_PASSABLE)
+		this.setPlayer(this.getPlayerXCoordinate()+1, this.getPlayerYCoordinate());
 	}
 
 	public void keyUp() {
 		// TODO Implement movement logic here
+		if(this.getTileFromCoordinates(this.getPlayerXCoordinate(),this.getPlayerYCoordinate()-1) != TileType.NOT_PASSABLE)
+		this.setPlayer(this.getPlayerXCoordinate(), this.getPlayerYCoordinate()-1);
 	}
 
 	public void keyDown() {
 		// TODO Implement movement logic here
+		if(this.getTileFromCoordinates(this.getPlayerXCoordinate(),this.getPlayerYCoordinate()+1) != TileType.NOT_PASSABLE)
+		this.setPlayer(this.getPlayerXCoordinate(), this.getPlayerYCoordinate()+1);
 	}
 
 	public void setExit(boolean exit) {
