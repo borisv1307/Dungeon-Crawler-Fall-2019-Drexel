@@ -20,5 +20,3 @@ Feature: When the player moves to the treasure, the player now has the treasure.
     Then the treasure is not located at (4, 3)
     Then the player is located at (4, 3)
     Then the player owns 1 treasure
-    
-    
