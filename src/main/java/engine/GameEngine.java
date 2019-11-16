@@ -11,23 +11,6 @@ import ui.GameFrame;
 
 public class GameEngine {
 
-	private class Door{
-		private GameEngine gameEngine;
-		private int currentLevel;
-		Door(GameEngine gameEngine, int level){
-			this.gameEngine = gameEngine;
-			this.currentLevel = level;
-		}
-		private int goNextLevel() {
-			// TODO Auto-generated method stub
-			currentLevel ++;
-			levelCreator.createLevel(this.gameEngine, this.currentLevel);
-			return this.currentLevel;
-		}
-		
-		
-	}
-	
 	
 	
 	private boolean exit;
@@ -37,15 +20,13 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private final int level;
-	private int currentLevel;
-	private Door door;
+	private LevelManager levelManager;
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
-		door = new Door(this,level);
-		this.currentLevel = level;
+		this.levelManager = new LevelManager(this,level);
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -86,7 +67,7 @@ public class GameEngine {
 	protected void setPlayer(int x, int y) {
 		player = new Point(x, y);
 		if(this.getTileFromCoordinates(x, y) == TileType.EXIT) {
-			this.currentLevel = door.goNextLevel();
+			this.levelManager.goNextLevel();
 		}
 	}
 
@@ -130,7 +111,10 @@ public class GameEngine {
 		return exit;
 	}
 	public int getCurrentLevel() {
-		return this.currentLevel;
+		return this.levelManager.getCurrentLevel();
+	}
+	public LevelCreator getLevelCreator(){
+		return this.levelCreator;
 	}
 	
 }
