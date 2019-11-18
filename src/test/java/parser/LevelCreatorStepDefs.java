@@ -57,6 +57,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 
 	@Then("^starting from the top-left:$")
 	public void starting_from_the_top_left() throws Throwable {
+
 	}
 
 	@Then("^the player's x coordinate is (\\d+)$")

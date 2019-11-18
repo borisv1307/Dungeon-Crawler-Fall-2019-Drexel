@@ -73,20 +73,26 @@ public class GameEngine {
 		return (int) player.getY();
 	}
 
+	public void updatePlayerPosition(int newX, int newY) {
+		if (isPassable(newX, newY)) {
+			setPlayer(newX, newY);
+		}
+	}
+
 	public void keyLeft() {
-		// TODO Implement movement logic here
+		updatePlayerPosition(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
 	}
 
 	public void keyRight() {
-		// TODO Implement movement logic here
+		updatePlayerPosition(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
 	}
 
 	public void keyUp() {
-		// TODO Implement movement logic here
+		updatePlayerPosition(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
 	}
 
 	public void keyDown() {
-		// TODO Implement movement logic here
+		updatePlayerPosition(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
 	}
 
 	public void setExit(boolean exit) {
@@ -95,5 +101,11 @@ public class GameEngine {
 
 	public boolean isExit() {
 		return exit;
+	}
+
+	public boolean isPassable(int x, int y) {
+		TileType tile = getTileFromCoordinates(x, y);
+
+		return tile.equals(TileType.PASSABLE);
 	}
 }
