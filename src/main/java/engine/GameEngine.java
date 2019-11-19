@@ -24,6 +24,7 @@ public class GameEngine {
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -74,19 +75,42 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		// TODO Implement movement logic here
+
+		int x = (int) player.getX() - 1;
+		int y = (int) player.getY();
+
+		attemptSetLocation(x, y);
 	}
 
 	public void keyRight() {
-		// TODO Implement movement logic here
+		int x = (int) player.getX() + 1;
+		int y = (int) player.getY();
+		if (x > tiles.size())
+			x = 0;
+		attemptSetLocation(x, y);
 	}
 
 	public void keyUp() {
-		// TODO Implement movement logic here
+		int x = (int) player.getX();
+		int y = (int) player.getY() - 1;
+		/*
+		 * if (y < tiles.size()) y = 0;
+		 */
+		attemptSetLocation(x, y);
 	}
 
 	public void keyDown() {
-		// TODO Implement movement logic here
+		int x = (int) player.getX();
+		int y = (int) player.getY() + 1;
+		if (y > tiles.size())
+			y = 0;
+		attemptSetLocation(x, y);
+	}
+
+	private void attemptSetLocation(int x, int y) {
+		if (tiles.get(new Point(x, y)) != TileType.NOT_PASSABLE) {
+			player.setLocation(x, y);
+		}
 	}
 
 	public void setExit(boolean exit) {
