@@ -79,8 +79,14 @@ public class GameEngineTest {
 
 	@Test
 	public void key_left() {
-		// TODO Should I start with this test?
+
 		gameEngine.keyLeft();
+		int actualX = gameEngine.getPlayerXCoordinate();
+		int actualY = gameEngine.getPlayerYCoordinate();
+		System.out.println(actualX);
+		System.out.println(actualY);
+		assertThat(actualX, equalTo(2));
+		assertThat(actualY, equalTo(3));
 	}
 
 	@Test

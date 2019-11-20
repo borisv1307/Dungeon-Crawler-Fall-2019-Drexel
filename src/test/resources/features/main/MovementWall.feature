@@ -11,7 +11,7 @@ Feature: Move the player into wall
     When the player moves left
     Then the player is located at (2, 2)
 
-  Scenario: Move right into wall
+  Scenario: Move right into walld
     When the player moves right
     Then the player is located at (2, 2)
 
