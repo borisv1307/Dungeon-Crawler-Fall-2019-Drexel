@@ -2,12 +2,13 @@ package engine;
 
 import java.awt.Component;
 import java.awt.Point;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.Map.Entry;
 
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.RandomWrapper;
 
 public class GameEngine {
 
@@ -18,12 +19,18 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private final int level;
+	private RandomWrapper randomWrapper;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+	}
+
+	public GameEngine(LevelCreator defaultLevelCreator, RandomWrapper defaultRandomWrapper) {
+		this(defaultLevelCreator);
+		randomWrapper = defaultRandomWrapper;
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -39,6 +46,13 @@ public class GameEngine {
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
+	}
+
+	public void addTileAtRandomAvailablePoint(TileType tileType) {
+		List<Point> tiles = getTilesOfType(TileType.PASSABLE);				
+		int randIndex = randomWrapper.nextInt(tiles.size());
+		Point point = tiles.get(randIndex);
+		addTile(point.x, point.y, tileType);	
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -74,27 +88,35 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		movePlayer(-1, 0);
+		int x = this.getPlayerXCoordinate();
+		int y = this.getPlayerYCoordinate();
+		TileType newTile = getTileFromCoordinates(x - 1, y);
+		if (newTile != TileType.NOT_PASSABLE)
+			this.setPlayer(x - 1, y);
 	}
 
 	public void keyRight() {
-		movePlayer(1, 0);
+		int x = this.getPlayerXCoordinate();
+		int y = this.getPlayerYCoordinate();
+		TileType newTile = getTileFromCoordinates(x + 1, y);
+		if (newTile != TileType.NOT_PASSABLE)
+			this.setPlayer(x + 1, y);
 	}
 
 	public void keyUp() {
-		movePlayer(0, -1);
+		int x = this.getPlayerXCoordinate();
+		int y = this.getPlayerYCoordinate();
+		TileType newTile = getTileFromCoordinates(x, y - 1);
+		if (newTile != TileType.NOT_PASSABLE)
+			this.setPlayer(x, y - 1);
 	}
 
 	public void keyDown() {
-		movePlayer(0, 1);
-	}
-
-	private void movePlayer(int xDiff, int yDiff) {
-		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
-				getPlayerYCoordinate() + yDiff);
-		if (attempedLocation.equals(TileType.PASSABLE)) {
-			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-		}
+		int x = this.getPlayerXCoordinate();
+		int y = this.getPlayerYCoordinate();
+		TileType newTile = getTileFromCoordinates(x, y + 1);
+		if (newTile != TileType.NOT_PASSABLE)
+			this.setPlayer(x, y + 1);
 	}
 
 	public void setExit(boolean exit) {
@@ -103,5 +125,29 @@ public class GameEngine {
 
 	public boolean isExit() {
 		return exit;
+	}
+	
+	public List<Point> getTilesOfType(TileType tileTypeToCount) {
+
+		List<Point> matchingTiles = new ArrayList<Point>();
+
+        Iterator<Entry<Point, TileType>> hmIterator = tiles.entrySet().iterator(); 
+    
+        while (hmIterator.hasNext()) { 
+            Map.Entry<Point, TileType> mapElement = (Map.Entry<Point, TileType>)hmIterator.next(); 
+            TileType tileType = (TileType)mapElement.getValue();
+            Point tilePoint = (Point)mapElement.getKey();
+            
+			if(tileType == tileTypeToCount) {
+				matchingTiles.add (new Point(tilePoint.x, tilePoint.y) );
+			}
+        } 		
+				
+		return matchingTiles;
+	}
+
+	public int getTileCount(TileType tileTypeToCount) {
+		List<Point> existingTiles = getTilesOfType(tileTypeToCount);
+		return existingTiles.size();
 	}
 }

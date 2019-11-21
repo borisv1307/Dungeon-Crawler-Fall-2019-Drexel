@@ -17,6 +17,10 @@ public class TilePainter {
 		}
 	}
 	
+	void paintTreasure(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
+		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
+	}
+	
 	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
 		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 	}
