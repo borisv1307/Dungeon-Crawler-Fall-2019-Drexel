@@ -39,7 +39,7 @@ public class GameEngine {
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else if (tileType.equals(TileType.ENEMY)) {
 			setEnemy(x, y);
-			tiles.put(new Point(x, y), TileType.ENEMY);
+			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
@@ -94,19 +94,23 @@ public class GameEngine {
 	public void keyLeft() {
 
 		checkForWallMovePlayer(-1, 0);
+		moveEnemyWhenPLayerMoves(-1, 0);
 //		System.out.println(getTileFromCoordinates(getPlayerXCoordinate() - 1, getPlayerYCoordinate()));
 	}
 
 	public void keyRight() {
 		checkForWallMovePlayer(1, 0);
+		moveEnemyWhenPLayerMoves(1, 0);
 	}
 
 	public void keyUp() {
 		checkForWallMovePlayer(0, -1);
+		moveEnemyWhenPLayerMoves(0, -1);
 	}
 
 	public void keyDown() {
 		checkForWallMovePlayer(0, 1);
+		moveEnemyWhenPLayerMoves(0, 1);
 	}
 
 	public void setExit(boolean exit) {
@@ -121,10 +125,15 @@ public class GameEngine {
 		if (getTileFromCoordinates(getPlayerXCoordinate() + xCoordinate,
 				getPlayerYCoordinate() + yCoordinate) != TileType.NOT_PASSABLE) {
 			setPlayer(getPlayerXCoordinate() + xCoordinate, getPlayerYCoordinate() + yCoordinate);
-//			if (getTileFromCoordinates(getEnemyXCoordinate() + 1,
-//					getEnemyXCoordinate() + yCoordinate) != TileType.NOT_PASSABLE) {
-//				setEnemy(getEnemyXCoordinate() + 1, getEnemyYCoordinate() + 0);
-//			}
+//		
+
+		}
+	}
+
+	public void moveEnemyWhenPLayerMoves(int xCoordinate, int yCoordinate) {
+		if (getTileFromCoordinates(getEnemyXCoordinate() + xCoordinate,
+				getEnemyYCoordinate() + yCoordinate) != TileType.NOT_PASSABLE) {
+			setEnemy(getEnemyXCoordinate() + xCoordinate, getEnemyYCoordinate() + yCoordinate);
 		}
 	}
 }
