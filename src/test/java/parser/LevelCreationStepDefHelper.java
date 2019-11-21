@@ -9,11 +9,14 @@ import values.TestingTunableParameters;
 import values.TunableParameters;
 
 public class LevelCreationStepDefHelper {
-	protected static final int ONE = 1;
-	protected static final int COORDINATE_OFFSET = ONE;
+	protected static int LEVEL = 1;
+	protected static final int COORDINATE_OFFSET = LEVEL;
 
-	protected void writeLevelFile(List<String> levelStrings)
+	protected void writeLevelFile(List<String> levelStrings, int... level)
 			throws FileNotFoundException, UnsupportedEncodingException {
+
+		if (level.length > 0)
+			LEVEL = level[0];
 		PrintWriter writer = new PrintWriter(getFilePath(), "UTF-8");
 		for (String levelString : levelStrings) {
 			writer.println(levelString);
@@ -22,6 +25,6 @@ public class LevelCreationStepDefHelper {
 	}
 
 	private String getFilePath() {
-		return TestingTunableParameters.FILE_LOCATION_PREFIX + ONE + TunableParameters.FILE_NAME_SUFFIX;
+		return TestingTunableParameters.FILE_LOCATION_PREFIX + LEVEL + TunableParameters.FILE_NAME_SUFFIX;
 	}
 }

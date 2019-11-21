@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
+import movement.Movement;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
@@ -17,11 +18,11 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
-	private final int level;
+	public int level = 1;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
-		level = 1;
+
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
 
@@ -76,41 +77,40 @@ public class GameEngine {
 
 	public void keyLeft() {
 
-		int x = (int) player.getX() - 1;
-		int y = (int) player.getY();
-
-		attemptSetLocation(x, y);
+		setLocation((int) player.getX() - 1, (int) player.getY());
 	}
 
 	public void keyRight() {
-		int x = (int) player.getX() + 1;
-		int y = (int) player.getY();
-		if (x > tiles.size())
-			x = 0;
-		attemptSetLocation(x, y);
+
+		setLocation((int) player.getX() + 1, (int) player.getY());
 	}
 
 	public void keyUp() {
-		int x = (int) player.getX();
-		int y = (int) player.getY() - 1;
-		/*
-		 * if (y < tiles.size()) y = 0;
-		 */
-		attemptSetLocation(x, y);
+
+		setLocation((int) player.getX(), (int) player.getY() - 1);
+
 	}
 
 	public void keyDown() {
-		int x = (int) player.getX();
-		int y = (int) player.getY() + 1;
-		if (y > tiles.size())
-			y = 0;
-		attemptSetLocation(x, y);
+
+		setLocation((int) player.getX(), (int) player.getY() + 1);
 	}
 
-	private void attemptSetLocation(int x, int y) {
-		if (tiles.get(new Point(x, y)) != TileType.NOT_PASSABLE) {
-			player.setLocation(x, y);
+	public void setLocation(int x, int y) {
+
+		Movement movement = new Movement();
+
+		int newLevel = movement.setLocation(this.player, this.tiles, x, y, this.level);
+
+		if (movement.checkifLastLevl(newLevel) == false) {
+			if (newLevel != this.level) {
+				this.level = newLevel;
+				this.levelCreator.createLevel(this, level);
+			}
+		} else {
+			setExit(true);
 		}
+
 	}
 
 	public void setExit(boolean exit) {
