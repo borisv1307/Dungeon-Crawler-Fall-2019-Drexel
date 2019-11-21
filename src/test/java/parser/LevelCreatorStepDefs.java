@@ -15,6 +15,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.java.StepDefAnnotation;
 import engine.GameEngine;
+import movement.Movement;
 import tiles.TileType;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
@@ -35,10 +36,11 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 
 	@When("^I create the level$")
 	public void i_create_the_level() throws Throwable {
-		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
-				new ReaderWrapper());
+		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper(),
+				new LevelHandler());
+		Movement movementHandler = new Movement();
 		try {
-			gameEngine = new GameEngine(levelCreator);
+			gameEngine = new GameEngine(levelCreator, movementHandler);
 		} catch (IllegalArgumentException e) {
 			exceptionMessage = e.getMessage();
 		}
@@ -49,10 +51,13 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 		ioException = Mockito.mock(IOException.class);
 		readerWrapper = Mockito.mock(ReaderWrapper.class);
 		BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
+		LevelHandler levelHandler = Mockito.mock(LevelHandler.class);
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
-		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-		gameEngine = new GameEngine(levelCreator);
+		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper,
+				levelHandler);
+		Movement movementHandler = new Movement();
+		gameEngine = new GameEngine(levelCreator, movementHandler);
 	}
 
 	@Then("^starting from the top-left:$")

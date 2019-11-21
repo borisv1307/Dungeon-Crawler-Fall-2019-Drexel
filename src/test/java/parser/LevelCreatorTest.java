@@ -21,13 +21,15 @@ public class LevelCreatorTest {
 	private LevelCreator levelCreator;
 	private final String FILE_LOCATION_PREFIX = "FILE_LOCATION_PREFIX";
 	private ReaderWrapper readerWrapper;
+	private LevelHandler levelhandler;
 	private final int LEVEL = 1;
 
 	@Before
 	public void setUp() {
 		gameEngine = Mockito.mock(GameEngine.class);
 		readerWrapper = Mockito.mock(ReaderWrapper.class);
-		levelCreator = new LevelCreator(FILE_LOCATION_PREFIX, readerWrapper);
+		levelhandler = Mockito.mock(LevelHandler.class);
+		levelCreator = new LevelCreator(FILE_LOCATION_PREFIX, readerWrapper, levelhandler);
 	}
 
 	@Test
@@ -62,6 +64,7 @@ public class LevelCreatorTest {
 		BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
 		Mockito.when(readerWrapper.createBufferedReader(levelCreator.getFilePath(LEVEL))).thenReturn(bufferedReader);
 		Mockito.doThrow(exception).when(bufferedReader).close();
+
 		levelCreator.createLevel(gameEngine, LEVEL);
 		Mockito.verify(gameEngine).setExit(true);
 	}

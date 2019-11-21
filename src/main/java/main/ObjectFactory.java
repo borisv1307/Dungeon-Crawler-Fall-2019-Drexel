@@ -1,7 +1,9 @@
 package main;
 
 import engine.GameEngine;
+import movement.Movement;
 import parser.LevelCreator;
+import parser.LevelHandler;
 import timer.FramesPerSecondHandler;
 import ui.GameFrame;
 import ui.GamePanel;
@@ -13,14 +15,18 @@ import wrappers.SystemWrapper;
 import wrappers.ThreadWrapper;
 
 public abstract class ObjectFactory {
-	private ObjectFactory() {}
+	private ObjectFactory() {
+	}
 
 	private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
 
+	private static LevelHandler levelHandler = new LevelHandler();
 	private static LevelCreator defaultLevelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
-			new ReaderWrapper());
+			new ReaderWrapper(), levelHandler);
 
-	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
+	private static Movement defaultMovement = new Movement();
+
+	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator, defaultMovement);
 
 	private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
 			new WindowAdapterSystemExit(defaultGameEngine));

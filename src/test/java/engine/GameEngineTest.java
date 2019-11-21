@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import movement.Movement;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
@@ -23,7 +24,8 @@ public class GameEngineTest {
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-		gameEngine = new GameEngine(levelCreator);
+		Movement movementHandler = Mockito.mock(Movement.class);
+		gameEngine = new GameEngine(levelCreator, movementHandler);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
 	}

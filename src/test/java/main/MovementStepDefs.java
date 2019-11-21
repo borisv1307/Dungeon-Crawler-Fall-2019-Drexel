@@ -9,8 +9,10 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import engine.GameEngine;
+import movement.Movement;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
+import parser.LevelHandler;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
@@ -21,8 +23,8 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	@Given("^the level design is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
-		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+		gameEngine = new GameEngine(new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper(),
+				new LevelHandler()), new Movement());
 	}
 
 	@When("^the player moves left$")

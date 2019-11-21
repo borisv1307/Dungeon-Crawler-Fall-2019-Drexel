@@ -11,6 +11,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import engine.GameEngine;
+import movement.Movement;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
@@ -21,8 +22,8 @@ public class LevelUpStepDefs extends LevelCreationStepDefHelper {
 	public void the_level_is(int level, List<String> levelStrings) throws Throwable {
 
 		writeLevelFile(levelStrings, level);
-		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+		gameEngine = new GameEngine(new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper(),
+				new LevelHandler()), new Movement());
 
 	}
 
@@ -32,8 +33,8 @@ public class LevelUpStepDefs extends LevelCreationStepDefHelper {
 		List<String> levelString = levelStrings.asList(String.class);
 
 		writeLevelFile(levelString);
-		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+		gameEngine = new GameEngine(new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper(),
+				new LevelHandler()), new Movement());
 		gameEngine.level = currentLevel;
 
 	}

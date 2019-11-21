@@ -14,6 +14,7 @@ import java.util.List;
 import org.mockito.Mockito;
 
 import engine.GameEngine;
+import movement.Movement;
 import tiles.TileType;
 import values.TestingTunableParameters;
 import values.TunableParameters;
@@ -49,10 +50,11 @@ public class LevelCreatorITHelper {
 	}
 
 	protected void createLevel() throws Throwable {
-		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
-				new ReaderWrapper());
+		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper(),
+				new LevelHandler());
+		Movement movementHandler = new Movement();
 		try {
-			gameEngine = new GameEngine(levelCreator);
+			gameEngine = new GameEngine(levelCreator, movementHandler);
 		} catch (IllegalArgumentException e) {
 			exceptionMessage = e.getMessage();
 		}
@@ -89,10 +91,13 @@ public class LevelCreatorITHelper {
 		ioException = Mockito.mock(IOException.class);
 		readerWrapper = Mockito.mock(ReaderWrapper.class);
 		BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
+		LevelHandler levelHandler = Mockito.mock(LevelHandler.class);
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
-		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-		gameEngine = new GameEngine(levelCreator);
+		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper,
+				levelHandler);
+		Movement movementHandler = new Movement();
+		gameEngine = new GameEngine(levelCreator, movementHandler);
 	}
 
 }

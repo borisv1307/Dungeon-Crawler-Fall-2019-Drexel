@@ -17,20 +17,34 @@ public class LevelCreator {
 	String fileLocationPrefix;
 	String fileNameSuffix = TunableParameters.FILE_NAME_SUFFIX;
 	ReaderWrapper readerWrapper;
+	LevelHandler levelHandler;
 
-	public LevelCreator(String fileLocationPrefix, ReaderWrapper readerWrapper) {
+	public LevelCreator(String fileLocationPrefix, ReaderWrapper readerWrapper, LevelHandler levelHandler) {
 		this.fileLocationPrefix = fileLocationPrefix;
 		this.readerWrapper = readerWrapper;
+		this.levelHandler = levelHandler;
 	}
 
 	public void createLevel(GameEngine gameEngine, int level) {
-		BufferedReader reader;
+
+		BufferedReader reader = null;
+
 		try {
-			reader = readerWrapper.createBufferedReader(getFilePath(level));
+			int newLevel = levelHandler.getNewLevel(level);
+
+			if (!levelHandler.checkIfLastLevel(newLevel)) {
+				reader = readerWrapper.createBufferedReader(getFilePath(newLevel));
+				gameEngine.level = newLevel;
+			} else {
+				gameEngine.setExit(true);
+				return;
+			}
 		} catch (FileNotFoundException e) {
+
 			LOGGER.log(Level.SEVERE, e.toString(), e);
 			gameEngine.setExit(true);
 			return;
+
 		}
 		try {
 			String line = null;
