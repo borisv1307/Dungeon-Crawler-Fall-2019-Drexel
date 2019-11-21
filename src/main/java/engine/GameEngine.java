@@ -17,6 +17,7 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+	private Point enemy;
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -36,6 +37,9 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
+		} else if (tileType.equals(TileType.ENEMY)) {
+			setEnemy(x, y);
+			tiles.put(new Point(x, y), TileType.ENEMY);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
@@ -65,8 +69,22 @@ public class GameEngine {
 		player = new Point(x, y);
 	}
 
+	private void setEnemy(int x, int y) {
+		enemy = new Point(x, y);
+	}
+
+	public int getEnemyXCoordinate() {
+		return (int) enemy.getX();
+
+	}
+
+	public int getEnemyYCoordinate() {
+		return (int) enemy.getY();
+	}
+
 	public int getPlayerXCoordinate() {
 		return (int) player.getX();
+
 	}
 
 	public int getPlayerYCoordinate() {
@@ -75,19 +93,20 @@ public class GameEngine {
 
 	public void keyLeft() {
 
-		setPlayer(getPlayerXCoordinate() - 1, getPlayerYCoordinate());
+		checkForWallMovePlayer(-1, 0);
+//		System.out.println(getTileFromCoordinates(getPlayerXCoordinate() - 1, getPlayerYCoordinate()));
 	}
 
 	public void keyRight() {
-		setPlayer(getPlayerXCoordinate() + 1, getPlayerYCoordinate());
+		checkForWallMovePlayer(1, 0);
 	}
 
 	public void keyUp() {
-		setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() - 1);
+		checkForWallMovePlayer(0, -1);
 	}
 
 	public void keyDown() {
-		setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate() + 1);
+		checkForWallMovePlayer(0, 1);
 	}
 
 	public void setExit(boolean exit) {
@@ -96,5 +115,16 @@ public class GameEngine {
 
 	public boolean isExit() {
 		return exit;
+	}
+
+	public void checkForWallMovePlayer(int xCoordinate, int yCoordinate) {
+		if (getTileFromCoordinates(getPlayerXCoordinate() + xCoordinate,
+				getPlayerYCoordinate() + yCoordinate) != TileType.NOT_PASSABLE) {
+			setPlayer(getPlayerXCoordinate() + xCoordinate, getPlayerYCoordinate() + yCoordinate);
+//			if (getTileFromCoordinates(getEnemyXCoordinate() + 1,
+//					getEnemyXCoordinate() + yCoordinate) != TileType.NOT_PASSABLE) {
+//				setEnemy(getEnemyXCoordinate() + 1, getEnemyYCoordinate() + 0);
+//			}
+		}
 	}
 }
