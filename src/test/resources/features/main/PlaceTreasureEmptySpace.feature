@@ -1,8 +1,8 @@
-@Adhoc
+@IntegrationTest
 Feature: If there is a single empty space, then the treasure is spawned there
 
   Background: 
-    Given the level design is:
+    Given the treasure design is:
       | XXXXXXX |
       | X XXXXX |
       | XXPXXXX |

@@ -24,8 +24,8 @@ import wrappers.ReaderWrapper;
 @StepDefAnnotation
 public class TreasurePlacementStepDefs extends LevelCreatorITHelper {
 
-	private static final int ZERO = 0;
 	private static final int ONE = 1;
+	protected static final int COORDINATE_OFFSET = ONE;
 	
 	private GameEngine gameEngine;
 	private RandomWrapper randomWrapper;
@@ -49,6 +49,12 @@ public class TreasurePlacementStepDefs extends LevelCreatorITHelper {
 	public void the_treasure_count_is(int expectedTreasureCount) throws Throwable {
 		int actual = gameEngine.getEmptyTileCount();
 		assertThat(actual, equalTo(expectedTreasureCount));		
+	}
+	
+	@Then("^the treasure is located at \\((\\d+), (\\d+)\\)$")
+	public void the_player_is_located_at(int treasureX, int treasureY) throws Throwable {
+		TileType actual = gameEngine.getTileFromCoordinates(treasureX - COORDINATE_OFFSET, treasureY - COORDINATE_OFFSET);
+		assertThat(actual, equalTo(TileType.TREASURE));
 	}
 	
 }
