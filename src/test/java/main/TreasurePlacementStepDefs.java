@@ -47,7 +47,7 @@ public class TreasurePlacementStepDefs extends LevelCreatorITHelper {
 
 	@Then("^the treasure count is (\\d+)$")
 	public void the_treasure_count_is(int expectedTreasureCount) throws Throwable {
-		int actual = gameEngine.getTileCount(TileType.TREASURE);
+		int actual = gameEngine.getEmptyTileCount();
 		assertThat(actual, equalTo(expectedTreasureCount));		
 	}
 	

@@ -54,24 +54,17 @@ public class GameEngineTest {
 	public void add_random_tile() {
 		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
 		Mockito.when(randomWrapper.nextInt((Integer)2))
-				   .thenReturn(1)
 				   .thenReturn(1);
 		
 		gameEngine.addTile(ZERO, ZERO, TileType.NOT_PASSABLE);
 		gameEngine.addTile(ONE, ZERO, TileType.PASSABLE);
 		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE); // should choose this...
-		gameEngine.addTile(ONE, ONE, TileType.NOT_PASSABLE);
-				
+		gameEngine.addTile(ONE, ONE, TileType.PLAYER);
+
 		gameEngine.addTileAtRandomAvailablePoint(TileType.TREASURE);
 
-		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ZERO);
-		assertThat(actual, equalTo(TileType.NOT_PASSABLE));		
-		actual = gameEngine.getTileFromCoordinates(ONE, ZERO);
-		assertThat(actual, equalTo(TileType.PASSABLE));
-		actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
-		assertThat(actual, equalTo(TileType.TREASURE));		
-		actual = gameEngine.getTileFromCoordinates(ONE, ONE);
-		assertThat(actual, equalTo(TileType.NOT_PASSABLE));		
+		int actual = gameEngine.getTileCount(TileType.TREASURE);
+		assertThat(actual, equalTo(1));
 	}
 	
 	@Test
@@ -115,6 +108,17 @@ public class GameEngineTest {
 		List<Point> actual = gameEngine.getTilesOfType(tileType);
 		assertThat(actual, is(notNullValue()));
 		assertThat(actual.size(), equalTo(0));
+	}
+	
+	@Test
+	public void add_1_passable_1_player_1_nonpassable_expect_1_empty_tile() {
+		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
+		gameEngine.addTile(ONE, ZERO, TileType.PLAYER); // PASSABLE, but not empty
+		gameEngine.addTile(ONE, ONE, TileType.NOT_PASSABLE);
+		
+		List<Point> actual = gameEngine.getEmptyTiles();
+		assertThat(actual, is(notNullValue()));
+		assertThat(actual.size(), equalTo(1));
 	}
 	
 	@Test

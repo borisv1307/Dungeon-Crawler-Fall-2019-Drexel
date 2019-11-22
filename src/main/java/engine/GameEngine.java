@@ -45,7 +45,7 @@ public class GameEngine {
 	}
 
 	public void addTileAtRandomAvailablePoint(TileType tileType) {
-		List<Point> tiles = getTilesOfType(TileType.PASSABLE);				
+		List<Point> tiles = getEmptyTiles();				
 		int randIndex = randomWrapper.nextInt(tiles.size());
 		Point point = tiles.get(randIndex);
 		addTile(point.x, point.y, tileType);	
@@ -144,6 +144,29 @@ public class GameEngine {
 
 	public int getTileCount(TileType tileTypeToCount) {
 		List<Point> existingTiles = getTilesOfType(tileTypeToCount);
+		return existingTiles.size();
+	}
+	
+	public List<Point> getEmptyTiles() {
+		List<Point> emptyTiles = new ArrayList<Point>();
+		
+        Iterator<Entry<Point, TileType>> hmIterator = tiles.entrySet().iterator(); 
+    
+        while (hmIterator.hasNext()) { 
+            Map.Entry<Point, TileType> mapElement = (Map.Entry<Point, TileType>)hmIterator.next(); 
+            TileType tileType = (TileType)mapElement.getValue();
+            Point tilePoint = (Point)mapElement.getKey();
+            
+			if(tileType == TileType.PASSABLE && !player.equals(tilePoint)) {
+				emptyTiles.add(new Point(tilePoint.x, tilePoint.y) );
+			}
+        }
+
+		return emptyTiles;
+	}
+	
+	public int getEmptyTileCount() {
+		List<Point> existingTiles = getEmptyTiles();
 		return existingTiles.size();
 	}
 }
