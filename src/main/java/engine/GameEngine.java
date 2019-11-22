@@ -45,10 +45,13 @@ public class GameEngine {
 	}
 
 	public void addTileAtRandomAvailablePoint(TileType tileType) {
-		List<Point> tiles = getEmptyTiles();				
+		List<Point> tiles = getEmptyTiles();
+		if(tiles.isEmpty())
+			return;
+		
 		int randIndex = randomWrapper.nextInt(tiles.size());
 		Point point = tiles.get(randIndex);
-		addTile(point.x, point.y, tileType);	
+		addTile(point.x, point.y, tileType);
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
