@@ -68,6 +68,20 @@ public class GameEngineTest {
 	}
 	
 	@Test
+	public void add_random_to_empty_board_nothing_added() {
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		Mockito.when(randomWrapper.nextInt((Integer)2))
+				   .thenReturn(1);
+		
+		// no tiles added
+		
+		gameEngine.addTileAtRandomAvailablePoint(TileType.TREASURE);
+
+		int actual = gameEngine.getTileCount(TileType.TREASURE);
+		assertThat(actual, equalTo(0));
+	}
+	
+	@Test
 	public void add_and_get_treasure_tile() {
 		TileType tileType = TileType.TREASURE;
 		gameEngine.addTile(ZERO, ONE, tileType);
