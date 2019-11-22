@@ -60,12 +60,4 @@ public class TilePainterTest {
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}
 	
-	@Test
-	public void paint_treasure() {
-
-		tilePainter.paintTreasure(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.TREASURE);
-
-		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
-	}
-
 }
