@@ -96,9 +96,6 @@ public class GameEngine {
 
 		checkForWallMovePlayer(-1, 0);
 		generateMoveForEnemy();
-//		for (int i = 0; i < 100; i++)
-//			System.out.println(generateMoveForEnemy());
-
 	}
 
 	public void keyRight() {
@@ -128,7 +125,6 @@ public class GameEngine {
 		if (getTileFromCoordinates(getPlayerXCoordinate() + xCoordinate,
 				getPlayerYCoordinate() + yCoordinate) != TileType.NOT_PASSABLE) {
 			setPlayer(getPlayerXCoordinate() + xCoordinate, getPlayerYCoordinate() + yCoordinate);
-//		
 
 		}
 	}
