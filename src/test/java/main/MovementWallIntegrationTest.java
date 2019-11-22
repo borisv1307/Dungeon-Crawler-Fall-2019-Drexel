@@ -17,9 +17,9 @@ public class MovementWallIntegrationTest extends LevelCreatorITHelper {
 	@Before
 	public void setUp() throws Throwable {
 		List<String> levelStrings = new ArrayList<>();
-		levelStrings.add("XXX");
-		levelStrings.add("XPX");
-		levelStrings.add("XXX");
+		levelStrings.add("XXXXXX");
+		levelStrings.add("XPXEXX");
+		levelStrings.add("XXXXXX");
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
