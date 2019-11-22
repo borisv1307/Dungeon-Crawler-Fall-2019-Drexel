@@ -21,16 +21,12 @@ public class GameEngine {
 	private final int level;
 	private RandomWrapper randomWrapper;
 
-	public GameEngine(LevelCreator levelCreator) {
+	public GameEngine(LevelCreator levelCreator, RandomWrapper randomWrapperIn) {
+		randomWrapper = randomWrapperIn;
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
-	}
-
-	public GameEngine(LevelCreator defaultLevelCreator, RandomWrapper defaultRandomWrapper) {
-		this(defaultLevelCreator);
-		randomWrapper = defaultRandomWrapper;
 	}
 
 	public void run(GameFrame gameFrame) {

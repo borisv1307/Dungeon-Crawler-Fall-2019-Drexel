@@ -18,9 +18,8 @@ import parser.LevelCreator;
 import parser.LevelCreatorITHelper;
 import tiles.TileType;
 import values.TestingTunableParameters;
+import wrappers.RandomWrapper;
 import wrappers.ReaderWrapper;
-
-import ui.GameFrame;
 
 @StepDefAnnotation
 public class TreasurePlacementStepDefs extends LevelCreatorITHelper {
@@ -29,12 +28,15 @@ public class TreasurePlacementStepDefs extends LevelCreatorITHelper {
 	private static final int ONE = 1;
 	
 	private GameEngine gameEngine;
+	private RandomWrapper randomWrapper;
 
 	@Given("^the treasure design is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
+		randomWrapper = new RandomWrapper();
 		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), 
+				randomWrapper);
 	}
 	
 	@When("^the game adds (\\d+) treasure$")
