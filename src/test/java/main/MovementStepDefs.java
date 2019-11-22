@@ -2,6 +2,7 @@ package main;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -49,5 +50,15 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	public void the_player_is_located_at(int playerX, int playerY) throws Throwable {
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
+	}
+
+	@Then("^the Enemy is not located at \\((\\d+), (\\d+)\\)$")
+	public void the_Enemy_is_not_located_at(int enemyX, int enemyY) throws Throwable {
+		boolean a, b;
+		a = (gameEngine.getEnemyXCoordinate() != (enemyX - COORDINATE_OFFSET));
+		b = (gameEngine.getEnemyYCoordinate() != (enemyY - COORDINATE_OFFSET));
+
+		assertTrue(a || b);
+
 	}
 }
