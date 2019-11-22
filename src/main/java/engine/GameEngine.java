@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import parser.LevelCreator;
 import tiles.TileType;
@@ -94,23 +95,25 @@ public class GameEngine {
 	public void keyLeft() {
 
 		checkForWallMovePlayer(-1, 0);
-		moveEnemyWhenPLayerMoves(-1, 0);
-//		System.out.println(getTileFromCoordinates(getPlayerXCoordinate() - 1, getPlayerYCoordinate()));
+		generateMoveForEnemy();
+//		for (int i = 0; i < 100; i++)
+//			System.out.println(generateMoveForEnemy());
+
 	}
 
 	public void keyRight() {
 		checkForWallMovePlayer(1, 0);
-		moveEnemyWhenPLayerMoves(1, 0);
+		generateMoveForEnemy();
 	}
 
 	public void keyUp() {
 		checkForWallMovePlayer(0, -1);
-		moveEnemyWhenPLayerMoves(0, -1);
+		generateMoveForEnemy();
 	}
 
 	public void keyDown() {
 		checkForWallMovePlayer(0, 1);
-		moveEnemyWhenPLayerMoves(0, 1);
+		generateMoveForEnemy();
 	}
 
 	public void setExit(boolean exit) {
@@ -134,6 +137,20 @@ public class GameEngine {
 		if (getTileFromCoordinates(getEnemyXCoordinate() + xCoordinate,
 				getEnemyYCoordinate() + yCoordinate) != TileType.NOT_PASSABLE) {
 			setEnemy(getEnemyXCoordinate() + xCoordinate, getEnemyYCoordinate() + yCoordinate);
+		}
+	}
+
+	public void generateMoveForEnemy() {
+		int randomizer = new Random().nextInt(4);
+
+		if (randomizer == 0) {
+			moveEnemyWhenPLayerMoves(-1, 0);
+		} else if (randomizer == 1) {
+			moveEnemyWhenPLayerMoves(1, 0);
+		} else if (randomizer == 2) {
+			moveEnemyWhenPLayerMoves(0, -1);
+		} else if (randomizer == 3) {
+			moveEnemyWhenPLayerMoves(0, 1);
 		}
 	}
 }
