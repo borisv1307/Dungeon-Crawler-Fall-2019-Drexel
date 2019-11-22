@@ -21,7 +21,9 @@ Feature: User reaches last level
 
   Scenario Outline: user finishes last level
     When the player reaches <level> and position <position>
+    And a new level is trying to get created
     Then the game will EXIT
+    And last level message is thrown
 
     Examples: 
       | level | position |

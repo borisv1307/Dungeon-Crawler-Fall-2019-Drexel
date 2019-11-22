@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import engine.GameEngine;
+import exception.LastLevelException;
 import tiles.TileType;
 import values.TunableParameters;
 import wrappers.ReaderWrapper;
@@ -32,19 +33,18 @@ public class LevelCreator {
 		try {
 			int newLevel = levelHandler.getNewLevel(level);
 
-			if (!levelHandler.checkIfLastLevel(newLevel)) {
-				reader = readerWrapper.createBufferedReader(getFilePath(newLevel));
-				gameEngine.level = newLevel;
-			} else {
-				gameEngine.setExit(true);
-				return;
-			}
+			reader = readerWrapper.createBufferedReader(getNewLevelFile(gameEngine, newLevel));
+
 		} catch (FileNotFoundException e) {
 
 			LOGGER.log(Level.SEVERE, e.toString(), e);
 			gameEngine.setExit(true);
 			return;
 
+		} catch (LastLevelException e) {
+			LOGGER.log(Level.INFO, e.getMessage());
+			gameEngine.setExit(true);
+			return;
 		}
 		try {
 			String line = null;
@@ -65,6 +65,22 @@ public class LevelCreator {
 		} finally {
 			closeBufferedReader(reader, gameEngine);
 		}
+	}
+
+	public String getNewLevelFile(GameEngine gameEngine, int newLevel) throws LastLevelException {
+
+		if (!levelHandler.checkIfLastLevel(newLevel)) {
+
+			gameEngine.level = newLevel;
+			return getFilePath(newLevel);
+		}
+
+		else {
+
+			throw new LastLevelException();
+
+		}
+
 	}
 
 	private void closeBufferedReader(BufferedReader reader, GameEngine gameEngine) {

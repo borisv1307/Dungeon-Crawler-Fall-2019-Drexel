@@ -11,12 +11,14 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import engine.GameEngine;
+import exception.LastLevelException;
 import movement.Movement;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
 public class LevelUpStepDefs extends LevelCreationStepDefHelper {
 	GameEngine gameEngine;
+	String lastLevelException;
 
 	@Given("^the level (\\\\d+) is:$")
 	public void the_level_is(int level, List<String> levelStrings) throws Throwable {
@@ -59,6 +61,23 @@ public class LevelUpStepDefs extends LevelCreationStepDefHelper {
 		gameEngine.level = level;
 		gameEngine.setLocation(x - 1, y - 1);
 
+	}
+
+	@When("^a new level is trying to get created$")
+	public void a_new_level_is_trying_to_get_created() throws Throwable {
+		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper(),
+				new LevelHandler());
+		try {
+			levelCreator.getNewLevelFile(gameEngine, 4);
+		} catch (LastLevelException ex) {
+			lastLevelException = ex.getMessage();
+		}
+	}
+
+	@Then("^last level message is thrown$")
+	public void last_level_message_is_thrown() throws Throwable {
+
+		assertEquals("exceptionChecking", new LastLevelException().getMessage(), lastLevelException);
 	}
 
 	@Then("^the game will EXIT$")
