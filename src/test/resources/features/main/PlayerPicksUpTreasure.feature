@@ -17,6 +17,5 @@ Feature: When the player moves to the treasure, the player now has the treasure.
 
   Scenario: Moves right into treasure space
     When the player moves right seeking treasure
-    Then the treasure is not located at (4, 3)
     Then the player seeking treasure is located at (4, 3)
     Then the player owns 1 treasure

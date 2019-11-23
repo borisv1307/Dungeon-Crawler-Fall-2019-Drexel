@@ -80,10 +80,4 @@ public class TreasurePlacementStepDefs extends LevelCreatorITHelper {
 		assertThat(TileType.TREASURE, equalTo(TileType.TREASURE));
 	}
 	
-	@Then("^the treasure is not located at \\((\\d+), (\\d+)\\)$")
-	public void the_treasure_is_not_located_at(int treasureX, int treasureY) throws Throwable {
-		TileType actual = gameEngine.getTileFromCoordinates(treasureX - COORDINATE_OFFSET, treasureY - COORDINATE_OFFSET);
-		assertThat(actual, not(equalTo(TileType.TREASURE)));
-	}
-	
 }
