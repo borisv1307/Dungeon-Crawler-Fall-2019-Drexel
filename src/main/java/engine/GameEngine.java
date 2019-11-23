@@ -105,7 +105,7 @@ public class GameEngine {
 	private void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
-		if (attempedLocation.equals(TileType.PASSABLE)) {
+		if (TileType.isPassable(attempedLocation)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		}
 	}

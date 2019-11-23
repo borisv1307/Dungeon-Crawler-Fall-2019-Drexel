@@ -10,6 +10,7 @@ public class TileTypeTest {
 
 	private static final char INVALID_CHAR = 'Z';
 	private static final char VALID_CHAR = ' ';
+	private static final char PASSABLE_CHAR = 'T';
 
 	@Test
 	public void value_of() {
@@ -29,5 +30,17 @@ public class TileTypeTest {
 		} catch (IllegalArgumentException exception) {
 			assertEquals(exception.getMessage(), TileType.INVALID_CHARACTER_PROVIDED_MESSAGE + "Z");
 		}
+	}
+	
+	@Test
+	public void passable_types() {
+		assertThat(TileType.isPassable(TileType.TREASURE), equalTo(true));
+		assertThat(TileType.isPassable(TileType.PASSABLE), equalTo(true));
+		assertThat(TileType.isPassable(TileType.PLAYER), equalTo(true));
+	}
+	
+	@Test
+	public void not_passable_types() {
+		assertThat(TileType.isPassable(TileType.NOT_PASSABLE), equalTo(false));
 	}
 }
