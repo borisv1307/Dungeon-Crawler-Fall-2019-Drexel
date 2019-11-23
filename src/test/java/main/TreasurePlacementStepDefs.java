@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Assert;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -76,8 +77,8 @@ public class TreasurePlacementStepDefs extends LevelCreatorITHelper {
 	
 	@Then("^the player owns (\\d+) treasure$")
 	public void the_player_owns_treasure(int expTreasureBallance) throws Throwable {
-		// TO DO
-		assertThat(TileType.TREASURE, equalTo(TileType.TREASURE));
+	    // TO DO
+	    throw new PendingException();
 	}
 	
 }
