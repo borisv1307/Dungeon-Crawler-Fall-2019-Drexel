@@ -2,6 +2,7 @@ package engine;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.Component;
 
@@ -19,6 +20,7 @@ public class GameEngineTest {
 	private static final int ONE = 1;
 
 	GameEngine gameEngine;
+	SystemWrapper systemWrapper;
 
 	@Before
 	public void setUp() throws Exception {
@@ -26,6 +28,7 @@ public class GameEngineTest {
 		gameEngine = new GameEngine(levelCreator);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
+		systemWrapper = Mockito.mock(SystemWrapper.class);
 	}
 
 	@Test
@@ -75,6 +78,13 @@ public class GameEngineTest {
 		gameEngine.setExit(exit);
 		boolean actual = gameEngine.isExit();
 		assertThat(actual, equalTo(exit));
+	}
+
+	@Test
+	public void generate_random_numbers_for_enemy_to_move() {
+		int result = 0;
+		Mockito.when(systemWrapper.randomNumberGenerator()).thenReturn(result);
+		assertEquals((Integer) result, (Integer)gameEngine.randomNumberGenerator());
 	}
 
 }

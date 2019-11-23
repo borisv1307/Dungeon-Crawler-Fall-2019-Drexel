@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import parser.LevelCreator;
 import tiles.TileType;
@@ -20,6 +19,7 @@ public class GameEngine {
 	private Point player;
 	private Point enemy;
 	private final int level;
+	public int randomizer;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -136,8 +136,13 @@ public class GameEngine {
 		}
 	}
 
+	public int randomNumberGenerator() {
+		return randomizer;
+	}
+
 	public void generateMoveForEnemy() {
-		int randomizer = new Random().nextInt(4);
+		SystemWrapper systemWrapper = new SystemWrapper();
+		randomizer = systemWrapper.randomNumberGenerator();
 
 		if (randomizer == 0) {
 			moveEnemyWhenPLayerMoves(-1, 0);
