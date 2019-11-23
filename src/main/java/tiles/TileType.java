@@ -21,9 +21,4 @@ public enum TileType {
 	private TileType(char asChar) {
 		this.asChar = asChar;
 	}
-
-	public static boolean IsEmpty(TileType tileType) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
