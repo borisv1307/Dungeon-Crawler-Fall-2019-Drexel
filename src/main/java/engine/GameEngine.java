@@ -77,35 +77,27 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-
-		setLocation((int) player.getX() - 1, (int) player.getY());
+		movePlayer(-1, 0);
 	}
 
 	public void keyRight() {
-
-		setLocation((int) player.getX() + 1, (int) player.getY());
+		movePlayer(1, 0);
 	}
 
 	public void keyUp() {
-
-		setLocation((int) player.getX(), (int) player.getY() - 1);
-
+		movePlayer(0, -1);
 	}
 
 	public void keyDown() {
-
-		setLocation((int) player.getX(), (int) player.getY() + 1);
+		movePlayer(0, 1);
 	}
 
-	public void setLocation(int xCoordinateToSet, int yCoordinateToSet) {
-
-		TileType newPosition = movementHandler.setLocation(this, xCoordinateToSet, yCoordinateToSet);
-
-		if (newPosition == TileType.WIN_POINT) {
-
+	public void movePlayer(int xDiff, int yDiff) {
+		TileType attempedLocation = movementHandler.setLocation(this, getPlayerXCoordinate() + xDiff,
+				getPlayerYCoordinate() + yDiff);
+		if (attempedLocation.equals(TileType.WIN_POINT)) {
 			this.levelCreator.createLevel(this, level);
 		}
-
 	}
 
 	public void setExit(boolean exit) {

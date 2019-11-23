@@ -20,15 +20,6 @@ public class LevelUpStepDefs extends LevelCreationStepDefHelper {
 	GameEngine gameEngine;
 	String lastLevelException;
 
-	@Given("^the level (\\\\d+) is:$")
-	public void the_level_is(int level, List<String> levelStrings) throws Throwable {
-
-		writeLevelFile(levelStrings, level);
-		gameEngine = new GameEngine(new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper(),
-				new LevelHandler()), new Movement());
-
-	}
-
 	@Given("^the level (\\d+) is:$")
 	public void the_level_is(int currentLevel, DataTable levelStrings) throws Throwable {
 
@@ -41,26 +32,23 @@ public class LevelUpStepDefs extends LevelCreationStepDefHelper {
 
 	}
 
-	@Then("^Current Level will be (\\d+)$")
-	public void level_will_be(int expectedLevel) throws Throwable {
-
-		assertEquals(expectedLevel, gameEngine.level);
-
-	}
-
-	@When("^the player reaches (\\d+),(\\d+) of level (\\d+)$")
-	public void the_player_reaches_of_level(int x, int y, int currentLevel) throws Throwable {
-
-		gameEngine.setLocation(x - 1, y - 1);
-
-	}
-
-	@When("^the player reaches (\\d+) and position (\\d+),(\\d+)$")
-	public void the_player_reaches_and_position(int level, int x, int y) throws Throwable {
+	@When("^the player reaches (\\d+) and makes (.*)$")
+	public void the_player_reaches_and_makes_moves(int level, List<String> movements) throws Throwable {
 
 		gameEngine.level = level;
-		gameEngine.setLocation(x - 1, y - 1);
-
+		String[] movementList = movements.toArray(new String[0]);
+		int i = 0;
+		while (i < movementList.length) {
+			if (movementList[i].equals("left"))
+				gameEngine.keyLeft();
+			if (movementList[i].equals("up"))
+				gameEngine.keyUp();
+			if (movementList[i].equals("right"))
+				gameEngine.keyRight();
+			if (movementList[i].equals("down"))
+				gameEngine.keyDown();
+			i++;
+		}
 	}
 
 	@When("^a new level is trying to get created$")
@@ -72,6 +60,13 @@ public class LevelUpStepDefs extends LevelCreationStepDefHelper {
 		} catch (LastLevelException ex) {
 			lastLevelException = ex.getMessage();
 		}
+	}
+
+	@Then("^Current Level will be (\\d+)$")
+	public void level_will_be(int expectedLevel) throws Throwable {
+
+		assertEquals(expectedLevel, gameEngine.level);
+
 	}
 
 	@Then("^last level message is thrown$")

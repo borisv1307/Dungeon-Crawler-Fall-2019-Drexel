@@ -8,9 +8,9 @@ Feature: Level Up the game
       | XXXXX |
 
   Scenario Outline: Move one levels up
-    When the player reaches <WIN_POINT> of level <level>
+    When the player reaches <level> and makes <movement>
     Then Current Level will be <outputLevel>
 
     Examples: 
-      | WIN_POINT | level | outputLevel |
-      |       2,2 |     1 |           2 |
+      | level | movement | outputLevel |
+      |     1 | up,left  |           2 |

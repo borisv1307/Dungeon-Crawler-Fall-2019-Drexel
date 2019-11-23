@@ -13,12 +13,11 @@ Feature: User advances two levels
       | X P X |
       | XXXXX |
 
-
   Scenario Outline: Move two levels up
-    When the player reaches <WIN_POINT> of level <level>
+    When the player reaches <level> and makes <movement>
     Then Current Level will be <outputLevel>
 
     Examples: 
-      | WIN_POINT | level | outputLevel |
-      |       1,1 |     1 |           2 |
-      |       2,3 |     2 |           3 |
+      | level | movement | outputLevel |
+      |     1 | left,up  |           2 |
+      |     2 | up,left  |           3 |
