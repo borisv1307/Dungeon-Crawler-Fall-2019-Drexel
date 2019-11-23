@@ -27,6 +27,8 @@ public class GameEngine {
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+				
+		this.addTileAtRandomAvailablePoint(TileType.TREASURE);
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -87,35 +89,27 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		int x = this.getPlayerXCoordinate();
-		int y = this.getPlayerYCoordinate();
-		TileType newTile = getTileFromCoordinates(x - 1, y);
-		if (newTile != TileType.NOT_PASSABLE)
-			this.setPlayer(x - 1, y);
+		movePlayer(-1, 0);
 	}
 
 	public void keyRight() {
-		int x = this.getPlayerXCoordinate();
-		int y = this.getPlayerYCoordinate();
-		TileType newTile = getTileFromCoordinates(x + 1, y);
-		if (newTile != TileType.NOT_PASSABLE)
-			this.setPlayer(x + 1, y);
+		movePlayer(1, 0);
 	}
 
 	public void keyUp() {
-		int x = this.getPlayerXCoordinate();
-		int y = this.getPlayerYCoordinate();
-		TileType newTile = getTileFromCoordinates(x, y - 1);
-		if (newTile != TileType.NOT_PASSABLE)
-			this.setPlayer(x, y - 1);
+		movePlayer(0, -1);
 	}
 
 	public void keyDown() {
-		int x = this.getPlayerXCoordinate();
-		int y = this.getPlayerYCoordinate();
-		TileType newTile = getTileFromCoordinates(x, y + 1);
-		if (newTile != TileType.NOT_PASSABLE)
-			this.setPlayer(x, y + 1);
+		movePlayer(0, 1);
+	}
+
+	private void movePlayer(int xDiff, int yDiff) {
+		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
+				getPlayerYCoordinate() + yDiff);
+		if (attempedLocation.equals(TileType.PASSABLE)) {
+			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+		}
 	}
 
 	public void setExit(boolean exit) {
