@@ -2,6 +2,7 @@ package main;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -52,9 +53,37 @@ public class TreasurePlacementStepDefs extends LevelCreatorITHelper {
 	}
 	
 	@Then("^the treasure is located at \\((\\d+), (\\d+)\\)$")
-	public void the_player_is_located_at(int treasureX, int treasureY) throws Throwable {
+	public void the_treasure_is_located_at(int treasureX, int treasureY) throws Throwable {
 		TileType actual = gameEngine.getTileFromCoordinates(treasureX - COORDINATE_OFFSET, treasureY - COORDINATE_OFFSET);
 		assertThat(actual, equalTo(TileType.TREASURE));
+	}
+	
+	@Then("^the player seeking treasure is located at \\((\\d+), (\\d+)\\)$")
+	public void the_player_seeking_treasure_is_located_at(int treasureX, int treasureY) throws Throwable {
+		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(treasureX - COORDINATE_OFFSET));
+		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(treasureY - COORDINATE_OFFSET));
+	}
+	
+	@When("^the player moves right seeking treasure$")
+	public void the_player_moves_right_seeking_treasure() throws Throwable {
+		gameEngine.keyRight();
+	}
+
+	@When("^the player moves up seeking treasure$")
+	public void the_player_moves_up_seeking_treasure() throws Throwable {
+		gameEngine.keyUp();
+	}
+	
+	@Then("^the player owns (\\d+) treasure$")
+	public void the_player_owns_treasure(int expTreasureBallance) throws Throwable {
+		// TO DO
+		assertThat(TileType.TREASURE, equalTo(TileType.TREASURE));
+	}
+	
+	@Then("^the treasure is not located at \\((\\d+), (\\d+)\\)$")
+	public void the_treasure_is_not_located_at(int treasureX, int treasureY) throws Throwable {
+		TileType actual = gameEngine.getTileFromCoordinates(treasureX - COORDINATE_OFFSET, treasureY - COORDINATE_OFFSET);
+		assertThat(actual, not(equalTo(TileType.TREASURE)));
 	}
 	
 }
