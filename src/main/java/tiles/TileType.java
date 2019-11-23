@@ -21,16 +21,4 @@ public enum TileType {
 	private TileType(char asChar) {
 		this.asChar = asChar;
 	}
-
-	public static boolean isPassable(TileType tile) {
-		switch(tile) {
-			case TREASURE:
-			case PASSABLE:
-			case PLAYER:
-				return true;
-				
-			default:
-				return false;
-		}
-	}
 }

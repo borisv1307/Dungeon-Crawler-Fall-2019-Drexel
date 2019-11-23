@@ -24,7 +24,7 @@ public class MovementWallIntegrationTest extends LevelCreatorITHelper {
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()),
-				new RandomWrapper());
+				new RandomWrapper(), new DungeonMovement());
 	}
 
 	@Test

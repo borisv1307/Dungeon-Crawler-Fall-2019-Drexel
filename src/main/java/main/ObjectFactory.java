@@ -19,11 +19,13 @@ public abstract class ObjectFactory {
 	private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
 	
 	private static RandomWrapper defaultRandomWrapper = new RandomWrapper();
+	
+	private static DungeonMovement defaultDungeonMovement = new DungeonMovement();
 
 	private static LevelCreator defaultLevelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
 			new ReaderWrapper());
 
-	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator, defaultRandomWrapper);
+	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator, defaultRandomWrapper, defaultDungeonMovement);
 
 	private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
 			new WindowAdapterSystemExit(defaultGameEngine));

@@ -24,7 +24,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), 
-				new RandomWrapper());
+				new RandomWrapper(), new DungeonMovement());
 	}
 
 	@When("^the player moves left$")

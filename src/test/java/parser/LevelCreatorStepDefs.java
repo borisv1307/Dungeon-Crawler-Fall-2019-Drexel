@@ -15,6 +15,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.java.StepDefAnnotation;
 import engine.GameEngine;
+import main.DungeonMovement;
 import tiles.TileType;
 import values.TestingTunableParameters;
 import wrappers.RandomWrapper;
@@ -39,8 +40,9 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
 		RandomWrapper randomWrapper = new RandomWrapper();
+		DungeonMovement dungeonWrapper = new DungeonMovement();
 		try {
-			gameEngine = new GameEngine(levelCreator, randomWrapper);
+			gameEngine = new GameEngine(levelCreator, randomWrapper, dungeonWrapper);
 		} catch (IllegalArgumentException e) {
 			exceptionMessage = e.getMessage();
 		}
@@ -55,7 +57,8 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
 		RandomWrapper randomWrapper = new RandomWrapper();
-		gameEngine = new GameEngine(levelCreator, randomWrapper);
+		DungeonMovement dungeonWrapper = new DungeonMovement();
+		gameEngine = new GameEngine(levelCreator, randomWrapper, dungeonWrapper);
 	}
 
 	@Then("^starting from the top-left:$")

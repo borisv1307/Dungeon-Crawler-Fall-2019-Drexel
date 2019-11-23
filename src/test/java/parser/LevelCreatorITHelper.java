@@ -14,6 +14,7 @@ import java.util.List;
 import org.mockito.Mockito;
 
 import engine.GameEngine;
+import main.DungeonMovement;
 import tiles.TileType;
 import values.TestingTunableParameters;
 import values.TunableParameters;
@@ -53,8 +54,9 @@ public class LevelCreatorITHelper {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
 		RandomWrapper randomWrapper = new RandomWrapper();
+		DungeonMovement dungeonWrapper = new DungeonMovement();
 		try {
-			gameEngine = new GameEngine(levelCreator, randomWrapper);
+			gameEngine = new GameEngine(levelCreator, randomWrapper, dungeonWrapper);
 		} catch (IllegalArgumentException e) {
 			exceptionMessage = e.getMessage();
 		}
@@ -95,7 +97,8 @@ public class LevelCreatorITHelper {
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
 		RandomWrapper randomWrapper = new RandomWrapper();
-		gameEngine = new GameEngine(levelCreator, randomWrapper);
+		DungeonMovement dungeonWrapper = new DungeonMovement();
+		gameEngine = new GameEngine(levelCreator, randomWrapper, dungeonWrapper);
 	}
 
 }

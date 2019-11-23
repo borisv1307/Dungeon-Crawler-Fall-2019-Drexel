@@ -31,14 +31,16 @@ public class TreasurePlacementStepDefs extends LevelCreatorITHelper {
 	
 	private GameEngine gameEngine;
 	private RandomWrapper randomWrapper;
+	private DungeonMovement dungeonMovement;
 
 	@Given("^the treasure design is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
 		randomWrapper = new RandomWrapper();
+		dungeonMovement = new DungeonMovement();
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), 
-				randomWrapper);
+				randomWrapper, dungeonMovement);
 	}
 	
 	@When("^the game adds (\\d+) treasure$")

@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.*;
 import java.util.Map.Entry;
 
+import main.DungeonMovement;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
@@ -20,9 +21,11 @@ public class GameEngine {
 	private Point player;
 	private final int level;
 	private RandomWrapper randomWrapper;
+	private DungeonMovement dungeonMovement;
 
-	public GameEngine(LevelCreator levelCreator, RandomWrapper randomWrapperIn) {
+	public GameEngine(LevelCreator levelCreator, RandomWrapper randomWrapperIn, DungeonMovement dungeonMovementIn) {
 		randomWrapper = randomWrapperIn;
+		dungeonMovement = dungeonMovementIn;
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
@@ -105,7 +108,7 @@ public class GameEngine {
 	private void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
-		if (TileType.isPassable(attempedLocation)) {
+		if (dungeonMovement.isPassable(attempedLocation)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		}
 	}
