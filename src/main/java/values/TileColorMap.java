@@ -16,7 +16,7 @@ public final class TileColorMap {
 		tileColors.put(TileType.NOT_PASSABLE, Color.BLACK);
 		tileColors.put(TileType.PLAYER, Color.GREEN);
 		tileColors.put(TileType.WIN_POINT, Color.BLUE);
-		tileColors.put(TileType.GAMEOVER, Color.MAGENTA);
+
 	}
 
 	public static Color get(TileType key) {
