@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import engine.GameEngine;
+import tiles.TileType;
 import timer.FramesPerSecondHandler;
 import ui.GameFrame;
 import wrappers.ThreadWrapper;
@@ -12,6 +13,7 @@ public class DungeonCrawler implements Runnable {
 
 	private static final Logger LOGGER = Logger.getLogger(DungeonCrawler.class.getName());
 
+	private boolean initialized;
 	private final ThreadWrapper threadWrapper;
 	private final GameEngine gameEngine;
 	private final GameFrame gameFrame;
@@ -28,6 +30,9 @@ public class DungeonCrawler implements Runnable {
 
 	@Override
 	public void run() {
+		
+		setInitialized(true);
+		
 		while (!gameEngine.isExit()) {
 			try {
 				runIfEnoughTimeHasElapsed();
@@ -48,14 +53,29 @@ public class DungeonCrawler implements Runnable {
 	}
 
 	public void terminate() {
+		setInitialized(false);
 		gameFrame.dispose();
 	}
 
 	private void runIfEnoughTimeHasElapsed() throws InterruptedException {
 		if (framesPerSecondHandler.hasEnoughTimeElapsed()) {
 			framesPerSecondHandler.resetLastRunTimer();
+			
 			gameEngine.run(gameFrame);
 			threadWrapper.sleep(framesPerSecondHandler.calculateSleepDurationInMilliSeconds());
 		}
+	}
+
+	public boolean isInitialized() {
+		return initialized;
+	}
+	
+	public void setInitialized(boolean initialized) {
+				
+		if(!this.initialized) {
+			gameEngine.addTileAtRandomAvailablePoint(TileType.TREASURE);
+		}
+		
+		this.initialized = initialized;
 	}
 }

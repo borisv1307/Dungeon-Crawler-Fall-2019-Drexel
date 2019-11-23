@@ -1,10 +1,14 @@
 package main;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import engine.GameEngine;
+import tiles.TileType;
 import timer.FramesPerSecondHandler;
 import ui.GameFrame;
 import wrappers.ThreadWrapper;
@@ -61,5 +65,20 @@ public class DungeonCrawlerTest {
 		Mockito.verify(framesPerSecondHandler).resetLastRunTimer();
 		Mockito.verify(gameEngine).run(gameFrame);
 		Mockito.verify(threadWrapper).sleep(SLEEP_TIME);
+	}
+	
+	@Test
+	public void run_and_verify_initial_game_initialization_false_on_exit() throws InterruptedException {
+		Mockito.when(gameEngine.isExit()).thenReturn(true);
+		dungeonCrawler.run();
+		assertThat(false, equalTo(dungeonCrawler.isInitialized()));
+	}
+	
+	@Test
+	public void set_and_get_initalize() {
+		boolean initialized = true;
+		dungeonCrawler.setInitialized(initialized);
+		boolean actual = dungeonCrawler.isInitialized();
+		assertThat(actual, equalTo(initialized));
 	}
 }
