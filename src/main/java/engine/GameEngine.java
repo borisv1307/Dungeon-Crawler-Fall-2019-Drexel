@@ -141,22 +141,15 @@ public class GameEngine {
 	}
 	
 	public List<Point> getTilesOfType(TileType tileTypeToCount) {
+		List<Point> matchingTiles = new ArrayList<Point>();	
+		tiles.forEach((k,v) -> collectSpecificTiles(matchingTiles,k,v, tileTypeToCount));
+		return matchingTiles;		
+	}
 
-		List<Point> matchingTiles = new ArrayList<Point>();
-
-        Iterator<Entry<Point, TileType>> hmIterator = tiles.entrySet().iterator(); 
-    
-        while (hmIterator.hasNext()) { 
-            Map.Entry<Point, TileType> mapElement = (Map.Entry<Point, TileType>)hmIterator.next(); 
-            TileType tileType = (TileType)mapElement.getValue();
-            Point tilePoint = (Point)mapElement.getKey();
-            
-			if(tileType == tileTypeToCount) {
-				matchingTiles.add (new Point(tilePoint.x, tilePoint.y) );
-			}
-        } 		
-				
-		return matchingTiles;
+	private void collectSpecificTiles(List<Point> matchingTiles, Point tilePoint, TileType tileType, TileType tileTypeToCount) {
+		if(tileType == tileTypeToCount) {
+			matchingTiles.add (new Point(tilePoint.x, tilePoint.y) );
+		}
 	}
 
 	public int getTileCount(TileType tileTypeToCount) {
@@ -165,23 +158,17 @@ public class GameEngine {
 	}
 	
 	public List<Point> getEmptyTiles() {
-		List<Point> emptyTiles = new ArrayList<Point>();
-		
-        Iterator<Entry<Point, TileType>> hmIterator = tiles.entrySet().iterator(); 
-    
-        while (hmIterator.hasNext()) { 
-            Map.Entry<Point, TileType> mapElement = (Map.Entry<Point, TileType>)hmIterator.next(); 
-            TileType tileType = (TileType)mapElement.getValue();
-            Point tilePoint = (Point)mapElement.getKey();
-            
-			if(tileType == TileType.PASSABLE && !player.equals(tilePoint)) {
-				emptyTiles.add(new Point(tilePoint.x, tilePoint.y) );
-			}
-        }
-
+		List<Point> emptyTiles = new ArrayList<Point>();		
+		tiles.forEach((k,v) -> collectEmptyTiles(emptyTiles,k,v));
 		return emptyTiles;
 	}
 	
+	private void collectEmptyTiles(List<Point> emptyTiles, Point tilePoint, TileType tileType) {
+		if(tileType == TileType.PASSABLE && !player.equals(tilePoint)) {
+			emptyTiles.add(new Point(tilePoint.x, tilePoint.y) );
+		}
+	}
+
 	public int getEmptyTileCount() {
 		List<Point> existingTiles = getEmptyTiles();
 		return existingTiles.size();
