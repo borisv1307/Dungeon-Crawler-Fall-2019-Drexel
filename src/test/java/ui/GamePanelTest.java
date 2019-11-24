@@ -42,12 +42,18 @@ public class GamePanelTest {
 		Graphics graphics = Mockito.mock(Graphics.class);
 		int playerXCoordinate = 2;
 		int playerYCoordinate = 3;
+		int opponentXCoordinate = 3;
+		int opponentYCoordinate = 4;
 		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);
 		Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
+		Mockito.when(gameEngine.getOpponentXCoordinate()).thenReturn(opponentXCoordinate);
+		Mockito.when(gameEngine.getOpponentYCoordinate()).thenReturn(opponentYCoordinate);
 		gamePanel.paint(graphics);
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
 				TileType.PLAYER);
+		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
+				TileType.OPPONENT);
 	}
 
 	@Test

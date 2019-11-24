@@ -8,6 +8,7 @@ import java.util.Map;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.MathWrapper;
 
 public class GameEngine {
 
@@ -17,7 +18,9 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+	private Point opponent;
 	private final int level;
+	MathWrapper mathWrapper = new MathWrapper();
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -36,9 +39,18 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
+		} else if (tileType.equals(TileType.OPPONENT)) {
+			setOpponent(x, y);
+			tiles.put(new Point(x, y), TileType.OPPONENT);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
+	}
+
+	public void setOpponent(int x, int y) {
+		opponent = new Point(x, y);
+		tiles.put(new Point(x, y), TileType.OPPONENT);
+
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -90,10 +102,14 @@ public class GameEngine {
 	}
 
 	private void movePlayer(int xDiff, int yDiff) {
+		tiles.put(new Point(getPlayerXCoordinate(), getPlayerYCoordinate()), TileType.PASSABLE);
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+		} else if (attempedLocation.equals(TileType.OPPONENT)) {
+			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+			setOpponent(mathWrapper.getRandomXCoordinate(), mathWrapper.getRandomYCoordinate());
 		}
 	}
 
@@ -103,5 +119,13 @@ public class GameEngine {
 
 	public boolean isExit() {
 		return exit;
+	}
+
+	public int getOpponentXCoordinate() {
+		return (int) opponent.getX();
+	}
+
+	public int getOpponentYCoordinate() {
+		return (int) opponent.getY();
 	}
 }

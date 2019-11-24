@@ -94,5 +94,18 @@ public class LevelCreatorITHelper {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
 		gameEngine = new GameEngine(levelCreator);
 	}
+	
+	protected void opponentIsLocatedAt(int opponentX, int opponentY) throws Throwable {
+		checkOpponentXCoordinate(opponentX);
+		checkOpponentYCoordinate(opponentY);
+	}
+
+	protected void checkOpponentXCoordinate(int opponentX) throws Throwable {
+		assertThat(gameEngine.getOpponentXCoordinate(), equalTo(opponentX));
+	}
+
+	protected void checkOpponentYCoordinate(int opponentY) throws Throwable {
+		assertThat(gameEngine.getOpponentYCoordinate(), equalTo(opponentY));
+	}
 
 }

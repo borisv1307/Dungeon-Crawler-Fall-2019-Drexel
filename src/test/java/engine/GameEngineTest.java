@@ -46,6 +46,14 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void add_and_get_tile_of_opponent() {
+		TileType tileType = TileType.OPPONENT;
+		gameEngine.addTile(ZERO, ONE, TileType.OPPONENT);
+		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+		assertThat(actual, equalTo(tileType));
+	}
+
+	@Test
 	public void set_and_get_horizontal_dimension() {
 		gameEngine.setLevelHorizontalDimension(ONE);
 		int actual = gameEngine.getLevelHorizontalDimension();
@@ -65,6 +73,16 @@ public class GameEngineTest {
 		gameEngine.addTile(ZERO, ONE, tileType);
 		int actualX = gameEngine.getPlayerXCoordinate();
 		int actualY = gameEngine.getPlayerYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
+	public void add_and_get_opponent_coordinates() {
+		TileType tileType = TileType.OPPONENT;
+		gameEngine.addTile(ZERO, ONE, TileType.OPPONENT);
+		int actualX = gameEngine.getOpponentXCoordinate();
+		int actualY = gameEngine.getOpponentYCoordinate();
 		assertThat(actualX, equalTo(ZERO));
 		assertThat(actualY, equalTo(ONE));
 	}
