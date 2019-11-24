@@ -2,11 +2,16 @@ package engine;
 
 import java.awt.Component;
 import java.awt.Point;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import main.DungeonMovement;
 import parser.LevelCreator;
+import player.Player;
 import tiles.TileType;
 import ui.GameFrame;
 import wrappers.RandomWrapper;
@@ -18,7 +23,7 @@ public class GameEngine {
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
-	private Point player;
+	private Player player;
 	private final int level;
 	private RandomWrapper randomWrapper;
 	private DungeonMovement dungeonMovement;
@@ -78,7 +83,13 @@ public class GameEngine {
 	}
 
 	private void setPlayer(int x, int y) {
-		player = new Point(x, y);
+
+		if(player == null) {
+			player = new Player(x, y);
+		} else {			
+			player = new Player(player);
+			player.setLocation(x, y);
+		}
 	}
 
 	public int getPlayerXCoordinate() {
@@ -87,6 +98,10 @@ public class GameEngine {
 
 	public int getPlayerYCoordinate() {
 		return (int) player.getY();
+	}
+	
+	public int getCollectedTreasure() {
+		return (int) player.getCollectedTileInventory(TileType.TREASURE);
 	}
 
 	public void keyLeft() {
@@ -110,6 +125,10 @@ public class GameEngine {
 				getPlayerYCoordinate() + yDiff);
 		if (dungeonMovement.isPassable(attempedLocation)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+			
+			if(player.attemptCollectTile(attempedLocation)) {
+				addTile(getPlayerXCoordinate(), getPlayerYCoordinate(), TileType.PASSABLE);
+			}
 		}
 	}
 

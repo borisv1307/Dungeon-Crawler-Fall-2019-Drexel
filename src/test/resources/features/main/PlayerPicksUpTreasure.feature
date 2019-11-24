@@ -1,4 +1,4 @@
-@Adhoc
+@IntegrationTest
 Feature: When the player moves to the treasure, the player now has the treasure.
 
   Background: 

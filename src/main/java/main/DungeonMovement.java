@@ -10,10 +10,9 @@ public class DungeonMovement {
 			case PASSABLE:
 			case PLAYER:
 				return true;
-				
+
 			default:
 				return false;
 		}
 	}
-	
 }

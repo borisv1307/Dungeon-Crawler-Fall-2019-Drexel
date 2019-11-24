@@ -78,9 +78,8 @@ public class TreasurePlacementStepDefs extends LevelCreatorITHelper {
 	}
 	
 	@Then("^the player owns (\\d+) treasure$")
-	public void the_player_owns_treasure(int expTreasureBallance) throws Throwable {
-	    // TO DO
-	    throw new PendingException();
+	public void the_player_owns_treasure(int expTreasureBalance) throws Throwable {
+		assertThat(gameEngine.getCollectedTreasure(), equalTo(expTreasureBalance));
 	}
 	
 }
