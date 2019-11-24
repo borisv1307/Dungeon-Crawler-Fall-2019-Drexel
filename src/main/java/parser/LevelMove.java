@@ -41,17 +41,16 @@ public class LevelMove {
 	}
 
 	public void pastLevel(GameEngine gameEngine) {
-		if (levelNum > levelMin)
+		if (levelNum > levelMin) {
 			this.levelNum = this.levelNum - 1;
-		gameEngine.getLevelCreator().createLevel(gameEngine, this.levelNum);
-		// this.levelCreator = gameEngine.getLevelCreator();
-		// this.levelCreator.createLevel(gameEngine, this.levelNum);
+			gameEngine.getLevelCreator().createLevel(gameEngine, this.levelNum);
+		}
 	}
 
 	public void nextLevel(GameEngine gameEngine) {
-		if (levelNum < levelMax)
+		if (levelNum < levelMax) {
 			this.levelNum = this.levelNum + 1;
-		gameEngine.getLevelCreator().createLevel(gameEngine, this.levelNum);
-		// this.levelCreator.createLevel(gameEngine, this.levelNum);
+			gameEngine.getLevelCreator().createLevel(gameEngine, this.levelNum);
+		}
 	}
 }
