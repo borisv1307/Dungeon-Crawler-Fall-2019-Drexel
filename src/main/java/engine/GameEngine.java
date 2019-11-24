@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import parser.LevelCreator;
+import parser.LevelMove;
 import tiles.TileType;
 import ui.GameFrame;
 
@@ -13,16 +14,18 @@ public class GameEngine {
 
 	private boolean exit;
 	private final LevelCreator levelCreator;
+	private final LevelMove levelMove;
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
 	private final int level;
 
-	public GameEngine(LevelCreator levelCreator) {
+	public GameEngine(LevelCreator levelCreator, LevelMove levelMove) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
+		this.levelMove = levelMove;
 		this.levelCreator.createLevel(this, level);
 	}
 
@@ -94,6 +97,12 @@ public class GameEngine {
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+		} else if (attempedLocation.equals(TileType.PAST_LEVEL)) {
+			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+			this.levelMove.pastLevel(this);
+		} else if (attempedLocation.equals(TileType.NEXT_LEVEL)) {
+			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+			this.levelMove.nextLevel(this);
 		}
 	}
 
@@ -103,5 +112,9 @@ public class GameEngine {
 
 	public boolean isExit() {
 		return exit;
+	}
+
+	public LevelCreator getLevelCreator() {
+		return levelCreator;
 	}
 }

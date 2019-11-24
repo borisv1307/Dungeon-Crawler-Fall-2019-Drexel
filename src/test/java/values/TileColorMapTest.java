@@ -25,4 +25,13 @@ public class TileColorMapTest {
 		assertSame(Color.GREEN, TileColorMap.get(TileType.PLAYER));
 	}
 
+	@Test
+	public void previous_level() {
+		assertSame(Color.BLUE, TileColorMap.get(TileType.PAST_LEVEL));
+	}
+
+	@Test
+	public void next_level() {
+		assertSame(Color.YELLOW, TileColorMap.get(TileType.NEXT_LEVEL));
+	}
 }

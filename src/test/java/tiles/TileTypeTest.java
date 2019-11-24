@@ -10,6 +10,8 @@ public class TileTypeTest {
 
 	private static final char INVALID_CHAR = 'Z';
 	private static final char VALID_CHAR = ' ';
+	private static final char PAST_CHAR = 'R';
+	private static final char NEXT_CHAR = 'N';
 
 	@Test
 	public void value_of() {
@@ -20,6 +22,18 @@ public class TileTypeTest {
 	public void get_tile_type_by_char_valid_char() {
 		TileType actual = TileType.getTileTypeByChar(VALID_CHAR);
 		assertEquals(TileType.PASSABLE, actual);
+	}
+
+	@Test
+	public void get_tile_type_by_char_previous_char() {
+		TileType actual = TileType.getTileTypeByChar(PAST_CHAR);
+		assertEquals(TileType.PAST_LEVEL, actual);
+	}
+
+	@Test
+	public void get_tile_type_by_char_next_char() {
+		TileType actual = TileType.getTileTypeByChar(NEXT_CHAR);
+		assertEquals(TileType.NEXT_LEVEL, actual);
 	}
 
 	@Test
