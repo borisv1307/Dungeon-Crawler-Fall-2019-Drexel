@@ -2,7 +2,6 @@ package engine;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
 
 import java.awt.Component;
 
@@ -13,6 +12,7 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.RandomWrapper;
 
 public class GameEngineTest {
 
@@ -20,7 +20,6 @@ public class GameEngineTest {
 	private static final int ONE = 1;
 
 	GameEngine gameEngine;
-	SystemWrapper systemWrapper;
 
 	@Before
 	public void setUp() throws Exception {
@@ -28,7 +27,7 @@ public class GameEngineTest {
 		gameEngine = new GameEngine(levelCreator);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
-		systemWrapper = Mockito.mock(SystemWrapper.class);
+
 	}
 
 	@Test
@@ -82,9 +81,33 @@ public class GameEngineTest {
 
 	@Test
 	public void generate_random_numbers_for_enemy_to_move() {
-		int result = 0;
-		Mockito.when(systemWrapper.randomNumberGenerator()).thenReturn(result);
-		assertEquals((Integer) result, (Integer)gameEngine.randomNumberGenerator());
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
+		gameEngine.generateRandomNumbers(randomWrapper);
+		Mockito.verify(randomWrapper).nextInt(4);
 	}
 
+	@Test
+	public void predict_movement_of_enemy() {
+		TileType tileType = TileType.ENEMY;
+		gameEngine.addTile(3, 3, tileType);
+
+		for (int i = 0; i < 4; i++) {
+			gameEngine.generateMoveForEnemy(i);
+			int actualX = gameEngine.getEnemyXCoordinate();
+			int actualY = gameEngine.getEnemyYCoordinate();
+			if (i == 0) {
+				assertThat(actualX, equalTo(2));
+				assertThat(actualY, equalTo(3));
+			} else if (i == 1) {
+				assertThat(actualX, equalTo(3));
+				assertThat(actualY, equalTo(3));
+			} else if (i == 2) {
+				assertThat(actualX, equalTo(3));
+				assertThat(actualY, equalTo(2));
+			} else if (i == 3) {
+				assertThat(actualX, equalTo(3));
+				assertThat(actualY, equalTo(3));
+			}
+		}
+	}
 }
