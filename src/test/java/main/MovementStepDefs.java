@@ -2,6 +2,7 @@ package main;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import cucumber.api.java.en.When;
 import engine.GameEngine;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
+import tiles.TileType;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
@@ -50,4 +52,10 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
 	}
+
+	@Then("^the tiles \\((\\d+), (\\d+)\\) is BLUE$")
+	public void the_tiles_are_BLUE(int x, int y) throws Throwable {
+		assertEquals(TileType.PASSED, gameEngine.getTileFromCoordinates(x - COORDINATE_OFFSET, y - COORDINATE_OFFSET));
+	}
+
 }

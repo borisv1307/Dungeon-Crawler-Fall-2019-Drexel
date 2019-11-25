@@ -61,6 +61,10 @@ public class GameEngine {
 		return tiles.get(new Point(x, y));
 	}
 
+	public void setTileType(int x, int y) {
+		tiles.replace(new Point(x, y), TileType.PASSED);
+	}
+
 	private void setPlayer(int x, int y) {
 		player = new Point(x, y);
 	}
@@ -74,27 +78,46 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		movePlayer(-1, 0);
+		boolean keepMoving = true;
+		while (keepMoving) {
+			keepMoving = movePlayer(-1, 0);
+		}
 	}
 
 	public void keyRight() {
-		movePlayer(1, 0);
+		boolean keepMoving = true;
+		while (keepMoving) {
+			keepMoving = movePlayer(1, 0);
+		}
+
 	}
 
 	public void keyUp() {
-		movePlayer(0, -1);
+		boolean keepMoving = true;
+		while (keepMoving) {
+			keepMoving = movePlayer(0, -1);
+		}
+
 	}
 
 	public void keyDown() {
-		movePlayer(0, 1);
+		boolean keepMoving = true;
+		while (keepMoving) {
+			keepMoving = movePlayer(0, 1);
+		}
+
 	}
 
-	private void movePlayer(int xDiff, int yDiff) {
+	private boolean movePlayer(int xDiff, int yDiff) {
+
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
-		if (attempedLocation.equals(TileType.PASSABLE)) {
+		if (attempedLocation.equals(TileType.PASSABLE) || attempedLocation.equals(TileType.PASSED)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+			setTileType(getPlayerXCoordinate() - xDiff, getPlayerYCoordinate() - yDiff);
+			return true;
 		}
+		return false;
 	}
 
 	public void setExit(boolean exit) {
