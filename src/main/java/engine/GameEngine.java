@@ -92,11 +92,13 @@ public class GameEngine {
 		movePlayer(0, 1);
 	}
 
+
 	public void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = movementHandler.setLocation(this, getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.WIN_POINT)) {
 			this.levelCreator.createLevel(this, level);
+
 		}
 	}
 
