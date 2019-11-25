@@ -36,11 +36,6 @@ public class TileTypeTest {
 	}
 
 	@Test
-	public void value_of_inlet() {
-		assertThat(TileType.valueOf(TileType.INLET.name()), equalTo(TileType.INLET));
-	}
-
-	@Test
 	public void get_tile_type_by_char_valid_inlet_char() {
 		TileType actual_inlet_char = TileType.getTileTypeByChar(VALID_INLET_CHAR);
 		assertEquals(TileType.INLET, actual_inlet_char);
@@ -53,11 +48,6 @@ public class TileTypeTest {
 		} catch (IllegalArgumentException exception) {
 			assertEquals(exception.getMessage(), TileType.INVALID_CHARACTER_PROVIDED_MESSAGE + "C");
 		}
-	}
-
-	@Test
-	public void value_of_outlet() {
-		assertThat(TileType.valueOf(TileType.OUTLET.name()), equalTo(TileType.OUTLET));
 	}
 
 	@Test
