@@ -49,23 +49,6 @@ public class LevelMoveTest {
 		assertEquals(3, actual);
 	}
 
-//	@Test
-//	public void get_past_level() {
-//		levelMove.setLevelNum(1);
-//		levelMove.nextLevel(gameEngine);
-//		levelMove.pastLevel(gameEngine);
-//		int actual = levelMove.getLevelNum();
-//		assertEquals(1, actual);
-//	}
-//
-//	@Test
-//	public void get_next_level() {
-//		levelMove.setLevelNum(2);
-//		levelMove.nextLevel(gameEngine);
-//		int actual = levelMove.getLevelNum();
-//		assertEquals(3, actual);
-//	}
-
 	@Test
 	public void level_cannot_move_less_than_min() {
 		levelMove.setLevelNum(1);
@@ -81,4 +64,21 @@ public class LevelMoveTest {
 		int actual = levelMove.getLevelNum();
 		assertEquals(3, actual);
 	}
+
+	@Test
+	public void set_and_then_get_past_level() {
+		levelMove.setLevelNum(1);
+		levelMove.pastLevel(gameEngine);
+		int actual = levelMove.getLevelNum();
+		assertEquals(1, actual);
+	}
+
+	@Test
+	public void set_and_then_get_next_level() {
+		levelMove.setLevelNum(3);
+		levelMove.nextLevel(gameEngine);
+		int actual = levelMove.getLevelNum();
+		assertEquals(3, actual);
+	}
+
 }
