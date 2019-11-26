@@ -3,7 +3,7 @@ Feature: Create a Level
 
   Scenario: Level 1
     Given level is:
-      | XXXX |
+      | XDXX |
       | X PX |
       | XXXX |
     When I create the level
@@ -14,7 +14,7 @@ Feature: Create a Level
     And (2, 1) is "X"
     And (3, 1) is "X"
     And (4, 1) is "X"
-    And (1, 2) is "X"
+    And (1, 2) is "D"
     And (2, 2) is " "
     And (3, 2) is " "
     And (4, 2) is "X"
@@ -25,7 +25,7 @@ Feature: Create a Level
 
   Scenario: Invalid level
     Given level is:
-      | XXXX |
+      | XDXX |
       | X&PX |
       | XXXX |
     When I create the level
@@ -34,7 +34,7 @@ Feature: Create a Level
 
   Scenario: Invalid level
     Given level is:
-      | XXXX |
+      | XDXX |
       | X+PX |
       | XXXX |
     When I create the level
@@ -43,7 +43,7 @@ Feature: Create a Level
 
   Scenario: The file reader malfunctions
     Given level is:
-      | XXXX |
+      | XDXX |
       | X+PX |
       | XXXX |
     When I create the level with malfunctioning reader
