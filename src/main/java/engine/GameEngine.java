@@ -20,11 +20,13 @@ public class GameEngine {
 	private Point player;
 	private Point opponent;
 	private final int level;
-	MathWrapper mathWrapper = new MathWrapper();
+	MathWrapper mathWrapper;
+	public int numberOfEnemiesKilled = 0;
 
-	public GameEngine(LevelCreator levelCreator) {
+	public GameEngine(LevelCreator levelCreator, MathWrapper mathWrapper) {
 		exit = false;
 		level = 1;
+		this.mathWrapper = mathWrapper;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
 	}
@@ -109,8 +111,21 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		} else if (attempedLocation.equals(TileType.OPPONENT)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-			setOpponent(mathWrapper.getRandomXCoordinate(), mathWrapper.getRandomYCoordinate());
+			populateGameCompleteMessage();
+			moveOpponent();
 		}
+	}
+
+	private void populateGameCompleteMessage(){
+		numberOfEnemiesKilled++;
+		
+		if(numberOfEnemiesKilled == 10) {
+			new GameFrame().gameCompletedPopupMessage();
+		}
+	}
+	private void moveOpponent() {
+		
+		setOpponent(mathWrapper.getRandomInteger(getLevelHorizontalDimension()-1, 1), mathWrapper.getRandomInteger(getLevelVerticalDimension()-1, 1));
 	}
 
 	public void setExit(boolean exit) {

@@ -12,6 +12,7 @@ import engine.GameEngine;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
 import values.TestingTunableParameters;
+import wrappers.MathWrapper;
 import wrappers.ReaderWrapper;
 
 public class MovePlayerIntoOpponentSpaceStepDef extends LevelCreationStepDefHelper {
@@ -21,7 +22,7 @@ public class MovePlayerIntoOpponentSpaceStepDef extends LevelCreationStepDefHelp
 	public void the_level_design_by_adding_opponent_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), new MathWrapper());
 
 	}
 

@@ -36,7 +36,7 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
-		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
+		tilePainter.paintPlayer(graphics, gameEngine.getOpponentXCoordinate(), gameEngine.getOpponentYCoordinate(),
 				tileWidth, tileHeight, TileType.OPPONENT);
 	}
 

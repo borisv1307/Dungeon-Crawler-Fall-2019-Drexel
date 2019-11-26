@@ -52,7 +52,7 @@ public class GamePanelTest {
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
 				TileType.PLAYER);
-		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
+		Mockito.verify(tilePainter).paintPlayer(graphics, opponentXCoordinate, opponentYCoordinate, tileWidth, tileHeight,
 				TileType.OPPONENT);
 	}
 
