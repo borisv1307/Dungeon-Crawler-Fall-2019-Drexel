@@ -9,7 +9,7 @@ public class Movement {
 
 		if (gameEngine.getTileFromCoordinates(xCoordinateToSet, yCoordinateToSet) == TileType.PASSABLE) {
 
-			gameEngine.player.setLocation(xCoordinateToSet, yCoordinateToSet);
+			gameEngine.getPlayer().setLocation(xCoordinateToSet, yCoordinateToSet);
 
 		}
 

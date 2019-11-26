@@ -28,14 +28,14 @@ public class LevelUpStepDefs extends LevelCreationStepDefHelper {
 		writeLevelFile(levelString);
 		gameEngine = new GameEngine(new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper(),
 				new LevelHandler()), new Movement());
-		gameEngine.level = currentLevel;
+		gameEngine.setLevel(currentLevel);
 
 	}
 
 	@When("^the player reaches (\\d+) and makes (.*)$")
 	public void the_player_reaches_and_makes_moves(int level, List<String> movements) throws Throwable {
 
-		gameEngine.level = level;
+		gameEngine.setLevel(level);
 		String[] movementList = movements.toArray(new String[0]);
 		int i = 0;
 		while (i < movementList.length) {
@@ -65,7 +65,7 @@ public class LevelUpStepDefs extends LevelCreationStepDefHelper {
 	@Then("^Current Level will be (\\d+)$")
 	public void level_will_be(int expectedLevel) throws Throwable {
 
-		assertEquals(expectedLevel, gameEngine.level);
+		assertEquals(expectedLevel, gameEngine.getLevel());
 
 	}
 

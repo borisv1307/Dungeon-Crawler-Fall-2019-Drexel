@@ -18,14 +18,14 @@ public class GameEngine {
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
-	public Point player;
-	public int level = 0;
+	private Point player;
+	private int level = 0;
 
 	public GameEngine(LevelCreator levelCreator, Movement defaultMovement) {
 		exit = false;
 		this.movementHandler = defaultMovement;
 		this.levelCreator = levelCreator;
-		this.levelCreator.createLevel(this, level);
+		this.levelCreator.createLevel(this, getLevel());
 
 	}
 
@@ -69,11 +69,11 @@ public class GameEngine {
 	}
 
 	public int getPlayerXCoordinate() {
-		return (int) player.getX();
+		return (int) getPlayer().getX();
 	}
 
 	public int getPlayerYCoordinate() {
-		return (int) player.getY();
+		return (int) getPlayer().getY();
 	}
 
 	public void keyLeft() {
@@ -92,12 +92,11 @@ public class GameEngine {
 		movePlayer(0, 1);
 	}
 
-
 	public void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = movementHandler.setLocation(this, getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.WIN_POINT)) {
-			this.levelCreator.createLevel(this, level);
+			this.levelCreator.createLevel(this, getLevel());
 
 		}
 	}
@@ -108,5 +107,21 @@ public class GameEngine {
 
 	public boolean isExit() {
 		return exit;
+	}
+
+	public Point getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Point player) {
+		this.player = player;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 }

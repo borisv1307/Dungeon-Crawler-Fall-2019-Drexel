@@ -71,7 +71,7 @@ public class LevelCreator {
 
 		if (!levelHandler.checkIfLastLevel(newLevel)) {
 
-			gameEngine.level = newLevel;
+			gameEngine.setLevel(newLevel);
 			return getFilePath(newLevel);
 		}
 
