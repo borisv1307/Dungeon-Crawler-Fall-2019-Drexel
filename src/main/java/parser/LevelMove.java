@@ -7,7 +7,6 @@ public class LevelMove {
 	private int levelNum;
 	private int levelMin;
 	private int levelMax;
-	// private LevelCreator levelCreator;
 
 	public LevelMove(int levelNum, int levelMin, int levelMax) {
 		super();
