@@ -113,10 +113,6 @@ public class GameEngine {
 		return player;
 	}
 
-	public void setPlayer(Point player) {
-		this.player = player;
-	}
-
 	public int getLevel() {
 		return level;
 	}
