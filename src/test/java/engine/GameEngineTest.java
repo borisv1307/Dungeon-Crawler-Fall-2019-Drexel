@@ -26,8 +26,8 @@ public class GameEngineTest {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
 		Movement movementHandler = Mockito.mock(Movement.class);
 		gameEngine = new GameEngine(levelCreator, movementHandler);
-		int level = 1;
-		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
+		int level = 0;
+		Mockito.verify(levelCreator, Mockito.times(level + 1)).createLevel(gameEngine, level);
 	}
 
 	@Test
@@ -44,6 +44,7 @@ public class GameEngineTest {
 		TileType tileType = TileType.PASSABLE;
 		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
 		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+
 		assertThat(actual, equalTo(tileType));
 	}
 

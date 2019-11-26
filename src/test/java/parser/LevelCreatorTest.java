@@ -35,7 +35,8 @@ public class LevelCreatorTest {
 	@Test
 	public void file_not_found_exception() throws Exception {
 		FileNotFoundException exception = Mockito.mock(FileNotFoundException.class);
-		Mockito.when(readerWrapper.createBufferedReader(levelCreator.getFilePath(LEVEL))).thenThrow(exception);
+		Mockito.when(readerWrapper.createBufferedReader(levelCreator.getFilePath(levelhandler.getNewLevel(LEVEL))))
+				.thenThrow(exception);
 
 		levelCreator.createLevel(gameEngine, LEVEL);
 		Mockito.verify(gameEngine).setExit(true);
@@ -45,7 +46,8 @@ public class LevelCreatorTest {
 	public void io_exception_on_read() throws Exception {
 		IOException exception = Mockito.mock(IOException.class);
 		BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
-		Mockito.when(readerWrapper.createBufferedReader(levelCreator.getFilePath(LEVEL))).thenReturn(bufferedReader);
+		Mockito.when(readerWrapper.createBufferedReader(levelCreator.getFilePath(levelhandler.getNewLevel(LEVEL))))
+				.thenReturn(bufferedReader);
 		Mockito.when(bufferedReader.readLine()).thenThrow(exception);
 
 		levelCreator.createLevel(gameEngine, LEVEL);
@@ -62,7 +64,8 @@ public class LevelCreatorTest {
 	public void io_exception_on_close() throws Exception {
 		IOException exception = Mockito.mock(IOException.class);
 		BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
-		Mockito.when(readerWrapper.createBufferedReader(levelCreator.getFilePath(LEVEL))).thenReturn(bufferedReader);
+		Mockito.when(readerWrapper.createBufferedReader(levelCreator.getFilePath(levelhandler.getNewLevel(LEVEL))))
+				.thenReturn(bufferedReader);
 		Mockito.doThrow(exception).when(bufferedReader).close();
 
 		levelCreator.createLevel(gameEngine, LEVEL);
