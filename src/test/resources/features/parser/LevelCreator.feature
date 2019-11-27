@@ -11,10 +11,10 @@ Feature: Create a Level
     And the player's x coordinate is 3
     And the player's y coordinate is 2
     And (1, 1) is "X"
-    And (2, 1) is "X"
+    And (2, 1) is "D"
     And (3, 1) is "X"
     And (4, 1) is "X"
-    And (1, 2) is "D"
+    And (1, 2) is "X"
     And (2, 2) is " "
     And (3, 2) is " "
     And (4, 2) is "X"
