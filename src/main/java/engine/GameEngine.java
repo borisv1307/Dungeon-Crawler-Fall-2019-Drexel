@@ -114,6 +114,10 @@ public class GameEngine {
 		return exit;
 	}
 
+	public LevelMove getLevelMove() {
+		return levelMove;
+	}
+
 	public LevelCreator getLevelCreator() {
 		return levelCreator;
 	}
