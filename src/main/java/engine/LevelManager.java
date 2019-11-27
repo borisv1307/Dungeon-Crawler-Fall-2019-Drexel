@@ -6,10 +6,10 @@ public class LevelManager {
 	private GameEngine gameEngine;
 	private int currentLevel;
 	private LevelCreator levelCreator;
-	LevelManager(GameEngine gameEngine, int level){
+	LevelManager(GameEngine gameEngine, int level,LevelCreator levelCreator){
 		this.gameEngine = gameEngine;
 		this.currentLevel = level;
-		this.levelCreator = gameEngine.getLevelCreator();
+		this.levelCreator = levelCreator;
 	}
 	public void goNextLevel() {
 		// TODO Auto-generated method stub

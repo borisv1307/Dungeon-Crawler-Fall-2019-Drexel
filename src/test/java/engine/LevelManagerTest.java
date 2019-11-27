@@ -17,13 +17,14 @@ public class LevelManagerTest {
 	GameEngine gameEngine;
 	@Before
 	public void setUp() throws Exception {
-		
-		gameEngine = ObjectFactory.getDefaultGameEngine();
+		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
+		gameEngine = new GameEngine(levelCreator);
+		levelCreator.createLevel(gameEngine, ONE);
+		this.levelManager = new LevelManager(this.gameEngine,ONE,levelCreator);
 		TileType tileType = TileType.PLAYER;
 		gameEngine.addTile(ZERO, ONE, tileType);
 		tileType = TileType.EXIT;
 		gameEngine.addTile(ONE, ONE, tileType);
-		this.levelManager = new LevelManager(gameEngine,ONE);
 	}
 	
 	
