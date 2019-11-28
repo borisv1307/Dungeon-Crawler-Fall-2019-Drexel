@@ -151,8 +151,4 @@ public class GameEngine {
 		}
 	}
 
-//	public int generateRandomNumbers() {
-//		return randomWrapper.nextInt(4);
-//	}
-
 }
