@@ -100,7 +100,7 @@ public class GameEngine {
 		} else if (attempedLocation.equals(TileType.PAST_LEVEL)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 			this.levelMove.pastLevel(this);
-		} else if (attempedLocation.equals(TileType.NEXT_LEVEL)) {
+		}else if (attempedLocation.equals(TileType.NEXT_LEVEL)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 			this.levelMove.nextLevel(this);
 		}
