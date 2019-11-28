@@ -18,12 +18,13 @@ import wrappers.ReaderWrapper;
 public class MovementStepDefs extends LevelCreationStepDefHelper {
 
 	private GameEngine gameEngine;
+	wrappers.RandomWrapper randomWrapper = new wrappers.RandomWrapper();
 
 	@Given("^the level design is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), randomWrapper);
 	}
 
 	@When("^the player moves left$")

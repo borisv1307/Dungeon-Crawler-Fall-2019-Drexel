@@ -20,12 +20,14 @@ public class GameEngine {
 	private Point player;
 	private Point enemy;
 	private final int level;
+	private RandomWrapper randomWrapper;
 
-	public GameEngine(LevelCreator levelCreator) {
+	public GameEngine(LevelCreator levelCreator, RandomWrapper randomWrapper) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+		this.randomWrapper = randomWrapper;
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -95,22 +97,22 @@ public class GameEngine {
 	public void keyLeft() {
 
 		checkForWallMovePlayer(-1, 0);
-		generateMoveForEnemy(generateRandomNumbers(new RandomWrapper()));
+		generateMoveForEnemy();
 	}
 
 	public void keyRight() {
 		checkForWallMovePlayer(1, 0);
-		generateMoveForEnemy(generateRandomNumbers(new RandomWrapper()));
+		generateMoveForEnemy();
 	}
 
 	public void keyUp() {
 		checkForWallMovePlayer(0, -1);
-		generateMoveForEnemy(generateRandomNumbers(new RandomWrapper()));
+		generateMoveForEnemy();
 	}
 
 	public void keyDown() {
 		checkForWallMovePlayer(0, 1);
-		generateMoveForEnemy(generateRandomNumbers(new RandomWrapper()));
+		generateMoveForEnemy();
 	}
 
 	public void setExit(boolean exit) {
@@ -136,8 +138,8 @@ public class GameEngine {
 		}
 	}
 
-	public void generateMoveForEnemy(int randomizer) {
-//		int randomizer = randomWrapper.nextInt(4);
+	public void generateMoveForEnemy() {
+		int randomizer = randomWrapper.nextInt(4);
 		if (randomizer == 0) {
 			moveEnemyWhenPLayerMoves(-1, 0);
 		} else if (randomizer == 1) {
@@ -149,8 +151,8 @@ public class GameEngine {
 		}
 	}
 
-	public int generateRandomNumbers(RandomWrapper randomWrapper) {
-		return randomWrapper.nextInt(4);
-	}
+//	public int generateRandomNumbers() {
+//		return randomWrapper.nextInt(4);
+//	}
 
 }

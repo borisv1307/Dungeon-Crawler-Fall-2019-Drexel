@@ -17,6 +17,7 @@ import engine.GameEngine;
 import tiles.TileType;
 import values.TestingTunableParameters;
 import values.TunableParameters;
+import wrappers.RandomWrapper;
 import wrappers.ReaderWrapper;
 
 public class LevelCreatorITHelper {
@@ -51,8 +52,9 @@ public class LevelCreatorITHelper {
 	protected void createLevel() throws Throwable {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
+		RandomWrapper randomWrapper = new RandomWrapper();
 		try {
-			gameEngine = new GameEngine(levelCreator);
+			gameEngine = new GameEngine(levelCreator, randomWrapper);
 		} catch (IllegalArgumentException e) {
 			exceptionMessage = e.getMessage();
 		}
@@ -88,11 +90,12 @@ public class LevelCreatorITHelper {
 	protected void createLevelWithMalfunctioningFileReader() throws Throwable {
 		ioException = Mockito.mock(IOException.class);
 		readerWrapper = Mockito.mock(ReaderWrapper.class);
+		RandomWrapper randomWrapper = new RandomWrapper();
 		BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-		gameEngine = new GameEngine(levelCreator);
+		gameEngine = new GameEngine(levelCreator, randomWrapper);
 	}
 
 }

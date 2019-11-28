@@ -18,16 +18,16 @@ public class GameEngineTest {
 
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
+	private RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
 
 	GameEngine gameEngine;
 
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-		gameEngine = new GameEngine(levelCreator);
+		gameEngine = new GameEngine(levelCreator, randomWrapper);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
-
 	}
 
 	@Test
@@ -80,34 +80,50 @@ public class GameEngineTest {
 	}
 
 	@Test
-	public void generate_random_numbers_for_enemy_to_move() {
-		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
-		gameEngine.generateRandomNumbers(randomWrapper);
-		Mockito.verify(randomWrapper).nextInt(4);
+	public void mock_random_return_0_enemy_moves_left() {
+		TileType tileType = TileType.ENEMY;
+		gameEngine.addTile(3, 3, tileType);
+		Mockito.when(randomWrapper.nextInt(4)).thenReturn(0);
+		gameEngine.generateMoveForEnemy();
+		int actualX = gameEngine.getEnemyXCoordinate();
+		int actualY = gameEngine.getEnemyYCoordinate();
+		assertThat(actualX, equalTo(2));
+		assertThat(actualY, equalTo(3));
 	}
 
 	@Test
-	public void predict_movement_of_enemy() {
+	public void mock_random_return_1_enemy_moves_right() {
 		TileType tileType = TileType.ENEMY;
 		gameEngine.addTile(3, 3, tileType);
+		Mockito.when(randomWrapper.nextInt(4)).thenReturn(1);
+		gameEngine.generateMoveForEnemy();
+		int actualX = gameEngine.getEnemyXCoordinate();
+		int actualY = gameEngine.getEnemyYCoordinate();
+		assertThat(actualX, equalTo(4));
+		assertThat(actualY, equalTo(3));
+	}
 
-		for (int i = 0; i < 4; i++) {
-			gameEngine.generateMoveForEnemy(i);
-			int actualX = gameEngine.getEnemyXCoordinate();
-			int actualY = gameEngine.getEnemyYCoordinate();
-			if (i == 0) {
-				assertThat(actualX, equalTo(2));
-				assertThat(actualY, equalTo(3));
-			} else if (i == 1) {
-				assertThat(actualX, equalTo(3));
-				assertThat(actualY, equalTo(3));
-			} else if (i == 2) {
-				assertThat(actualX, equalTo(3));
-				assertThat(actualY, equalTo(2));
-			} else if (i == 3) {
-				assertThat(actualX, equalTo(3));
-				assertThat(actualY, equalTo(3));
-			}
-		}
+	@Test
+	public void mock_random_return_2_enemy_moves_up() {
+		TileType tileType = TileType.ENEMY;
+		gameEngine.addTile(3, 3, tileType);
+		Mockito.when(randomWrapper.nextInt(4)).thenReturn(2);
+		gameEngine.generateMoveForEnemy();
+		int actualX = gameEngine.getEnemyXCoordinate();
+		int actualY = gameEngine.getEnemyYCoordinate();
+		assertThat(actualX, equalTo(3));
+		assertThat(actualY, equalTo(2));
+	}
+
+	@Test
+	public void mock_random_return_3_enemy_moves_down() {
+		TileType tileType = TileType.ENEMY;
+		gameEngine.addTile(3, 3, tileType);
+		Mockito.when(randomWrapper.nextInt(4)).thenReturn(3);
+		gameEngine.generateMoveForEnemy();
+		int actualX = gameEngine.getEnemyXCoordinate();
+		int actualY = gameEngine.getEnemyYCoordinate();
+		assertThat(actualX, equalTo(3));
+		assertThat(actualY, equalTo(4));
 	}
 }
