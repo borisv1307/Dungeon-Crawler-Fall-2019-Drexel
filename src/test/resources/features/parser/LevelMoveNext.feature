@@ -2,7 +2,7 @@
 Feature: Move the player to next level
 
   Background: 
-    Given grid containing next level 2 is:
+    Given level 2 grid containing next is:
       | XXXXX |
       | X   X |
       | X  PN |

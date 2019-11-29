@@ -1,9 +1,8 @@
 package tiles;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
-
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class TileTypeTest {
@@ -14,34 +13,34 @@ public class TileTypeTest {
 	private static final char NEXT_CHAR = 'N';
 
 	@Test
-	public void value_of() {
-		assertThat(TileType.valueOf(TileType.PASSABLE.name()), equalTo(TileType.PASSABLE));
-	}
-
-	@Test
-	public void get_tile_type_by_char_valid_char() {
-		TileType actual = TileType.getTileTypeByChar(VALID_CHAR);
-		assertEquals(TileType.PASSABLE, actual);
-	}
-
-	@Test
-	public void get_tile_type_by_char_previous_char() {
-		TileType actual = TileType.getTileTypeByChar(PAST_CHAR);
-		assertEquals(TileType.PAST_LEVEL, actual);
+	public void get_tile_type_by_char_invalid_char() {
+		try {
+			TileType.getTileTypeByChar(TileTypeTest.INVALID_CHAR);
+		} catch (final IllegalArgumentException exception) {
+			Assert.assertEquals(exception.getMessage(), TileType.INVALID_CHARACTER_PROVIDED_MESSAGE + "Z");
+		}
 	}
 
 	@Test
 	public void get_tile_type_by_char_next_char() {
-		TileType actual = TileType.getTileTypeByChar(NEXT_CHAR);
-		assertEquals(TileType.NEXT_LEVEL, actual);
+		final TileType actual = TileType.getTileTypeByChar(TileTypeTest.NEXT_CHAR);
+		Assert.assertEquals(TileType.NEXT_LEVEL, actual);
 	}
 
 	@Test
-	public void get_tile_type_by_char_invalid_char() {
-		try {
-			TileType.getTileTypeByChar(INVALID_CHAR);
-		} catch (IllegalArgumentException exception) {
-			assertEquals(exception.getMessage(), TileType.INVALID_CHARACTER_PROVIDED_MESSAGE + "Z");
-		}
+	public void get_tile_type_by_char_previous_char() {
+		final TileType actual = TileType.getTileTypeByChar(TileTypeTest.PAST_CHAR);
+		Assert.assertEquals(TileType.PAST_LEVEL, actual);
+	}
+
+	@Test
+	public void get_tile_type_by_char_valid_char() {
+		final TileType actual = TileType.getTileTypeByChar(TileTypeTest.VALID_CHAR);
+		Assert.assertEquals(TileType.PASSABLE, actual);
+	}
+
+	@Test
+	public void value_of() {
+		MatcherAssert.assertThat(TileType.valueOf(TileType.PASSABLE.name()), Matchers.equalTo(TileType.PASSABLE));
 	}
 }

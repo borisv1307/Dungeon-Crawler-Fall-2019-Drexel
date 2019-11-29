@@ -2,7 +2,7 @@
 Feature: Move the player to next level
 
   Background: 
-    Given grid containing past level 3 is:
+    Given level 3 grid containing past is:
       | XXXXX |
       | X   X |
       | X   X |

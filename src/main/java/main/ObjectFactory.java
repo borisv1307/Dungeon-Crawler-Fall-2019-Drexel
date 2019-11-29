@@ -14,9 +14,6 @@ import wrappers.SystemWrapper;
 import wrappers.ThreadWrapper;
 
 public abstract class ObjectFactory {
-	private ObjectFactory() {
-	}
-
 	private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
 
 	private static LevelMove defaultLevelMove = new LevelMove(TunableParameters.MIN_LEVEL, TunableParameters.MIN_LEVEL,
@@ -25,31 +22,36 @@ public abstract class ObjectFactory {
 	private static LevelCreator defaultLevelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
 			new ReaderWrapper());
 
-	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator, defaultLevelMove);
+	private static GameEngine defaultGameEngine = new GameEngine(ObjectFactory.defaultLevelCreator,
+			ObjectFactory.defaultLevelMove);
 
-	private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
-			new WindowAdapterSystemExit(defaultGameEngine));
+	private static GameFrame defaultGameFrame = new GameFrame(
+			new GamePanel(ObjectFactory.defaultGameEngine, new TilePainter()),
+			new WindowAdapterSystemExit(ObjectFactory.defaultGameEngine));
 
 	private static FramesPerSecondHandler defaultFramesPerSecondHandler = new FramesPerSecondHandler(
 			TunableParameters.TARGET_FPS, new SystemWrapper());
 
-	public static ThreadWrapper getDefaultThreadWrapper() {
-		return defaultThreadWrapper;
+	public static FramesPerSecondHandler getDefaultFramesPerSecondHandler() {
+		return ObjectFactory.defaultFramesPerSecondHandler;
 	}
 
 	public static GameEngine getDefaultGameEngine() {
-		return defaultGameEngine;
+		return ObjectFactory.defaultGameEngine;
 	}
 
 	public static GameFrame getDefaultGameFrame() {
-		return defaultGameFrame;
+		return ObjectFactory.defaultGameFrame;
 	}
 
-	public static FramesPerSecondHandler getDefaultFramesPerSecondHandler() {
-		return defaultFramesPerSecondHandler;
+	public static ThreadWrapper getDefaultThreadWrapper() {
+		return ObjectFactory.defaultThreadWrapper;
 	}
 
 	public static LevelMove getLevelMove() {
-		return defaultLevelMove;
+		return ObjectFactory.defaultLevelMove;
+	}
+
+	private ObjectFactory() {
 	}
 }

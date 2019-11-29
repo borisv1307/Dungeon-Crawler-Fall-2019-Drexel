@@ -22,26 +22,92 @@ public class GameEngine {
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator, LevelMove levelMove) {
-		exit = false;
-		level = 1;
+		this.exit = false;
+		this.level = 1;
 		this.levelCreator = levelCreator;
 		this.levelMove = levelMove;
-		this.levelCreator.createLevel(this, level);
-	}
-
-	public void run(GameFrame gameFrame) {
-		for (Component component : gameFrame.getComponents()) {
-			component.repaint();
-		}
+		this.levelCreator.createLevel(this, this.level);
 	}
 
 	public void addTile(int x, int y, TileType tileType) {
 		if (tileType.equals(TileType.PLAYER)) {
-			setPlayer(x, y);
-			tiles.put(new Point(x, y), TileType.PASSABLE);
+			this.setPlayer(x, y);
+			this.tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
-			tiles.put(new Point(x, y), tileType);
+			this.tiles.put(new Point(x, y), tileType);
 		}
+	}
+
+	public LevelCreator getLevelCreator() {
+		return this.levelCreator;
+	}
+
+	public int getLevelHorizontalDimension() {
+		return this.levelHorizontalDimension;
+	}
+
+	public LevelMove getLevelMove() {
+		return this.levelMove;
+	}
+
+	public int getLevelVerticalDimension() {
+		return this.levelVerticalDimension;
+	}
+
+	public int getPlayerXCoordinate() {
+		return (int) this.player.getX();
+	}
+
+	public int getPlayerYCoordinate() {
+		return (int) this.player.getY();
+	}
+
+	public TileType getTileFromCoordinates(int x, int y) {
+		return this.tiles.get(new Point(x, y));
+	}
+
+	public boolean isExit() {
+		return this.exit;
+	}
+
+	public void keyDown() {
+		this.movePlayer(0, 1);
+	}
+
+	public void keyLeft() {
+		this.movePlayer(-1, 0);
+	}
+
+	public void keyRight() {
+		this.movePlayer(1, 0);
+	}
+
+	public void keyUp() {
+		this.movePlayer(0, -1);
+	}
+
+	private void movePlayer(int xDiff, int yDiff) {
+		final TileType attempedLocation = this.getTileFromCoordinates(this.getPlayerXCoordinate() + xDiff,
+				this.getPlayerYCoordinate() + yDiff);
+		if (attempedLocation.equals(TileType.PASSABLE)) {
+			this.setPlayer(this.getPlayerXCoordinate() + xDiff, this.getPlayerYCoordinate() + yDiff);
+		} else if (attempedLocation.equals(TileType.PAST_LEVEL)) {
+			this.setPlayer(this.getPlayerXCoordinate() + xDiff, this.getPlayerYCoordinate() + yDiff);
+			this.getLevelMove().pastLevel(this);
+		} else if (attempedLocation.equals(TileType.NEXT_LEVEL)) {
+			this.setPlayer(this.getPlayerXCoordinate() + xDiff, this.getPlayerYCoordinate() + yDiff);
+			this.getLevelMove().nextLevel(this);
+		}
+	}
+
+	public void run(GameFrame gameFrame) {
+		for (final Component component : gameFrame.getComponents()) {
+			component.repaint();
+		}
+	}
+
+	public void setExit(boolean exit) {
+		this.exit = exit;
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -52,73 +118,7 @@ public class GameEngine {
 		this.levelVerticalDimension = levelVerticalDimension;
 	}
 
-	public int getLevelHorizontalDimension() {
-		return levelHorizontalDimension;
-	}
-
-	public int getLevelVerticalDimension() {
-		return levelVerticalDimension;
-	}
-
-	public TileType getTileFromCoordinates(int x, int y) {
-		return tiles.get(new Point(x, y));
-	}
-
 	private void setPlayer(int x, int y) {
-		player = new Point(x, y);
-	}
-
-	public int getPlayerXCoordinate() {
-		return (int) player.getX();
-	}
-
-	public int getPlayerYCoordinate() {
-		return (int) player.getY();
-	}
-
-	public void keyLeft() {
-		movePlayer(-1, 0);
-	}
-
-	public void keyRight() {
-		movePlayer(1, 0);
-	}
-
-	public void keyUp() {
-		movePlayer(0, -1);
-	}
-
-	public void keyDown() {
-		movePlayer(0, 1);
-	}
-
-	private void movePlayer(int xDiff, int yDiff) {
-		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
-				getPlayerYCoordinate() + yDiff);
-		if (attempedLocation.equals(TileType.PASSABLE)) {
-			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-		} else if (attempedLocation.equals(TileType.PAST_LEVEL)) {
-			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-			this.levelMove.pastLevel(this);
-		}else if (attempedLocation.equals(TileType.NEXT_LEVEL)) {
-			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-			this.levelMove.nextLevel(this);
-		}
-	}
-
-	public void setExit(boolean exit) {
-		this.exit = exit;
-	}
-
-	public boolean isExit() {
-		return exit;
-	}
-
-	public LevelMove getLevelMove() {
-		return levelMove;
-	}
-
-	public LevelCreator getLevelCreator() {
-		return levelCreator;
+		this.player = new Point(x, y);
 	}
 }

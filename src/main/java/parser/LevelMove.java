@@ -15,41 +15,41 @@ public class LevelMove {
 		this.levelMax = levelMax;
 	}
 
-	public int getLevelNum() {
-		return levelNum;
-	}
-
-	public void setLevelNum(int level) {
-		this.levelNum = level;
+	public int getLevelMax() {
+		return this.levelMax;
 	}
 
 	public int getLevelMin() {
-		return levelMin;
+		return this.levelMin;
 	}
 
-	public void setLevelMin(int level) {
-		this.levelMin = level;
+	public int getLevelNum() {
+		return this.levelNum;
 	}
 
-	public int getLevelMax() {
-		return levelMax;
+	public void nextLevel(GameEngine gameEngine) {
+		if (this.levelNum < this.levelMax) {
+			this.levelNum = this.levelNum + 1;
+			gameEngine.getLevelCreator().createLevel(gameEngine, this.levelNum);
+		}
+	}
+
+	public void pastLevel(GameEngine gameEngine) {
+		if (this.levelNum > this.levelMin) {
+			this.levelNum = this.levelNum - 1;
+			gameEngine.getLevelCreator().createLevel(gameEngine, this.levelNum);
+		}
 	}
 
 	public void setLevelMax(int level) {
 		this.levelMax = level;
 	}
 
-	public void pastLevel(GameEngine gameEngine) {
-		if (levelNum > levelMin) {
-			this.levelNum = this.levelNum - 1;
-			gameEngine.getLevelCreator().createLevel(gameEngine, this.levelNum);
-		}
+	public void setLevelMin(int level) {
+		this.levelMin = level;
 	}
 
-	public void nextLevel(GameEngine gameEngine) {
-		if (levelNum < levelMax) {
-			this.levelNum = this.levelNum + 1;
-			gameEngine.getLevelCreator().createLevel(gameEngine, this.levelNum);
-		}
+	public void setLevelNum(int level) {
+		this.levelNum = level;
 	}
 }
