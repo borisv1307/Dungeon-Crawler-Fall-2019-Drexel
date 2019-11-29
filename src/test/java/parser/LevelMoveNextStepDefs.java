@@ -22,20 +22,20 @@ public class LevelMoveNextStepDefs extends LevelCreatorITHelper {
 	private LevelCreator levelCreator;
 
 	@Given("^level (\\d+) grid containing next is:$")
-	public void level_grid_containing_next(int level_number, DataTable game_grid) throws Throwable {
-		List<String> level = game_grid.asList(String.class);
+	public void level_grid_containing_next(int levelNumber, DataTable gameGrid) throws Throwable {
+		List<String> level = gameGrid.asList(String.class);
 		this.writeLevelFile(level);
 		this.levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper());
 		this.levelMove = new LevelMove(ONE, ONE, THREE);
 		this.gameEngine = new GameEngine(this.levelCreator, this.levelMove);
-		this.gameEngine.getLevelCreator().createLevel(this.gameEngine, level_number);
+		this.gameEngine.getLevelCreator().createLevel(this.gameEngine, levelNumber);
 		this.levelMove.setLevelNum(TWO);
 	}
 
 	@Then("^the player has moved to next level (\\d+)$")
-	public void the_player_has_moved_to_next_level(int next_Level_number) throws Throwable {
+	public void the_player_has_moved_to_next_level(int nextLevelNumber) throws Throwable {
 		int actual = this.gameEngine.getLevelMove().getLevelNum();
-		Assert.assertEquals(actual, next_Level_number);
+		Assert.assertEquals(actual, nextLevelNumber);
 	}
 
 	@When("^the player in level moves right to next")

@@ -21,20 +21,20 @@ public class LevelMovePastStepDefs extends LevelCreatorITHelper {
 	private LevelCreator levelCreator;
 
 	@Given("^level (\\d+) grid containing past is:$")
-	public void level_grid_containing_past(int level_number, DataTable game_grid) throws Throwable {
-		List<String> level = game_grid.asList(String.class);
+	public void level_grid_containing_past(int levelNumber, DataTable gameGrid) throws Throwable {
+		List<String> level = gameGrid.asList(String.class);
 		this.writeLevelFile(level);
 		this.levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper());
 		this.levelMove = new LevelMove(ONE, ONE, THREE);
 		this.gameEngine = new GameEngine(this.levelCreator, this.levelMove);
-		this.gameEngine.getLevelCreator().createLevel(this.gameEngine, level_number);
+		this.gameEngine.getLevelCreator().createLevel(this.gameEngine, levelNumber);
 		this.levelMove.setLevelNum(THREE);
 	}
 
 	@Then("^the player has moved to past level (\\d+)$")
-	public void the_player_has_moved_to_past_level(int past_level_number) throws Throwable {
+	public void the_player_has_moved_to_past_level(int pastLevelNumber) throws Throwable {
 		int actual = this.gameEngine.getLevelMove().getLevelNum();
-		Assert.assertEquals(actual, past_level_number);
+		Assert.assertEquals(actual, pastLevelNumber);
 	}
 
 	@When("^the player in level moves right to past")

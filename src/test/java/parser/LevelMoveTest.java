@@ -16,6 +16,13 @@ public class LevelMoveTest {
 
 	private LevelMove levelMove;
 
+	@Before
+	public void setUp() {
+		this.gameEngine = Mockito.mock(GameEngine.class);
+		Mockito.mock(ReaderWrapper.class);
+		this.levelMove = new LevelMove(this.MIN_LEVEL, this.MIN_LEVEL, this.MAX_LEVEL);
+	}
+
 	@Test
 	public void level_cannot_move_greater_than_max() {
 		this.levelMove.setLevelNum(3);
@@ -67,13 +74,6 @@ public class LevelMoveTest {
 		this.levelMove.pastLevel(this.gameEngine);
 		int actual = this.levelMove.getLevelNum();
 		Assert.assertEquals(1, actual);
-	}
-
-	@Before
-	public void setUp() {
-		this.gameEngine = Mockito.mock(GameEngine.class);
-		Mockito.mock(ReaderWrapper.class);
-		this.levelMove = new LevelMove(this.MIN_LEVEL, this.MIN_LEVEL, this.MAX_LEVEL);
 	}
 
 }
