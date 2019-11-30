@@ -95,8 +95,10 @@ public class GameEngine {
 	}
 
 	public void keyDown() {
+		if (mode == Mode.SELECT_CHARACTER) {
+			character = character.next();
+		}
 		movePlayer(0, 1);
-		character = character.next();
 	}
 
 	private void movePlayer(int xDiff, int yDiff) {

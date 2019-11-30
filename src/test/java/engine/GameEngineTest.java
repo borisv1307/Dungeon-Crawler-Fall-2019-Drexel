@@ -162,4 +162,23 @@ public class GameEngineTest {
 		assertSelectedCharacterIs(initial);
 	}
 
+	@Test
+	public void in_play_level_mode_up_key_does_not_change_character_selection() {
+
+		add_and_get_player_coordinates();
+		gameEngine.addTile(ONE, ONE, TileType.PASSABLE);
+		gameEngine.addTile(ZERO, ZERO, TileType.PASSABLE);
+		mode_changes_to_play_level_when_select_key_pressed();
+
+		CharacterClass initial = gameEngine.getSelectedCharacter();
+
+		gameEngine.keyRight();
+		assertSelectedCharacterIs(initial);
+		gameEngine.keyLeft();
+		assertSelectedCharacterIs(initial);
+		gameEngine.keyUp();
+		assertSelectedCharacterIs(initial);
+		gameEngine.keyDown();
+		assertSelectedCharacterIs(initial);
+	}
 }
