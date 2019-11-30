@@ -23,6 +23,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+		gameEngine.keySelect();
 	}
 
 	@When("^the player moves left$")

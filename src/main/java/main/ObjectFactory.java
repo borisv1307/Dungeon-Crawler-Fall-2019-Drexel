@@ -13,7 +13,8 @@ import wrappers.SystemWrapper;
 import wrappers.ThreadWrapper;
 
 public abstract class ObjectFactory {
-	private ObjectFactory() {}
+	private ObjectFactory() {
+	}
 
 	private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
 

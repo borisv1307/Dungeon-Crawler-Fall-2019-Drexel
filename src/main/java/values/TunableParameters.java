@@ -1,8 +1,9 @@
 package values;
 
 public final class TunableParameters {
-	private TunableParameters() {}
-	
+	private TunableParameters() {
+	}
+
 	public static final int SCREEN_WIDTH = 900;
 	public static final int SCREEN_HEIGHT = 600;
 

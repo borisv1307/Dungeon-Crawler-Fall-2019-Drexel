@@ -5,21 +5,30 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
+import characters.CharacterClass;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 
 public class GameEngine {
 
+	public enum Mode {
+		SELECT_CHARACTER, PLAY_LEVEL,
+	}
+
+	private Mode mode;
 	private boolean exit;
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+	private CharacterClass character;
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
+		mode = Mode.SELECT_CHARACTER;
+		character = CharacterClass.WARRIOR;
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
@@ -87,9 +96,14 @@ public class GameEngine {
 
 	public void keyDown() {
 		movePlayer(0, 1);
+		character = character.next();
 	}
 
 	private void movePlayer(int xDiff, int yDiff) {
+		if (mode != Mode.PLAY_LEVEL) {
+			return;
+		}
+
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.PASSABLE)) {
@@ -104,4 +118,17 @@ public class GameEngine {
 	public boolean isExit() {
 		return exit;
 	}
+
+	public Mode getMode() {
+		return mode;
+	}
+
+	public CharacterClass getSelectedCharacter() {
+		return character;
+	}
+
+	public void keySelect() {
+		mode = Mode.PLAY_LEVEL;
+	}
+
 }
