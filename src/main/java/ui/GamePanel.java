@@ -15,12 +15,15 @@ public class GamePanel extends Panel {
 	private Image dbImage;
 	private final GameEngine gameEngine;
 	private final TilePainter tilePainter;
+	private final CharacterSelectionPainter characterSelectionPainter;
 	private int tileWidth;
 	private int tileHeight;
 
-	public GamePanel(GameEngine gameEngine, TilePainter tilePainter) {
+	public GamePanel(GameEngine gameEngine, TilePainter tilePainter,
+			CharacterSelectionPainter characterSelectionPainter) {
 		this.gameEngine = gameEngine;
 		this.tilePainter = tilePainter;
+		this.characterSelectionPainter = characterSelectionPainter;
 		repaint();
 	}
 
@@ -36,6 +39,7 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
+		characterSelectionPainter.paintMenu(graphics, gameEngine, this.getWidth(), this.getHeight());
 	}
 
 	@Override

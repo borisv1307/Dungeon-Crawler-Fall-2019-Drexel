@@ -119,8 +119,7 @@ public class GameEngineTest {
 	@Test
 	public void selected_character_changes_to_next_when_down_key_pressed_for_all_characters() {
 		// this covers boundary condition where last character is selected and the down
-		// key is pressed
-		// causing the first character to be selected
+		// key is pressed causing the first character to be selected
 		EnumSet.allOf(CharacterClass.class).forEach(c -> selectNextCharacter());
 	}
 

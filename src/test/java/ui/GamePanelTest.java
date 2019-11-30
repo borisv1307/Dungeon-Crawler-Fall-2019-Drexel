@@ -25,14 +25,16 @@ public class GamePanelTest {
 	GamePanel gamePanel;
 	GameEngine gameEngine;
 	TilePainter tilePainter;
+	CharacterSelectionPainter characterSelectionPainter;
 
 	@Before
 	public void setUp() throws Exception {
 		gameEngine = Mockito.mock(GameEngine.class);
 		tilePainter = Mockito.mock(TilePainter.class);
+		characterSelectionPainter = Mockito.mock(CharacterSelectionPainter.class);
 		Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(horizontalDimension);
 		Mockito.when(gameEngine.getLevelVerticalDimension()).thenReturn(verticalDimension);
-		gamePanel = new GamePanel(gameEngine, tilePainter);
+		gamePanel = new GamePanel(gameEngine, tilePainter, characterSelectionPainter);
 		gamePanel.setSize(width, height);
 		gamePanel.init();
 	}
@@ -48,6 +50,7 @@ public class GamePanelTest {
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
 				TileType.PLAYER);
+		Mockito.verify(characterSelectionPainter).paintMenu(graphics, gameEngine, width, height);
 	}
 
 	@Test
