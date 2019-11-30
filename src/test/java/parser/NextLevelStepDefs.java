@@ -34,6 +34,6 @@ public class NextLevelStepDefs extends NextLevelStepDefHelper {
 
 	@Then("^the next level will be (\\d+)$")
 	public void the_next_level_will_be(int expectedLevel) throws Throwable {
-		assertEquals(expectedLevel, engine.level);
+		assertEquals(expectedLevel, engine.getLevel());
 	}
 }

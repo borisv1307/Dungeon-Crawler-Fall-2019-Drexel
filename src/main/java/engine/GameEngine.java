@@ -18,7 +18,7 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private Point startPosition;
-	public int level;
+	private int level;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -94,6 +94,10 @@ public class GameEngine {
 
 	public void keyDown() {
 		movePlayer(0, 1);
+	}
+
+	public int getLevel() {
+		return this.level;
 	}
 
 	private void movePlayer(int xDiff, int yDiff) {
