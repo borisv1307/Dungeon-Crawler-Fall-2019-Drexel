@@ -17,6 +17,8 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+	private Point inlet;
+	private Point outlet;
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -36,6 +38,12 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
+		} else if (tileType.equals(TileType.INLET)) {
+			setInlet(x, y);
+			tiles.put(new Point(x, y), TileType.INLET);
+		} else if (tileType.equals(TileType.OUTLET)) {
+			setOutlet(x, y);
+			tiles.put(new Point(x, y), TileType.OUTLET);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
@@ -65,12 +73,38 @@ public class GameEngine {
 		player = new Point(x, y);
 	}
 
+	private void setInlet(int x, int y) {
+		inlet = new Point(x, y);
+
+	}
+
+	private void setOutlet(int x, int y) {
+		outlet = new Point(x, y);
+
+	}
+
 	public int getPlayerXCoordinate() {
 		return (int) player.getX();
 	}
 
 	public int getPlayerYCoordinate() {
 		return (int) player.getY();
+	}
+
+	public int getInletXCoordinate() {
+		return (int) inlet.getX();
+	}
+
+	public int getInletYCoordinate() {
+		return (int) inlet.getY();
+	}
+
+	public int getOutletXCoordinate() {
+		return (int) outlet.getX();
+	}
+
+	public int getOutletYCoordinate() {
+		return (int) outlet.getY();
 	}
 
 	public void keyLeft() {

@@ -77,4 +77,24 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(exit));
 	}
 
+	@Test
+	public void add_and_get_inlet() {
+		TileType tileType = TileType.INLET;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		int actualX = gameEngine.getInletXCoordinate();
+		int actualY = gameEngine.getInletYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
+	public void add_and_get_outlet() {
+		TileType tileType = TileType.OUTLET;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		int actualX = gameEngine.getOutletXCoordinate();
+		int actualY = gameEngine.getOutletYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
+
 }
