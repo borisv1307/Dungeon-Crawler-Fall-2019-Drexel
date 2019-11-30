@@ -61,6 +61,8 @@ public class GamePanel extends Panel {
 			gameEngine.keyUp();
 		} else if (key == Event.DOWN) {
 			gameEngine.keyDown();
+		} else if (key == Event.ENTER) {
+			gameEngine.keySelect();
 		}
 
 		return true;
