@@ -10,8 +10,8 @@ import values.TunableParameters;
 
 public class NextLevelStepDefHelper {
 
-	protected static final int ONE = 1;
-	protected static final int COORDINATE_OFFSET = ONE;
+	protected static final int NEXT_LEVEL = 1;
+	protected static final int COORDINATE_OFFSET = NEXT_LEVEL;
 
 	protected void writeLevelFile(List<String> levelStrings)
 			throws FileNotFoundException, UnsupportedEncodingException {
@@ -23,6 +23,6 @@ public class NextLevelStepDefHelper {
 	}
 
 	private String getFilePath() {
-		return TestingTunableParameters.FILE_LOCATION_PREFIX + ONE + TunableParameters.FILE_NAME_SUFFIX;
+		return TestingTunableParameters.FILE_LOCATION_PREFIX + NEXT_LEVEL + TunableParameters.FILE_NAME_SUFFIX;
 	}
 }

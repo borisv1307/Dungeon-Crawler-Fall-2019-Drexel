@@ -17,7 +17,8 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
-	private final int level;
+	private Point startPosition;
+	public int level;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -35,10 +36,16 @@ public class GameEngine {
 	public void addTile(int x, int y, TileType tileType) {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
+			saveStartPosition(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
+	}
+
+	private void saveStartPosition(int x, int y) {
+		startPosition = new Point(x, y);
+
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -94,6 +101,12 @@ public class GameEngine {
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+		} else if (attempedLocation.equals(TileType.DESTINATION)) {
+			this.level++;
+			this.levelCreator.createLevel(this, level);
+		} else if (attempedLocation.equals(TileType.NOT_PASSABLE)) {
+			// send player to original position
+			setPlayer((int) startPosition.getX(), (int) startPosition.getY());
 		}
 	}
 

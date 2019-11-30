@@ -7,10 +7,9 @@ Feature: The game goes to the next level
       | XX   X |
       | X P XX |
       | XXXXXX |
-
     When the player reaches <DESTINATION> of current level <LEVEL>
     Then the next level will be <NEXT_LEVEL>
 
     Examples: 
       | DESTINATION | LEVEL | NEXT_LEVEL |
-      |         1,2 |     1 |          2 |
+      |         2,1 |     1 |          2 |

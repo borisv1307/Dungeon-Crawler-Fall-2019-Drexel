@@ -1,28 +1,39 @@
 package parser;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import engine.GameEngine;
+import values.TestingTunableParameters;
+import wrappers.ReaderWrapper;
 
 public class NextLevelStepDefs extends NextLevelStepDefHelper {
 
+	GameEngine engine;
+
 	@Given("^the level (\\d+) is:$")
-	public void the_level_is(List<String> levelStrings) throws Throwable {
+	public void the_level_is(int level, List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
+		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
+				new ReaderWrapper());
+
+		engine = new GameEngine(levelCreator);
 	}
 
 	@When("^the player reaches (\\d+),(\\d+) of current level (\\d+)$")
-	public void the_player_reaches_of_current_level(int arg1, int arg2, int arg3) throws Throwable {
-
+	public void the_player_reaches_of_current_level(int x, int y, int level) throws Throwable {
+		engine.keyUp();
+		engine.keyUp();
+		engine.keyLeft();
+		engine.keyUp();
 	}
 
 	@Then("^the next level will be (\\d+)$")
-	public void the_next_level_will_be(int arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+	public void the_next_level_will_be(int expectedLevel) throws Throwable {
+		assertEquals(expectedLevel, engine.level);
 	}
-
 }
