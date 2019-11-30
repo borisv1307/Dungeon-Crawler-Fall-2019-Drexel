@@ -16,7 +16,7 @@ public class TilePainter {
 			}
 		}
 	}
-	
+
 	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
 		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 	}
@@ -28,6 +28,20 @@ public class TilePainter {
 
 	private void handleTile(Graphics graphics, TileType tileType) {
 		graphics.setColor(TileColorMap.get(tileType));
+	}
+
+	public void paintInlet(Graphics graphics, int inletXCoordinate, int inletYCoordinate, int tileWidth, int tileHeight,
+			TileType inlet) {
+		handleTile(graphics, inlet);
+		graphics.fillRect(inletXCoordinate * tileWidth, inletYCoordinate * tileHeight, tileWidth, tileHeight);
+
+	}
+
+	public void paintOutlet(Graphics graphics, int outletXCoordinate, int outletYCoordinate, int tileWidth,
+			int tileHeight, TileType outlet) {
+		handleTile(graphics, outlet);
+		graphics.fillRect(outletXCoordinate * tileWidth, outletYCoordinate * tileHeight, tileWidth, tileHeight);
+
 	}
 
 }
