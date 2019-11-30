@@ -46,7 +46,7 @@ public class GameEngineLevelMoveTest {
 		this.gameEngine.getLevelCreator().createLevel(this.gameEngine, TWO);
 		this.levelMove.setLevelNum(TWO);
 		this.gameEngine.keyRight();
-		int levelNumber = this.gameEngine.getLevelMove().getLevelNum();
+		int levelNumber = this.levelMove.getLevelNum();
 		assertThat(levelNumber, equalTo(THREE));
 	}
 
@@ -65,7 +65,7 @@ public class GameEngineLevelMoveTest {
 		this.gameEngine.getLevelCreator().createLevel(this.gameEngine, THREE);
 		this.levelMove.setLevelNum(THREE);
 		this.gameEngine.keyRight();
-		int levelNumber = this.gameEngine.getLevelMove().getLevelNum();
+		int levelNumber = this.levelMove.getLevelNum();
 		assertThat(levelNumber, equalTo(TWO));
 	}
 }

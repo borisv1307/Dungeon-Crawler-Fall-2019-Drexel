@@ -82,7 +82,6 @@ public class GameEngineTest {
 
 	@Test
 	public void get_current_level_move() {
-		this.levelMove = this.gameEngine.getLevelMove();
 		int actual = this.levelMove.getLevelNum();
 		assertThat(actual, equalTo(GameEngineTest.ONE));
 	}

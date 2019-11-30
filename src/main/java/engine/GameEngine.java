@@ -46,10 +46,6 @@ public class GameEngine {
 		return this.levelHorizontalDimension;
 	}
 
-	public LevelMove getLevelMove() {
-		return this.levelMove;
-	}
-
 	public int getLevelVerticalDimension() {
 		return this.levelVerticalDimension;
 	}
@@ -93,10 +89,10 @@ public class GameEngine {
 			this.setPlayer(this.getPlayerXCoordinate() + xDiff, this.getPlayerYCoordinate() + yDiff);
 		} else if (attempedLocation.equals(TileType.PAST_LEVEL)) {
 			this.setPlayer(this.getPlayerXCoordinate() + xDiff, this.getPlayerYCoordinate() + yDiff);
-			this.getLevelMove().pastLevel(this);
+			this.levelMove.pastLevel(this);
 		} else if (attempedLocation.equals(TileType.NEXT_LEVEL)) {
 			this.setPlayer(this.getPlayerXCoordinate() + xDiff, this.getPlayerYCoordinate() + yDiff);
-			this.getLevelMove().nextLevel(this);
+			this.levelMove.nextLevel(this);
 		}
 	}
 

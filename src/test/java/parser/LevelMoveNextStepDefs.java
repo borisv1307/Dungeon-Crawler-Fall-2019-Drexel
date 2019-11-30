@@ -34,7 +34,7 @@ public class LevelMoveNextStepDefs extends LevelCreatorITHelper {
 
 	@Then("^the player has moved to next level (\\d+)$")
 	public void the_player_has_moved_to_next_level(int nextLevelNumber) throws Throwable {
-		int actual = this.gameEngine.getLevelMove().getLevelNum();
+		int actual = this.levelMove.getLevelNum();
 		Assert.assertEquals(actual, nextLevelNumber);
 	}
 
