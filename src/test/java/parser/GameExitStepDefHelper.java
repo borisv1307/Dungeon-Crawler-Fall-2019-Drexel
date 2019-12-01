@@ -8,14 +8,14 @@ import java.util.List;
 import values.TestingTunableParameters;
 import values.TunableParameters;
 
-public class NextLevelStepDefHelper {
+public class GameExitStepDefHelper {
 
-	protected int NEXT_LEVEL = 1;
+	protected static final int NEXT_LEVEL = 1;
+	protected static final int COORDINATE_OFFSET = NEXT_LEVEL;
 
-	protected void writeLevelFile(List<String> levelStrings, int level)
+	protected void writeLevelFile(List<String> levelStrings)
 			throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer = new PrintWriter(getFilePath(), "UTF-8");
-		this.NEXT_LEVEL = level;
 		for (String levelString : levelStrings) {
 			writer.println(levelString);
 		}
@@ -25,4 +25,5 @@ public class NextLevelStepDefHelper {
 	private String getFilePath() {
 		return TestingTunableParameters.FILE_LOCATION_PREFIX + NEXT_LEVEL + TunableParameters.FILE_NAME_SUFFIX;
 	}
+
 }

@@ -45,7 +45,11 @@ public class GameEngine {
 
 	private void saveStartPosition(int x, int y) {
 		startPosition = new Point(x, y);
+	}
 
+	public void jumpPlayer(int x, int y) {
+		this.player.setLocation(x, y);
+		movePlayer(0, 0);
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -109,8 +113,11 @@ public class GameEngine {
 			this.level++;
 			this.levelCreator.createLevel(this, level);
 		} else if (attempedLocation.equals(TileType.NOT_PASSABLE)) {
-			// send player to original position
+
 			setPlayer((int) startPosition.getX(), (int) startPosition.getY());
+		} else if (attempedLocation.equals(TileType.WINNER)) {
+			setExit(true);
+			System.out.println("GameWon!!");
 		}
 	}
 

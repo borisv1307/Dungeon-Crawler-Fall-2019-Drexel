@@ -17,7 +17,7 @@ public class NextLevelStepDefs extends NextLevelStepDefHelper {
 
 	@Given("^the level (\\d+) is:$")
 	public void the_level_is(int level, List<String> levelStrings) throws Throwable {
-		writeLevelFile(levelStrings);
+		writeLevelFile(levelStrings, level);
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
 
@@ -26,14 +26,13 @@ public class NextLevelStepDefs extends NextLevelStepDefHelper {
 
 	@When("^the player reaches (\\d+),(\\d+) of current level (\\d+)$")
 	public void the_player_reaches_of_current_level(int x, int y, int level) throws Throwable {
-		engine.keyUp();
-		engine.keyUp();
-		engine.keyLeft();
-		engine.keyUp();
+		engine.jumpPlayer(x - 1, y - 1);
 	}
 
 	@Then("^the next level will be (\\d+)$")
 	public void the_next_level_will_be(int expectedLevel) throws Throwable {
 		assertEquals(expectedLevel, engine.getLevel());
+
 	}
+
 }
