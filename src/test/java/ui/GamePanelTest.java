@@ -5,6 +5,7 @@ import static org.junit.Assert.assertSame;
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,12 +48,16 @@ public class GamePanelTest {
 		Graphics graphics = Mockito.mock(Graphics.class);
 		int playerXCoordinate = 2;
 		int playerYCoordinate = 3;
+		Point playerLocationInPixels = new Point(playerXCoordinate * tileWidth, playerYCoordinate * tileHeight);
+
 		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);
 		Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
 		Mockito.when(gameEngine.getSelectedCharacter()).thenReturn(CharacterClass.WARRIOR);
+		Mockito.when(tilePainter.getTileLocation(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+		  .thenReturn(playerLocationInPixels);
 		gamePanel.paint(graphics);
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
-		Mockito.verify(characterPainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth,
+		Mockito.verify(characterPainter).paintPlayer(graphics, playerLocationInPixels.x, playerLocationInPixels.y, tileWidth,
 				tileHeight, CharacterClass.WARRIOR);
 		Mockito.verify(characterSelectionPainter).paintMenu(graphics, gameEngine, width, height);
 	}
