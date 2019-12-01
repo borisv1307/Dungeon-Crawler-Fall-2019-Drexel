@@ -30,7 +30,7 @@ public class KeyCollectionStepDefs extends LevelCreationStepDefHelper {
 		keyXCoordinate = 15;
 		keyYCoordinate = 5;
 		gameEngine.setPlayer(keyXCoordinate, keyYCoordinate);
-		KeyCollection.change_key_color();
+
 	}
 
 	@Then("^the player is located on location \\((\\d+), (\\d+)\\) and key dissappears$")
