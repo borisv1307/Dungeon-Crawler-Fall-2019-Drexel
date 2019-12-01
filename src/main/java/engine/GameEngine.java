@@ -39,7 +39,6 @@ public class GameEngine {
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
-
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -99,7 +98,6 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 			tiles.replace(player, attempedLocation, TileType.PASSABLE);
 		}
-
 	}
 
 	public void setExit(boolean exit) {
