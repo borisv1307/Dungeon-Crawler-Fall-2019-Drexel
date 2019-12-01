@@ -71,6 +71,19 @@ public class LevelCreatorITHelper {
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY));
 	}
 
+	protected void movableIsLocatedAt(int movableX, int movableY) throws Throwable {
+		checkMovableXCoordinate(movableX);
+		checkMovableYCoordinate(movableY);
+	}
+
+	protected void checkMovableXCoordinate(int movableX) throws Throwable {
+		assertThat(gameEngine.getMovableXCoordinate(), equalTo(movableX));
+	}
+
+	protected void checkMovableYCoordinate(int movableY) throws Throwable {
+		assertThat(gameEngine.getMovableYCoordinate(), equalTo(movableY));
+	}
+
 	protected void checkTileTypeByLocation(int x, int y, char tileChar) throws Throwable {
 		TileType actualTileType = gameEngine.getTileFromCoordinates(x, y);
 		assertThat(actualTileType, equalTo(TileType.getTileTypeByChar(tileChar)));

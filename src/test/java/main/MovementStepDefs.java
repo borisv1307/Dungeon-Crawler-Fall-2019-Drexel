@@ -9,6 +9,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import engine.GameEngine;
+import movement.Movement;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
 import values.TestingTunableParameters;
@@ -17,32 +18,34 @@ import wrappers.ReaderWrapper;
 public class MovementStepDefs extends LevelCreationStepDefHelper {
 
 	private GameEngine gameEngine;
+	private Movement movement;
 
 	@Given("^the level design is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+		movement = new Movement(gameEngine);
 	}
 
 	@When("^the player moves left$")
 	public void the_player_moves_left() throws Throwable {
-		gameEngine.keyLeft();
+		movement.keyLeft();
 	}
 
 	@When("^the player moves right$")
 	public void the_player_moves_right() throws Throwable {
-		gameEngine.keyRight();
+		movement.keyRight();
 	}
 
 	@When("^the player moves up$")
 	public void the_player_moves_up() throws Throwable {
-		gameEngine.keyUp();
+		movement.keyUp();
 	}
 
 	@When("^the player moves down$")
 	public void the_player_moves_down() throws Throwable {
-		gameEngine.keyDown();
+		movement.keyDown();
 	}
 
 	@Then("^the player is located at \\((\\d+), (\\d+)\\)$")

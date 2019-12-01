@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import engine.GameEngine;
+import movement.Movement;
 import tiles.TileType;
 
 public class GamePanelTest {
@@ -25,14 +26,16 @@ public class GamePanelTest {
 	GamePanel gamePanel;
 	GameEngine gameEngine;
 	TilePainter tilePainter;
+	Movement movement;
 
 	@Before
 	public void setUp() throws Exception {
 		gameEngine = Mockito.mock(GameEngine.class);
 		tilePainter = Mockito.mock(TilePainter.class);
+		movement = Mockito.mock(Movement.class);
 		Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(horizontalDimension);
 		Mockito.when(gameEngine.getLevelVerticalDimension()).thenReturn(verticalDimension);
-		gamePanel = new GamePanel(gameEngine, tilePainter);
+		gamePanel = new GamePanel(gameEngine, tilePainter, movement);
 		gamePanel.setSize(width, height);
 		gamePanel.init();
 	}
@@ -76,25 +79,25 @@ public class GamePanelTest {
 	@Test
 	public void key_left() {
 		gamePanel.keyDown(null, Event.LEFT);
-		Mockito.verify(gameEngine, Mockito.times(1)).keyLeft();
+		Mockito.verify(movement, Mockito.times(1)).keyLeft();
 	}
 
 	@Test
 	public void key_right() {
 		gamePanel.keyDown(null, Event.RIGHT);
-		Mockito.verify(gameEngine, Mockito.times(1)).keyRight();
+		Mockito.verify(movement, Mockito.times(1)).keyRight();
 	}
 
 	@Test
 	public void key_up() {
 		gamePanel.keyDown(null, Event.UP);
-		Mockito.verify(gameEngine, Mockito.times(1)).keyUp();
+		Mockito.verify(movement, Mockito.times(1)).keyUp();
 	}
 
 	@Test
 	public void key_down() {
 		gamePanel.keyDown(null, Event.DOWN);
-		Mockito.verify(gameEngine, Mockito.times(1)).keyDown();
+		Mockito.verify(movement, Mockito.times(1)).keyDown();
 	}
 
 	@Test

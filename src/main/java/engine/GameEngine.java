@@ -16,7 +16,9 @@ public class GameEngine {
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
+
 	private Point player;
+	private Point movable;
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -36,9 +38,21 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
+		} else if (tileType.equals(TileType.MOVABLE)) {
+			setMovable(x, y);
+			tiles.put(new Point(x, y), TileType.MOVABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
+	}
+
+	public void resetMovableTile(int xCoordinateMovable, int yCoordinateMovable) {
+		tiles.put(new Point(xCoordinateMovable, yCoordinateMovable), TileType.PASSABLE);
+	}
+
+	public void setNewMovableTilePosition(int xCoordinateMovable, int yCoordinateMovable) {
+		setMovable(xCoordinateMovable, yCoordinateMovable);
+		tiles.put(new Point(xCoordinateMovable, yCoordinateMovable), TileType.MOVABLE);
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -61,8 +75,12 @@ public class GameEngine {
 		return tiles.get(new Point(x, y));
 	}
 
-	private void setPlayer(int x, int y) {
+	public void setPlayer(int x, int y) {
 		player = new Point(x, y);
+	}
+
+	public void setMovable(int x, int y) {
+		movable = new Point(x, y);
 	}
 
 	public int getPlayerXCoordinate() {
@@ -73,28 +91,12 @@ public class GameEngine {
 		return (int) player.getY();
 	}
 
-	public void keyLeft() {
-		movePlayer(-1, 0);
+	public int getMovableXCoordinate() {
+		return (int) movable.getX();
 	}
 
-	public void keyRight() {
-		movePlayer(1, 0);
-	}
-
-	public void keyUp() {
-		movePlayer(0, -1);
-	}
-
-	public void keyDown() {
-		movePlayer(0, 1);
-	}
-
-	private void movePlayer(int xDiff, int yDiff) {
-		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
-				getPlayerYCoordinate() + yDiff);
-		if (attempedLocation.equals(TileType.PASSABLE)) {
-			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-		}
+	public int getMovableYCoordinate() {
+		return (int) movable.getY();
 	}
 
 	public void setExit(boolean exit) {
@@ -104,4 +106,5 @@ public class GameEngine {
 	public boolean isExit() {
 		return exit;
 	}
+
 }
