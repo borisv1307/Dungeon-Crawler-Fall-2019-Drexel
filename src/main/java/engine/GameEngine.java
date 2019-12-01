@@ -57,8 +57,8 @@ public class GameEngine {
 		return levelVerticalDimension;
 	}
 
-	public TileType getTileFromCoordinates(int zero, int one) {
-		return tiles.get(new Point(zero, one));
+	public TileType getTileFromCoordinates(int x, int y) {
+		return tiles.get(new Point(x, y));
 	}
 
 	private void setPlayer(int x, int y) {
