@@ -22,7 +22,7 @@ public class TileColorMapTest {
 
 	@Test
 	public void player() {
-		assertSame(Color.GREEN, TileColorMap.get(TileType.PLAYER));
+		assertSame(Color.WHITE, TileColorMap.get(TileType.PLAYER));
 	}
 
 }

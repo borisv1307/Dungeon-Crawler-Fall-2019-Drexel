@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import characters.CharacterClass;
 import engine.GameEngine;
 import tiles.TileType;
 
@@ -25,16 +26,18 @@ public class GamePanelTest {
 	GamePanel gamePanel;
 	GameEngine gameEngine;
 	TilePainter tilePainter;
+	CharacterPainter characterPainter;
 	CharacterSelectionPainter characterSelectionPainter;
 
 	@Before
 	public void setUp() throws Exception {
 		gameEngine = Mockito.mock(GameEngine.class);
 		tilePainter = Mockito.mock(TilePainter.class);
+		characterPainter = Mockito.mock(CharacterPainter.class);
 		characterSelectionPainter = Mockito.mock(CharacterSelectionPainter.class);
 		Mockito.when(gameEngine.getLevelHorizontalDimension()).thenReturn(horizontalDimension);
 		Mockito.when(gameEngine.getLevelVerticalDimension()).thenReturn(verticalDimension);
-		gamePanel = new GamePanel(gameEngine, tilePainter, characterSelectionPainter);
+		gamePanel = new GamePanel(gameEngine, tilePainter, characterPainter, characterSelectionPainter);
 		gamePanel.setSize(width, height);
 		gamePanel.init();
 	}
@@ -46,10 +49,11 @@ public class GamePanelTest {
 		int playerYCoordinate = 3;
 		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);
 		Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
+		Mockito.when(gameEngine.getSelectedCharacter()).thenReturn(CharacterClass.WARRIOR);
 		gamePanel.paint(graphics);
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
-		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
-				TileType.PLAYER);
+		Mockito.verify(characterPainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth,
+				tileHeight, CharacterClass.WARRIOR);
 		Mockito.verify(characterSelectionPainter).paintMenu(graphics, gameEngine, width, height);
 	}
 

@@ -3,6 +3,7 @@ package main;
 import engine.GameEngine;
 import parser.LevelCreator;
 import timer.FramesPerSecondHandler;
+import ui.CharacterPainter;
 import ui.CharacterSelectionPainter;
 import ui.GameFrame;
 import ui.GamePanel;
@@ -24,9 +25,8 @@ public abstract class ObjectFactory {
 
 	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
 
-	private static GameFrame defaultGameFrame = new GameFrame(
-			new GamePanel(defaultGameEngine, new TilePainter(), new CharacterSelectionPainter()),
-			new WindowAdapterSystemExit(defaultGameEngine));
+	private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter(),
+			new CharacterPainter(), new CharacterSelectionPainter()), new WindowAdapterSystemExit(defaultGameEngine));
 
 	private static FramesPerSecondHandler defaultFramesPerSecondHandler = new FramesPerSecondHandler(
 			TunableParameters.TARGET_FPS, new SystemWrapper());

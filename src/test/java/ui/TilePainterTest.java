@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Graphics;
+import java.awt.Point;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +9,8 @@ import org.mockito.AdditionalMatchers;
 import org.mockito.InOrder;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 import engine.GameEngine;
 import tiles.TileType;
@@ -53,11 +56,15 @@ public class TilePainterTest {
 	}
 
 	@Test
-	public void paint_player() {
+	public void get_tile_location_0_0() {
+		Point actual = tilePainter.getTileLocation(10, 20, 0, 0);
+		assertThat(actual, equalTo(new Point(0, 0)));
 
-		tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
-
-		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}
 
+	@Test
+	public void get_tile_location_1_3() {
+		Point actual = tilePainter.getTileLocation(10, 20, 1, 3);
+		assertThat(actual, equalTo(new Point(10, 60)));
+	}
 }

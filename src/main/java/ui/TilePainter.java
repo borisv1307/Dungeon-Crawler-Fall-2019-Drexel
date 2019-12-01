@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Graphics;
+import java.awt.Point;
 
 import engine.GameEngine;
 import tiles.TileType;
@@ -17,17 +18,14 @@ public class TilePainter {
 		}
 	}
 
-	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
-		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
-	}
-
 	private void paintTile(Graphics graphics, int tileWidth, int tileHeight, int x, int y, TileType tileType) {
-		handleTile(graphics, tileType);
-		graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+		graphics.setColor(TileColorMap.get(tileType));
+		Point tileLocation = getTileLocation(tileWidth, tileHeight, x, y);
+		graphics.fillRect(tileLocation.x, tileLocation.y, tileWidth, tileHeight);
 	}
 
-	private void handleTile(Graphics graphics, TileType tileType) {
-		graphics.setColor(TileColorMap.get(tileType));
+	public Point getTileLocation(int tileWidth, int tileHeight, int x, int y) {
+		return new Point(x * tileWidth, y * tileHeight);
 	}
 
 }
