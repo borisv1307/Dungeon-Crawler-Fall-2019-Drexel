@@ -18,30 +18,48 @@ public class CharacterSelectionPainter {
 
 		Point menuPos = getMenuPosition(width, height);
 
+		paintMenuBackground(graphics, menuPos);
+		paintMenuText(graphics, menuPos, game.getSelectedCharacter());
+	}
+	
+	private void paintMenuBackground(Graphics graphics, Point menuPos) {
 		graphics.setColor(CharacterSelectionMenuParameters.BACKGROUND);
 		graphics.fillRect(menuPos.x, menuPos.y, CharacterSelectionMenuParameters.WIDTH,
 				CharacterSelectionMenuParameters.HEIGHT);
+	}
+	
+	private void paintMenuText(Graphics graphics, Point menuPos, CharacterClass selectedCharacter) {
 		graphics.setColor(CharacterSelectionMenuParameters.TEXT);
-
-		graphics.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
-
+		
 		int y = menuPos.y + CharacterSelectionMenuParameters.BORDER_SIZE + CharacterSelectionMenuParameters.LINE_HEIGHT;
+		paintMenuHeader(graphics, menuPos, y);
+		paintMenuEntries(graphics, menuPos, selectedCharacter, y);
+	}
+	
+	private void paintMenuHeader(Graphics graphics, Point menuPos, int y) {
+		graphics.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
 		graphics.drawString("Select Character", menuPos.x + CharacterSelectionMenuParameters.BORDER_SIZE, y);
-
+	}
+	
+	private void paintMenuEntries(Graphics graphics, Point menuPos, CharacterClass selectedCharacter, int y) {
 		y += CharacterSelectionMenuParameters.LINE_HEIGHT + CharacterSelectionMenuParameters.BORDER_SIZE;
 		graphics.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
 		for (CharacterClass c : CharacterClass.values()) {
-			String text = c.toString();
+			paintMenuEntry(graphics, c, selectedCharacter, menuPos.x + CharacterSelectionMenuParameters.BORDER_SIZE, y);
+			y += CharacterSelectionMenuParameters.LINE_HEIGHT;
+		}
+	}
+	
+	private void paintMenuEntry(Graphics graphics, CharacterClass character, CharacterClass selectedCharacter, int x, int y) {
+			String text = character.toString();
 
-			if (c == game.getSelectedCharacter()) {
+			if (character == selectedCharacter) {
 				text = "> " + text;
 			} else {
 				text = "  " + text;
 			}
 
-			graphics.drawString(text, menuPos.x + CharacterSelectionMenuParameters.BORDER_SIZE, y);
-			y += CharacterSelectionMenuParameters.LINE_HEIGHT;
-		}
+			graphics.drawString(text, x, y);
 	}
 
 	public Point getMenuCenter(int width, int height) {
