@@ -77,13 +77,13 @@ public class Movement {
 	}
 
 	public void getTileAfterPlayerCoordinates(String direction) {
-		if (direction == "Left") {
+		if (direction.equals("Left")) {
 			nextTile = gameEngine.getTileFromCoordinates(xCoordinatePlayer - 1, yCoordinatePlayer);
-		} else if (direction == "Right") {
+		} else if (direction.equals("Right")) {
 			nextTile = gameEngine.getTileFromCoordinates(xCoordinatePlayer + 1, yCoordinatePlayer);
-		} else if (direction == "Up") {
+		} else if (direction.equals("Up")) {
 			nextTile = gameEngine.getTileFromCoordinates(xCoordinatePlayer, yCoordinatePlayer - 1);
-		} else if (direction == "Down") {
+		} else if (direction.equals("Down")) {
 			nextTile = gameEngine.getTileFromCoordinates(xCoordinatePlayer, yCoordinatePlayer + 1);
 		}
 	}
@@ -96,13 +96,13 @@ public class Movement {
 	}
 
 	public void getTileAfterMovableCoordinates(String direction) {
-		if (direction == "Left") {
+		if (direction.equals("Left")) {
 			nextTileAfterMovable = gameEngine.getTileFromCoordinates(xCoordinateMovable - 1, yCoordinateMovable);
-		} else if (direction == "Right") {
+		} else if (direction.equals("Right")) {
 			nextTileAfterMovable = gameEngine.getTileFromCoordinates(xCoordinateMovable + 1, yCoordinateMovable);
-		} else if (direction == "Up") {
+		} else if (direction.equals("Up")) {
 			nextTileAfterMovable = gameEngine.getTileFromCoordinates(xCoordinateMovable, yCoordinateMovable - 1);
-		} else if (direction == "Down") {
+		} else if (direction.equals("Down")) {
 			nextTileAfterMovable = gameEngine.getTileFromCoordinates(xCoordinateMovable, yCoordinateMovable + 1);
 		}
 	}
@@ -132,31 +132,31 @@ public class Movement {
 	}
 
 	public void setPlayerAccordingToDirection(String direction) {
-		if (direction == "Left") {
+		if (direction.equals("Left")) {
 			gameEngine.setPlayer(xCoordinatePlayer - 1, yCoordinatePlayer);
-		} else if (direction == "Right") {
+		} else if (direction.equals("Right")) {
 			gameEngine.setPlayer(xCoordinatePlayer + 1, yCoordinatePlayer);
-		} else if (direction == "Up") {
+		} else if (direction.equals("Up")) {
 			gameEngine.setPlayer(xCoordinatePlayer, yCoordinatePlayer - 1);
-		} else if (direction == "Down") {
+		} else if (direction.equals("Down")) {
 			gameEngine.setPlayer(xCoordinatePlayer, yCoordinatePlayer + 1);
 		}
 	}
 
 	public void setMovableAccordingToDirection(String direction) {
-		if (direction == "Left") {
+		if (direction.equals("Left")) {
 			gameEngine.setMovable(xCoordinateMovable - 1, yCoordinateMovable);
 			gameEngine.setNewMovableTilePosition(xCoordinateMovable - 1, yCoordinateMovable);
 			gameEngine.resetMovableTile(xCoordinateMovable, yCoordinateMovable);
-		} else if (direction == "Right") {
+		} else if (direction.equals("Right")) {
 			gameEngine.setMovable(xCoordinateMovable + 1, yCoordinateMovable);
 			gameEngine.setNewMovableTilePosition(xCoordinateMovable + 1, yCoordinateMovable);
 			gameEngine.resetMovableTile(xCoordinateMovable, yCoordinateMovable);
-		} else if (direction == "Up") {
+		} else if (direction.equals("Up")) {
 			gameEngine.setMovable(xCoordinateMovable, yCoordinateMovable - 1);
 			gameEngine.setNewMovableTilePosition(xCoordinateMovable, yCoordinateMovable - 1);
 			gameEngine.resetMovableTile(xCoordinateMovable, yCoordinateMovable);
-		} else if (direction == "Down") {
+		} else if (direction.equals("Down")) {
 			gameEngine.setMovable(xCoordinateMovable, yCoordinateMovable + 1);
 			gameEngine.setNewMovableTilePosition(xCoordinateMovable, yCoordinateMovable + 1);
 			gameEngine.resetMovableTile(xCoordinateMovable, yCoordinateMovable);
