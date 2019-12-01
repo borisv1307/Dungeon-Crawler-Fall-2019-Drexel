@@ -17,7 +17,6 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
-	private Point dots;
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -37,9 +36,6 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
-		} else if (tileType.equals(TileType.DOTS)) {
-			setDots(x, y);
-			tiles.put(new Point(x, y), TileType.DOTS);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
@@ -78,18 +74,6 @@ public class GameEngine {
 		return (int) player.getY();
 	}
 
-	public int getDotXCoordinate() {
-		return (int) dots.getX();
-	}
-
-	public int getDotYCoordinate() {
-		return (int) dots.getY();
-	}
-
-	private void setDots(int x, int y) {
-		dots = new Point(x, y);
-	}
-
 	public void keyLeft() {
 		movePlayer(-1, 0);
 	}
@@ -109,8 +93,11 @@ public class GameEngine {
 	private void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
-		if (attempedLocation.equals(TileType.PASSABLE) || attempedLocation.equals(TileType.DOTS)) {
+		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+		} else if (attempedLocation.equals(TileType.DOT)) {
+			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+			tiles.replace(player, attempedLocation, TileType.PASSABLE);
 		}
 
 	}

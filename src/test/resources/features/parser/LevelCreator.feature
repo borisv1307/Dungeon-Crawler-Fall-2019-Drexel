@@ -4,7 +4,7 @@ Feature: Create a Level
   Scenario: Level 1
     Given level is:
       | XXXX |
-      | X PX |
+      | XOPX |
       | XXXX |
     When I create the level
     Then starting from the top-left:
@@ -15,7 +15,7 @@ Feature: Create a Level
     And (3, 1) is "X"
     And (4, 1) is "X"
     And (1, 2) is "X"
-    And (2, 2) is " "
+    And (2, 2) is "O"
     And (3, 2) is " "
     And (4, 2) is "X"
     And (1, 3) is "X"

@@ -1,6 +1,3 @@
-XXXXXXXXX
-X      OX
-X P  O  X
-X     O X
-X   O   X
-XXXXXXXXX
+XXXX
+X+PX
+XXXX

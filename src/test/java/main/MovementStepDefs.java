@@ -11,6 +11,7 @@ import cucumber.api.java.en.When;
 import engine.GameEngine;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
+import tiles.TileType;
 import values.TestingTunableParameters;
 import wrappers.ReaderWrapper;
 
@@ -49,5 +50,10 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	public void the_player_is_located_at(int playerX, int playerY) throws Throwable {
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
+	}
+
+	@Then("^target is removed from location \\((\\d+), (\\d+)\\)$")
+	public void target_is_removed_from_location(int x, int y) throws Throwable {
+		assertThat(gameEngine.getTileFromCoordinates(x, y), equalTo(TileType.PASSABLE));
 	}
 }
