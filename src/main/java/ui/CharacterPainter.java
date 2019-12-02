@@ -3,11 +3,14 @@ package ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.Serializable;
 
 import characters.CharacterClass;
 import exceptions.LogicError;
 
-public class CharacterPainter {
+public class CharacterPainter implements Serializable {
+
+	private static final long serialVersionUID = 8864547832604886827L;
 
 	public void paintPlayer(Graphics graphics, int playerX, int playerY, int tileWidth, int tileHeight,
 			CharacterClass character) {

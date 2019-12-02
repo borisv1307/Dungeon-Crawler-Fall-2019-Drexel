@@ -3,12 +3,15 @@ package ui;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.Serializable;
 
 import characters.CharacterClass;
 import engine.GameEngine;
 import values.CharacterSelectionMenuParameters;
 
-public class CharacterSelectionPainter {
+public class CharacterSelectionPainter implements Serializable {
+
+	private static final long serialVersionUID = -544695966896917067L;
 
 	public void paintMenu(Graphics graphics, GameEngine game, int width, int height) {
 
