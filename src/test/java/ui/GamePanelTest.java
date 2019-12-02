@@ -6,6 +6,7 @@ import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -83,40 +84,46 @@ public class GamePanelTest {
 
 		Mockito.verify(graphics, Mockito.times(2)).drawImage(dbImage, 0, 0, gamePanel);
 	}
+	
+	private void pressKey(int key) {
+		KeyEvent evt = Mockito.mock(KeyEvent.class);
+		Mockito.when(evt.getID()).thenReturn(KeyEvent.KEY_PRESSED);
+		Mockito.when(evt.getKeyCode()).thenReturn(key);
+		gamePanel.processKeyEvent(evt);
+
+		evt = Mockito.mock(KeyEvent.class);
+		Mockito.when(evt.getID()).thenReturn(KeyEvent.KEY_RELEASED);
+		Mockito.when(evt.getKeyCode()).thenReturn(key);
+		gamePanel.processKeyEvent(evt);
+	}
 
 	@Test
 	public void key_left() {
-		gamePanel.keyDown(null, Event.LEFT);
+		pressKey(KeyEvent.VK_LEFT);
 		Mockito.verify(gameEngine, Mockito.times(1)).keyLeft();
 	}
 
 	@Test
 	public void key_right() {
-		gamePanel.keyDown(null, Event.RIGHT);
+		pressKey(KeyEvent.VK_RIGHT);
 		Mockito.verify(gameEngine, Mockito.times(1)).keyRight();
 	}
 
 	@Test
 	public void key_up() {
-		gamePanel.keyDown(null, Event.UP);
+		pressKey(KeyEvent.VK_UP);
 		Mockito.verify(gameEngine, Mockito.times(1)).keyUp();
 	}
 
 	@Test
 	public void key_down() {
-		gamePanel.keyDown(null, Event.DOWN);
+		pressKey(KeyEvent.VK_DOWN);
 		Mockito.verify(gameEngine, Mockito.times(1)).keyDown();
 	}
 
 	@Test
 	public void key_enter() {
-		gamePanel.keyDown(null, Event.ENTER);
+		pressKey(KeyEvent.VK_ENTER);
 		Mockito.verify(gameEngine, Mockito.times(1)).keySelect();
-	}
-
-	@Test
-	public void key_escape() {
-		boolean actual = gamePanel.keyDown(null, Event.ESCAPE);
-		assertSame(true, actual);
 	}
 }

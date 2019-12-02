@@ -1,10 +1,12 @@
 package ui;
 
+import java.awt.AWTEvent;
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 
 import engine.GameEngine;
 
@@ -30,6 +32,7 @@ public class GamePanel extends Panel {
 	}
 
 	void init() {
+		this.enableEvents(AWTEvent.KEY_EVENT_MASK);
 		tileWidth = this.getWidth() / gameEngine.getLevelHorizontalDimension();
 		tileHeight = this.getHeight() / gameEngine.getLevelVerticalDimension();
 	}
@@ -62,19 +65,23 @@ public class GamePanel extends Panel {
 	}
 
 	@Override
-	public boolean keyDown(Event evt, int key) {
-		if (key == Event.LEFT) {
-			gameEngine.keyLeft();
-		} else if (key == Event.RIGHT) {
-			gameEngine.keyRight();
-		} else if (key == Event.UP) {
-			gameEngine.keyUp();
-		} else if (key == Event.DOWN) {
-			gameEngine.keyDown();
-		} else if (key == Event.ENTER) {
-			gameEngine.keySelect();
+	public void processKeyEvent(KeyEvent evt) {
+		if (evt.getID() != KeyEvent.KEY_PRESSED) {
+			return;
 		}
 
-		return true;
+		int key = evt.getKeyCode();
+
+		if (key == KeyEvent.VK_LEFT) {
+			gameEngine.keyLeft();
+		} else if (key == KeyEvent.VK_RIGHT) {
+			gameEngine.keyRight();
+		} else if (key == KeyEvent.VK_UP) {
+			gameEngine.keyUp();
+		} else if (key == KeyEvent.VK_DOWN) {
+			gameEngine.keyDown();
+		} else if (key == KeyEvent.VK_ENTER) {
+			gameEngine.keySelect();
+		}
 	}
 }
