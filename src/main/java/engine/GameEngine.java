@@ -11,8 +11,6 @@ import ui.GameFrame;
 
 public class GameEngine {
 
-	
-	
 	private boolean exit;
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
@@ -21,12 +19,13 @@ public class GameEngine {
 	private Point player;
 	private final int level;
 	private LevelManager levelManager;
+
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
-		this.levelManager = new LevelManager(this,level,levelCreator);
+		this.levelManager = new LevelManager(this, level, levelCreator);
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -66,7 +65,7 @@ public class GameEngine {
 
 	protected void setPlayer(int x, int y) {
 		player = new Point(x, y);
-		if(this.getTileFromCoordinates(x, y) == TileType.EXIT) {
+		if (this.getTileFromCoordinates(x, y) == TileType.EXIT) {
 			this.levelManager.goNextLevel();
 		}
 	}
@@ -81,40 +80,46 @@ public class GameEngine {
 
 	public void keyLeft() {
 		// TODO Implement movement logic here
-		if(this.getTileFromCoordinates(this.getPlayerXCoordinate()-1,this.getPlayerYCoordinate()) != TileType.NOT_PASSABLE)
-			this.setPlayer(this.getPlayerXCoordinate()-1, this.getPlayerYCoordinate());
+		movePlayer(-1, 0);
 	}
 
 	public void keyRight() {
 		// TODO Implement movement logic here
-		if(this.getTileFromCoordinates(this.getPlayerXCoordinate()+1,this.getPlayerYCoordinate()) != TileType.NOT_PASSABLE)
-		this.setPlayer(this.getPlayerXCoordinate()+1, this.getPlayerYCoordinate());
+		movePlayer(1, 0);
 	}
 
 	public void keyUp() {
 		// TODO Implement movement logic here
-		if(this.getTileFromCoordinates(this.getPlayerXCoordinate(),this.getPlayerYCoordinate()-1) != TileType.NOT_PASSABLE)
-		this.setPlayer(this.getPlayerXCoordinate(), this.getPlayerYCoordinate()-1);
+		movePlayer(0, -1);
 	}
 
 	public void keyDown() {
 		// TODO Implement movement logic here
-		if(this.getTileFromCoordinates(this.getPlayerXCoordinate(),this.getPlayerYCoordinate()+1) != TileType.NOT_PASSABLE)
-		this.setPlayer(this.getPlayerXCoordinate(), this.getPlayerYCoordinate()+1);
+		movePlayer(0, 1);
 	}
 
 	public void setExit(boolean exit) {
 		this.exit = exit;
 	}
 
+	private void movePlayer(int xDiff, int yDiff) {
+		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
+				getPlayerYCoordinate() + yDiff);
+		if (!attempedLocation.equals(TileType.NOT_PASSABLE)) {
+			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+		}
+	}
+
 	public boolean isExit() {
 		return exit;
 	}
+
 	public int getCurrentLevel() {
 		return this.levelManager.getCurrentLevel();
 	}
-	public LevelCreator getLevelCreator(){
+
+	public LevelCreator getLevelCreator() {
 		return this.levelCreator;
 	}
-	
+
 }

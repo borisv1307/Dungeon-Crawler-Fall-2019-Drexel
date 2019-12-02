@@ -2,7 +2,6 @@ package engine;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
 
 import java.awt.Component;
 
@@ -18,11 +17,11 @@ public class GameEngineTest {
 
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
-	
+
 	GameEngine gameEngine;
 	int actualX;
 	int actualY;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
@@ -33,7 +32,7 @@ public class GameEngineTest {
 		gameEngine.addTile(ZERO, ONE, tileType);
 		actualX = gameEngine.getPlayerXCoordinate();
 		actualY = gameEngine.getPlayerYCoordinate();
-		
+
 	}
 
 	@Test
@@ -81,39 +80,4 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(exit));
 	}
 
-	@Test
-	public void key_left() {
-		// TODO Should I start with this test?
-		gameEngine.keyLeft();
-		assertEquals(actualX -1,gameEngine.getPlayerXCoordinate());
-		assertEquals(actualY,gameEngine.getPlayerYCoordinate());
-	}
-
-	@Test
-	public void key_right() {
-		// TODO Should I start with this test?
-		gameEngine.keyRight();
-		assertEquals(actualX +1,gameEngine.getPlayerXCoordinate());
-		assertEquals(actualY,gameEngine.getPlayerYCoordinate());
-	}
-
-	@Test
-	public void key_up() {
-		// TODO Should I start with this test?
-		gameEngine.keyUp();
-		assertEquals(actualX,gameEngine.getPlayerXCoordinate());
-		assertEquals(actualY-1,gameEngine.getPlayerYCoordinate());
-	}
-
-	@Test
-	public void key_down() {
-		// TODO Should I start with this test?
-		gameEngine.keyDown();
-		assertEquals(actualX,gameEngine.getPlayerXCoordinate());
-		assertEquals(actualY+1,gameEngine.getPlayerYCoordinate());
-	}
-	
-
-	
-	
 }
