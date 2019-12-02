@@ -17,6 +17,7 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+	private Point food;
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -35,6 +36,9 @@ public class GameEngine {
 	public void addTile(int x, int y, TileType tileType) {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
+			tiles.put(new Point(x, y), TileType.PASSABLE);
+		} else if (tileType.equals(TileType.FOOD)) {
+			setFood(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
@@ -63,6 +67,18 @@ public class GameEngine {
 
 	private void setPlayer(int x, int y) {
 		player = new Point(x, y);
+	}
+
+	public void setFood(int x, int y) {
+		food = new Point(x, y);
+	}
+
+	public int getFoodXCoordinate() {
+		return (int) food.getX();
+	}
+
+	public int getFoodYCoordinate() {
+		return (int) food.getY();
 	}
 
 	public int getPlayerXCoordinate() {

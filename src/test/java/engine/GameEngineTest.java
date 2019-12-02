@@ -77,4 +77,14 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(exit));
 	}
 
+	@Test
+	public void add_and_get_food() {
+		TileType tileType = TileType.FOOD;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		int actualX = gameEngine.getFoodXCoordinate();
+		int actualY = gameEngine.getFoodYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
+
 }

@@ -36,6 +36,8 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
+		tilePainter.paintFood(graphics, gameEngine.getFoodXCoordinate(), gameEngine.getFoodYCoordinate(), tileWidth,
+				tileHeight, TileType.FOOD);
 	}
 
 	@Override

@@ -50,4 +50,11 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
 	}
+
+	@Then("^the player is located at \\((\\d+), (\\d+)\\) and F will be disappered$")
+	public void the_player_is_located_at_and_F_will_be_disappered(int foodXCoordinate, int foodYCoordinate)
+			throws Throwable {
+		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(foodXCoordinate));
+		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(foodYCoordinate));
+	}
 }
