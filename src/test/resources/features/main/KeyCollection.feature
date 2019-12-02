@@ -6,11 +6,11 @@ Scenario: Player moves on key to collect it
 | X                  X |
 | X                  X |
 | X                  X |
-| X             K    X |
 | X                  X |
 | X                  X |
-| X         P        X |
+| X                  X |
+| X         PK       X |
 | X                  X |
 | XXXXXXXXXXXXXXXXXXXX |
     When the player moves on top of key
-    Then the player is located on location (15, 5) and key dissappears
+    Then the player is located on location (12, 8) and key dissappears
