@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 import characters.CharacterClass;
+import exceptions.LogicError;
 
 public class CharacterPainter {
 
@@ -23,7 +24,7 @@ public class CharacterPainter {
 			return;
 		}
 
-		throw new RuntimeException("unhandled character class");
+		throw new LogicError("unhandled character class");
 	}
 
 	public int getPlayerSize(int tileWidth, int tileHeight) {

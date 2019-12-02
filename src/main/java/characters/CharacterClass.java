@@ -1,5 +1,7 @@
 package characters;
 
+import exceptions.LogicError;
+
 public enum CharacterClass {
 	WARRIOR, ROGUE, SORCERER;
 
@@ -13,6 +15,6 @@ public enum CharacterClass {
 			return WARRIOR;
 		}
 
-		throw new RuntimeException("unhandled character class");
+		throw new LogicError("unhandled character class");
 	}
 }
