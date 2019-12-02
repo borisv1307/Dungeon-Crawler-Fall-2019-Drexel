@@ -3,7 +3,7 @@ package values;
 import java.awt.Color;
 
 public class CharacterSelectionMenuParameters {
-	
+
 	private CharacterSelectionMenuParameters() {
 	}
 

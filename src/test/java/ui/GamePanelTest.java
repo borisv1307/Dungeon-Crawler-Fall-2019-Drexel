@@ -53,12 +53,13 @@ public class GamePanelTest {
 		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);
 		Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
 		Mockito.when(gameEngine.getSelectedCharacter()).thenReturn(CharacterClass.WARRIOR);
-		Mockito.when(tilePainter.getTileLocation(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
-		  .thenReturn(playerLocationInPixels);
+		Mockito.when(
+				tilePainter.getTileLocation(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt()))
+				.thenReturn(playerLocationInPixels);
 		gamePanel.paint(graphics);
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
-		Mockito.verify(characterPainter).paintPlayer(graphics, playerLocationInPixels.x, playerLocationInPixels.y, tileWidth,
-				tileHeight, CharacterClass.WARRIOR);
+		Mockito.verify(characterPainter).paintPlayer(graphics, playerLocationInPixels.x, playerLocationInPixels.y,
+				tileWidth, tileHeight, CharacterClass.WARRIOR);
 		Mockito.verify(characterSelectionPainter).paintMenu(graphics, gameEngine, width, height);
 	}
 
@@ -84,7 +85,7 @@ public class GamePanelTest {
 
 		Mockito.verify(graphics, Mockito.times(2)).drawImage(dbImage, 0, 0, gamePanel);
 	}
-	
+
 	private void pressKey(int key) {
 		KeyEvent evt = Mockito.mock(KeyEvent.class);
 		Mockito.when(evt.getID()).thenReturn(KeyEvent.KEY_PRESSED);
