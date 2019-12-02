@@ -13,7 +13,6 @@ import org.mockito.Mockito;
 
 import characters.CharacterClass;
 import engine.GameEngine;
-import tiles.TileType;
 
 public class GamePanelTest {
 

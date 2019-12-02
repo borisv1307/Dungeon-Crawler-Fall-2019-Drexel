@@ -7,7 +7,6 @@ import java.awt.Panel;
 import java.awt.Point;
 
 import engine.GameEngine;
-import tiles.TileType;
 
 public class GamePanel extends Panel {
 
