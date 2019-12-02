@@ -3,6 +3,9 @@ package values;
 import java.awt.Color;
 
 public class CharacterSelectionMenuParameters {
+	
+	private CharacterSelectionMenuParameters() {
+	}
 
 	public static final Color BACKGROUND = Color.DARK_GRAY;
 	public static final Color TEXT = Color.WHITE;
