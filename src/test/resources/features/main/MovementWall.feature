@@ -1,4 +1,4 @@
-@IntegrationTest
+@UITest
 Feature: Move the player into wall
 
   Background: 
