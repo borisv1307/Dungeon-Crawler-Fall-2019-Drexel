@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import engine.GameEngine;
 import parser.LevelCreator;
@@ -14,6 +16,7 @@ import values.TestingTunableParameters;
 import wrappers.MathWrapper;
 import wrappers.ReaderWrapper;
 
+@RunWith(JUnit4.class)
 public class MovementWallIntegrationTest extends LevelCreatorITHelper {
 
 	@Before
