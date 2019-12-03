@@ -29,5 +29,4 @@ public class TilePainter {
 	private void handleTile(Graphics graphics, TileType tileType) {
 		graphics.setColor(TileColorMap.get(tileType));
 	}
-
 }
