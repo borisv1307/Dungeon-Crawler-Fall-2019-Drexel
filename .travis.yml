@@ -1,4 +1,6 @@
 language: java
+jdk:
+  - openjdk8
 addons:
   sonarcloud:
     organization: "borisv13-github" # the key of the org you chose at step #3
