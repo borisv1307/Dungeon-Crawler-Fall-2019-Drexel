@@ -51,15 +51,10 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerX - COORDINATE_OFFSET));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
 	}
-	
-	@When("^the player moves into Candy position \\((\\d+), (\\d+)\\)$")
-	public void the_player_moves_into_Candy_position(int candyXCoordinate, int candyYCoordinate) throws Throwable {
-	    gameEngine.keyDown();
-	}
-	
+
 	@Then("^Candy disappears from \\((\\d+), (\\d+)\\)$")
 	public void candy_disappears_from(int candyXCoordinate, int candyYCoordinate) throws Throwable {
-		TileType replacedTile = gameEngine.removeCandy(candyXCoordinate, candyYCoordinate);
-	    assertThat(replacedTile, equalTo(TileType.PASSABLE));
+		TileType replacedTile = gameEngine.getTileFromCoordinates(candyXCoordinate, candyYCoordinate);
+		assertThat(replacedTile, equalTo(TileType.PASSABLE));
 	}
 }

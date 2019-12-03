@@ -37,7 +37,7 @@ public class GameEngine {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
-			tiles.put(new Point(x,y), tileType);
+			tiles.put(new Point(x, y), tileType);
 		}
 	}
 
@@ -94,16 +94,14 @@ public class GameEngine {
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-		}
-		else if(attempedLocation.equals(TileType.CANDY)) {
+		} else if (attempedLocation.equals(TileType.CANDY)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 			removeCandy(getPlayerXCoordinate(), getPlayerYCoordinate());
 		}
 	}
-	
-	public TileType removeCandy(int playerXCoordinate, int playerYCoordinate) {
+
+	public void removeCandy(int playerXCoordinate, int playerYCoordinate) {
 		addTile(getPlayerXCoordinate(), getPlayerYCoordinate(), TileType.PASSABLE);
-		return TileType.PASSABLE;
 	}
 
 	public void setExit(boolean exit) {
