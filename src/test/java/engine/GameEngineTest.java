@@ -77,4 +77,21 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(exit));
 	}
 
+	@Test
+	public void add_and_get_candy() {
+		TileType tileType = TileType.CANDY;
+		gameEngine.addTile(ZERO, ONE, TileType.CANDY);
+		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+		assertThat(actual, equalTo(tileType));
+	}
+
+	@Test
+	public void when_player_moves_into_candy_remove_candy() {
+		TileType tileType = TileType.PASSABLE;
+		gameEngine.setPlayer(ZERO, ZERO);
+		gameEngine.addTile(ZERO, ONE, TileType.CANDY);
+		gameEngine.keyDown();
+		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+		assertThat(actual, equalTo(tileType));
+	}
 }

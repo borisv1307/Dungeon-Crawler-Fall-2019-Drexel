@@ -37,7 +37,7 @@ public class GameEngine {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
-			tiles.put(new Point(x, y), tileType);
+			tiles.put(new Point(x,y), tileType);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class GameEngine {
 		return tiles.get(new Point(x, y));
 	}
 
-	private void setPlayer(int x, int y) {
+	public void setPlayer(int x, int y) {
 		player = new Point(x, y);
 	}
 
@@ -95,6 +95,15 @@ public class GameEngine {
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		}
+		else if(attempedLocation.equals(TileType.CANDY)) {
+			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+			TileType remove = removeCandy(getPlayerXCoordinate(), getPlayerYCoordinate());
+		}
+	}
+	
+	public TileType removeCandy(int playerXCoordinate, int playerYCoordinate) {
+		addTile(getPlayerXCoordinate(), getPlayerYCoordinate(), TileType.PASSABLE);
+		return TileType.PASSABLE;
 	}
 
 	public void setExit(boolean exit) {
