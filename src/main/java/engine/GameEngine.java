@@ -79,22 +79,18 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		// TODO Implement movement logic here
 		movePlayer(-1, 0);
 	}
 
 	public void keyRight() {
-		// TODO Implement movement logic here
 		movePlayer(1, 0);
 	}
 
 	public void keyUp() {
-		// TODO Implement movement logic here
 		movePlayer(0, -1);
 	}
 
 	public void keyDown() {
-		// TODO Implement movement logic here
 		movePlayer(0, 1);
 	}
 
