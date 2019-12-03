@@ -1,22 +1,15 @@
 package engine;
 
 import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.Point;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-
 import javax.swing.JOptionPane;
-
-import launcher.Launcher;
-import main.DungeonCrawler;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
-import ui.GamePanel;
-import ui.TilePainter;
-import values.TunableParameters;
+
 
 
 public class GameEngine {
@@ -26,22 +19,25 @@ public class GameEngine {
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
-	private Point player,blocker,blocker1,blocker2,blocker3;
-	public static final int level=1;
-	public int numberOfMoves;
-	public GameFrame gameFrame;
-	private int randomYCoordinatesArray[]= new int[4];
-	private int randomXCoordinatesArray[]=new int[4];
+	private Point player;
+	private Point blocker;
+	private Point blocker1;
+	private Point blocker2;
+	private Point blocker3;
+	public final int level;
+	private int numberOfMoves;
+	private int[] randomYCoordinatesArray= new int[4];
+	private int[] randomXCoordinatesArray=new int[4];
 	
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
+		level=1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
 	}
 
 	public void run(GameFrame gameFrame) {
-		this.gameFrame=gameFrame;
 		for (Component component : gameFrame.getComponents()) {
 			component.repaint();
 		}
@@ -53,29 +49,33 @@ public class GameEngine {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 			
-			} if(IsBlocker(tileType)){
+		} 
+		if(IsBlocker(tileType)){
 				
 			  setBlocker(x, y); 
 			  tiles.put(new Point(x,y), TileType.BLOCKER);
 			  
-			  }if(IsBlocker1(tileType)){ 
+		 }
+		if(IsBlocker1(tileType)){ 
 				  
 				setBlocker1(x, y);
 				tiles.put(new Point(x,y), TileType.BLOCKER1);
-				
-			  } if (IsBlocker2(tileType)){ 
+		 } 
+		if (IsBlocker2(tileType)){ 
 				  
 				  setBlocker2(x, y);
 				  tiles.put(new Point(x,y), TileType.BLOCKER2); 
-			  } if (IsBlocker3(tileType)){
+		  }
+		if (IsBlocker3(tileType)){
 					  
 				  setBlocker3(x, y); 
 				  tiles.put(new Point(x,y), TileType.BLOCKER3);
 				  
-			  }if(tileType==TileType.PASSABLE||tileType==TileType.NOT_PASSABLE) {
+		  }
+		if(tileType==TileType.PASSABLE||tileType==TileType.NOT_PASSABLE) {
 				  
-					  tiles.put(new Point(x, y), tileType);
-		}
+		tiles.put(new Point(x, y), tileType);
+		  }
 	}
 
 
@@ -154,7 +154,7 @@ public class GameEngine {
 	}
 	
 
-public void keyLeft() {
+	public void keyLeft() {
 		
 		movePlayer(-1,0);
 	}
@@ -174,7 +174,8 @@ public void keyLeft() {
 	}
 	
 	public void movePlayer(int xDiff, int yDiff) {
-		int maxXCoordinate=16,maxYCoordinate=8;
+		int maxXCoordinate=16;
+		int maxYCoordinate=8;
 	
 		TileType tile =getTileFromCoordinates(getPlayerXCoordinate()+xDiff, getPlayerYCoordinate()+yDiff );
 		
@@ -188,8 +189,7 @@ public void keyLeft() {
 				setBlocker1(50,50);
 				setBlocker2(50,50);
 				setBlocker3(50,50);
-				updateBlockerPosition();
-				
+				updateBlockerPosition();	
 				displayStatus(numberOfMoves);
 				exit=true;
 				
@@ -239,78 +239,51 @@ public void keyLeft() {
 	public void randomXCoordinatesForBlockers(int max) {
 
 		for (int i=0;i<4;i++) {
-			randomXCoordinatesArray[i]=new Random().nextInt(max)+1;
+			randomXCoordinatesArray[i]=new SecureRandom().nextInt(max)+1;
 		}		
 		
 	}
 	public void randomYCoordinatesForBlockers(int max) {
 		
 		for (int i=0;i<4;i++) {
-			randomYCoordinatesArray[i]=new Random().nextInt(max)+1;
+			randomYCoordinatesArray[i]=new SecureRandom().nextInt(max)+1;
 		}		
 		
 	}
 	
-public boolean IsPlayer(TileType tileType) {
-	int player;
-	if (tileType.equals(TileType.PLAYER)) {
-	player=1;
-	return true;	
-	}
-	else 
-	{
-		player=0;
-		return false;
-	}
-}
-	public boolean IsBlocker(TileType tileType) {
-		int blocker;
-		if (tileType.equals(TileType.BLOCKER)) {
-		blocker=1;
-		return true;	
-		}
+	public boolean IsPlayer(TileType tileType) {
+		if (tileType.equals(TileType.PLAYER)) 
+			return true;	
 		else 
-		{
-			blocker=0;
 			return false;
-		}
 	}
-		public boolean IsBlocker1(TileType tileType) {
-			int blocker;
-			if (tileType.equals(TileType.BLOCKER1)) {
-				blocker=1;
+	public boolean IsBlocker(TileType tileType) {
+		if (tileType.equals(TileType.BLOCKER)) 
 			return true;	
-			} 
-			else 
-			{
-				blocker=0;
-				return false;
-			}
-		}
-		public boolean IsBlocker2(TileType tileType) {
-			int blocker=0;
-			if (tileType.equals(TileType.BLOCKER2)) {
-			blocker=1;
+		else 
+			return false;
+		
+	}
+	public boolean IsBlocker1(TileType tileType) {
+			
+		if (tileType.equals(TileType.BLOCKER1)) 
+			return true;
+		else 
+			return false;
+	}
+	public boolean IsBlocker2(TileType tileType) {
+			
+		if (tileType.equals(TileType.BLOCKER2)) 
 			return true;	
-			}
-			else 
-			{
-				blocker=0;
-				return false;
-			}
-		}
-		public boolean IsBlocker3(TileType tileType) {
-			int blocker;
-			if (tileType.equals(TileType.BLOCKER3)) {
-			blocker=1;
+		else 
+			return false;
+	}
+	public boolean IsBlocker3(TileType tileType) {
+		if (tileType.equals(TileType.BLOCKER3)) 
 			return true;	
-			}
-			else 
-			{
-				blocker=0;
-				return false;
-			}
-		}
+		else 
+			return false;
+	}
 
 
 	public void setExit(boolean exit) {

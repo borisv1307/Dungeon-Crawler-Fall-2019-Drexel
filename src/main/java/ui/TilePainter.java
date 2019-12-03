@@ -24,9 +24,10 @@ public class TilePainter {
 	private void paintTile(Graphics graphics, int tileWidth, int tileHeight, int x, int y, TileType tileType) {
 		handleTile(graphics, tileType);
 		if(tileType==TileType.BLOCKER||tileType==TileType.BLOCKER1||tileType==TileType.BLOCKER2||tileType==TileType.BLOCKER3)
+
 			graphics.fillOval(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
 		else 
-		graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+			graphics.fillRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
 	}
 
 	private void handleTile(Graphics graphics, TileType tileType) {
