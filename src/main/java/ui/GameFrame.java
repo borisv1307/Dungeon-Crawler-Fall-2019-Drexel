@@ -3,6 +3,8 @@ package ui;
 import java.awt.Dimension;
 import java.awt.Frame;
 
+import javax.swing.JOptionPane;
+
 import values.TunableParameters;
 
 public class GameFrame extends Frame {
@@ -18,4 +20,6 @@ public class GameFrame extends Frame {
 		gamePanel.init();
 		setVisible(true);
 	}
+
 }
+ 

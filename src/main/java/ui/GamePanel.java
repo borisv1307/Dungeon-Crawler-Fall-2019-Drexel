@@ -64,5 +64,5 @@ public class GamePanel extends Panel {
 		}
 
 		return true;
-	}
+	} 
 }

@@ -4,9 +4,9 @@ Feature: Move the player into empty space
   Background: 
     Given the level design is:
       | XXXXX |
-      | X   X |
+      | XE TX |
       | X P X |
-      | X   X |
+      | XR OX |
       | XXXXX |
 
   Scenario: Move left into empty space

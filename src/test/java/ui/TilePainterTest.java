@@ -59,5 +59,12 @@ public class TilePainterTest {
 
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}
+	@Test
+	public void paint_blocker() {
+		tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.BLOCKER);
+		
+		Mockito.verify(graphics).fillOval(20, 60, 10, 20);
+		
+	}
 
 }
