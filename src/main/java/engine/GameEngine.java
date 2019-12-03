@@ -101,7 +101,7 @@ public class GameEngine {
 	}
 
 	public void removeCandy(int playerXCoordinate, int playerYCoordinate) {
-		addTile(getPlayerXCoordinate(), getPlayerYCoordinate(), TileType.PASSABLE);
+		addTile(playerXCoordinate, playerYCoordinate, TileType.PASSABLE);
 	}
 
 	public void setExit(boolean exit) {

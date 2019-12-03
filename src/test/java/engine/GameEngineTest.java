@@ -88,7 +88,6 @@ public class GameEngineTest {
 	@Test
 	public void when_player_moves_into_candy_remove_candy() {
 		TileType tileType = TileType.PASSABLE;
-		gameEngine.setPlayer(ZERO, ONE);
 		gameEngine.removeCandy(ZERO, ONE);
 		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
 		assertThat(actual, equalTo(tileType));
