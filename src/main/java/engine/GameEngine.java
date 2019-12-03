@@ -97,7 +97,7 @@ public class GameEngine {
 		}
 		else if(attempedLocation.equals(TileType.CANDY)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-			TileType remove = removeCandy(getPlayerXCoordinate(), getPlayerYCoordinate());
+			removeCandy(getPlayerXCoordinate(), getPlayerYCoordinate());
 		}
 	}
 	
