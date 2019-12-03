@@ -40,7 +40,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
 		try {
-			gameEngine = new GameEngine(levelCreator, new MathWrapper(), new GameFrame());
+			gameEngine = new GameEngine(levelCreator, new MathWrapper(), Mockito.mock(GameFrame.class));
 		} catch (IllegalArgumentException e) {
 			exceptionMessage = e.getMessage();
 		}
@@ -54,7 +54,7 @@ public class LevelCreatorStepDefs extends LevelCreationStepDefHelper {
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-		gameEngine = new GameEngine(levelCreator, new MathWrapper(), new GameFrame());
+		gameEngine = new GameEngine(levelCreator, new MathWrapper(), Mockito.mock(GameFrame.class));
 	}
 
 	@Then("^starting from the top-left:$")

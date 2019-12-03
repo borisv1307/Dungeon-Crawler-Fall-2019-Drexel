@@ -75,9 +75,10 @@ public class MovePlayerIntoOpponentSpaceStepDef extends LevelCreationStepDefHelp
 	void setUp(List<String> levelStrings) throws FileNotFoundException, UnsupportedEncodingException {
 		writeLevelFile(levelStrings);
 		mathWrapper = Mockito.mock(MathWrapper.class);
+		GameFrame frame = Mockito.mock(GameFrame.class);
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), mathWrapper,
-				new GameFrame());
+				frame);
 
 	}
 }

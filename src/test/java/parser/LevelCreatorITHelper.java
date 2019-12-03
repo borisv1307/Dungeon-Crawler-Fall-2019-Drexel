@@ -54,7 +54,7 @@ public class LevelCreatorITHelper {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
 		try {
-			gameEngine = new GameEngine(levelCreator, new MathWrapper(), new GameFrame());
+			gameEngine = new GameEngine(levelCreator, new MathWrapper(), Mockito.mock(GameFrame.class));
 		} catch (IllegalArgumentException e) {
 			exceptionMessage = e.getMessage();
 		}
@@ -94,7 +94,7 @@ public class LevelCreatorITHelper {
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, readerWrapper);
-		gameEngine = new GameEngine(levelCreator, new MathWrapper(), new GameFrame());
+		gameEngine = new GameEngine(levelCreator, new MathWrapper(), Mockito.mock(GameFrame.class));
 	}
 
 	protected void opponentIsLocatedAt(int opponentX, int opponentY) throws Throwable {

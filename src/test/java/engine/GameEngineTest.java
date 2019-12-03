@@ -24,7 +24,8 @@ public class GameEngineTest {
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-		gameEngine = new GameEngine(levelCreator, new MathWrapper(), new GameFrame());
+		GameFrame frame = Mockito.mock(GameFrame.class);
+		gameEngine = new GameEngine(levelCreator, new MathWrapper(), frame);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
 	}

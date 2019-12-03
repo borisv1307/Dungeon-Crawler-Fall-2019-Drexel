@@ -1,4 +1,4 @@
-@UITest
+@IntegrationTest
 Feature: Move Opponent to new position 
 
 Scenario: Move player up into opponent space

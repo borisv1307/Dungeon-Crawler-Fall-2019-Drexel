@@ -1,4 +1,4 @@
-@UITest
+@IntegrattionTest
 Feature: Display pop up message
 
 Scenario: Pop up message shouldn't display
