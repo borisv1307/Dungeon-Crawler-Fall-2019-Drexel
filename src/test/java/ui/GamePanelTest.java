@@ -124,4 +124,14 @@ public class GamePanelTest {
 		pressKey(KeyEvent.VK_ENTER);
 		Mockito.verify(gameEngine, Mockito.times(1)).keySelect();
 	}
+
+	@Test
+	public void does_not_move_or_select_on_other_key() {
+		pressKey(KeyEvent.VK_ESCAPE);
+		Mockito.verify(gameEngine, Mockito.times(0)).keyLeft();
+		Mockito.verify(gameEngine, Mockito.times(0)).keyRight();
+		Mockito.verify(gameEngine, Mockito.times(0)).keyUp();
+		Mockito.verify(gameEngine, Mockito.times(0)).keyDown();
+		Mockito.verify(gameEngine, Mockito.times(0)).keySelect();
+	}
 }
