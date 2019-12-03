@@ -6,13 +6,22 @@ import java.awt.Point;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
+import org.mockito.internal.util.reflection.Whitebox;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 import characters.CharacterClass;
+import exceptions.LogicError;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(CharacterClass.class)
 public class CharacterPainterTest {
 
 	private static final int TILE_X = 10;
@@ -25,6 +34,20 @@ public class CharacterPainterTest {
 	public void setUp() {
 		characterPainter = new CharacterPainter();
 		graphics = Mockito.mock(Graphics.class);
+	}
+
+	@Test(expected = LogicError.class)
+	public void throw_logic_error_when_paint_unknown_character() {
+
+		CharacterClass otherCharClass = PowerMockito.mock(CharacterClass.class);
+		Whitebox.setInternalState(otherCharClass, "name", "OTHER_CHAR_CLASS");
+		Whitebox.setInternalState(otherCharClass, "ordinal", 3);
+
+		PowerMockito.mockStatic(CharacterClass.class);
+		PowerMockito.when(CharacterClass.values()).thenReturn(new CharacterClass[] { CharacterClass.WARRIOR,
+				CharacterClass.ROGUE, CharacterClass.SORCERER, otherCharClass });
+
+		characterPainter.paintPlayer(graphics, TILE_X, TILE_Y, 30, 20, otherCharClass);
 	}
 
 	@Test
