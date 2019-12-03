@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -21,7 +22,6 @@ import characters.CharacterClass;
 import exceptions.LogicError;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(CharacterClass.class)
 public class CharacterPainterTest {
 
 	private static final int TILE_X = 10;
@@ -37,6 +37,7 @@ public class CharacterPainterTest {
 	}
 
 	@Test(expected = LogicError.class)
+	@PrepareForTest(CharacterClass.class)
 	public void throw_logic_error_when_paint_unknown_character() {
 
 		CharacterClass otherCharClass = PowerMockito.mock(CharacterClass.class);
