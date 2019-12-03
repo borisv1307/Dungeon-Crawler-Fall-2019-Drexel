@@ -24,7 +24,7 @@ public class GameEngineTest {
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-		gameEngine = new GameEngine(levelCreator, new MathWrapper());
+		gameEngine = new GameEngine(levelCreator, new MathWrapper(), new GameFrame());
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
 	}
@@ -42,58 +42,48 @@ public class GameEngineTest {
 	public void add_and_get_tile() {
 		TileType tileType = TileType.PASSABLE;
 		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
-		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
-		assertThat(actual, equalTo(tileType));
+		assertThat(gameEngine.getTileFromCoordinates(ZERO, ONE), equalTo(tileType));
 	}
 
 	@Test
 	public void add_and_get_tile_of_opponent() {
 		TileType tileType = TileType.OPPONENT;
 		gameEngine.addTile(ZERO, ONE, TileType.OPPONENT);
-		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
-		assertThat(actual, equalTo(tileType));
+		assertThat(gameEngine.getTileFromCoordinates(ZERO, ONE), equalTo(tileType));
 	}
 
 	@Test
 	public void set_and_get_horizontal_dimension() {
 		gameEngine.setLevelHorizontalDimension(ONE);
-		int actual = gameEngine.getLevelHorizontalDimension();
-		assertThat(actual, equalTo(ONE));
+		assertThat(gameEngine.getLevelHorizontalDimension(), equalTo(ONE));
 	}
 
 	@Test
 	public void set_and_get_vertical_dimension() {
 		gameEngine.setLevelVerticalDimension(ONE);
-		int actual = gameEngine.getLevelVerticalDimension();
-		assertThat(actual, equalTo(ONE));
+		assertThat(gameEngine.getLevelVerticalDimension(), equalTo(ONE));
 	}
 
 	@Test
 	public void add_and_get_player_coordinates() {
 		TileType tileType = TileType.PLAYER;
 		gameEngine.addTile(ZERO, ONE, tileType);
-		int actualX = gameEngine.getPlayerXCoordinate();
-		int actualY = gameEngine.getPlayerYCoordinate();
-		assertThat(actualX, equalTo(ZERO));
-		assertThat(actualY, equalTo(ONE));
+		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(ZERO));
+		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(ONE));
 	}
 
 	@Test
 	public void add_and_get_opponent_coordinates() {
-		TileType tileType = TileType.OPPONENT;
 		gameEngine.addTile(ZERO, ONE, TileType.OPPONENT);
-		int actualX = gameEngine.getOpponentXCoordinate();
-		int actualY = gameEngine.getOpponentYCoordinate();
-		assertThat(actualX, equalTo(ZERO));
-		assertThat(actualY, equalTo(ONE));
+		assertThat(gameEngine.getOpponentXCoordinate(), equalTo(ZERO));
+		assertThat(gameEngine.getOpponentYCoordinate(), equalTo(ONE));
 	}
 
 	@Test
 	public void set_and_get_exit() {
 		boolean exit = true;
 		gameEngine.setExit(exit);
-		boolean actual = gameEngine.isExit();
-		assertThat(actual, equalTo(exit));
+		assertThat(gameEngine.isExit(), equalTo(exit));
 	}
 
 }

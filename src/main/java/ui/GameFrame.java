@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.Window;
 
 import javax.swing.JOptionPane;
 
@@ -22,15 +21,14 @@ public class GameFrame extends Frame {
 		gamePanel.init();
 		setVisible(true);
 	}
+
 	public GameFrame() {
-		
+
 	}
-	
-	public void gameCompletedPopupMessage(){
-		 
-				JOptionPane.showMessageDialog(getFrames()[0], "Successfully Completed Game. Click ok to replay");
-			
-		 
-	 }
-	 
+
+	public void displayPopupMessage() {
+		JOptionPane.showMessageDialog(getFrames()[0], "Game Completed Successfully. Click OK to Play Again");
+
+	}
+
 }

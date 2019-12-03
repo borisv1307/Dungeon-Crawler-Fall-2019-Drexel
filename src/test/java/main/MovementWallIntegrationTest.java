@@ -9,6 +9,7 @@ import org.junit.Test;
 import engine.GameEngine;
 import parser.LevelCreator;
 import parser.LevelCreatorITHelper;
+import ui.GameFrame;
 import values.TestingTunableParameters;
 import wrappers.MathWrapper;
 import wrappers.ReaderWrapper;
@@ -23,7 +24,8 @@ public class MovementWallIntegrationTest extends LevelCreatorITHelper {
 		levelStrings.add("XXX");
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), new MathWrapper());
+				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), new MathWrapper(),
+				new GameFrame());
 	}
 
 	@Test

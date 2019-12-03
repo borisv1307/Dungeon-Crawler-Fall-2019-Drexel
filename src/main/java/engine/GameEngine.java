@@ -20,13 +20,19 @@ public class GameEngine {
 	private Point player;
 	private Point opponent;
 	private final int level;
-	MathWrapper mathWrapper;
+	private MathWrapper mathWrapper;
 	public int numberOfEnemiesKilled = 0;
+	int minimumXCoordinate = 1;
+	int minimumYCoordinate = 1;
+	int maximumXCoordinate = 20;
+	int maximumYCoordinate = 10;
+	private GameFrame frame;
 
-	public GameEngine(LevelCreator levelCreator, MathWrapper mathWrapper) {
+	public GameEngine(LevelCreator levelCreator, MathWrapper mathWrapper, GameFrame frame) {
 		exit = false;
 		level = 1;
 		this.mathWrapper = mathWrapper;
+		this.frame = frame;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
 	}
@@ -52,7 +58,6 @@ public class GameEngine {
 	public void setOpponent(int x, int y) {
 		opponent = new Point(x, y);
 		tiles.put(new Point(x, y), TileType.OPPONENT);
-
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -111,21 +116,24 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		} else if (attempedLocation.equals(TileType.OPPONENT)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-			populateGameCompleteMessage();
+			displayGameOverMessage();
 			moveOpponent();
 		}
 	}
 
-	private void populateGameCompleteMessage(){
+	private void displayGameOverMessage() {
 		numberOfEnemiesKilled++;
-		
-		if(numberOfEnemiesKilled == 10) {
-			new GameFrame().gameCompletedPopupMessage();
+		if (numberOfEnemiesKilled == 10) {
+			frame.displayPopupMessage();
+			numberOfEnemiesKilled = 0;
 		}
 	}
+
 	private void moveOpponent() {
-		
-		setOpponent(mathWrapper.getRandomInteger(getLevelHorizontalDimension()-1, 1), mathWrapper.getRandomInteger(getLevelVerticalDimension()-1, 1));
+		maximumXCoordinate = getLevelHorizontalDimension() - 1;
+		maximumYCoordinate = getLevelVerticalDimension() - 1;
+		setOpponent(mathWrapper.getRandomInteger(maximumXCoordinate, minimumXCoordinate),
+				mathWrapper.getRandomInteger(maximumYCoordinate, minimumYCoordinate));
 	}
 
 	public void setExit(boolean exit) {
