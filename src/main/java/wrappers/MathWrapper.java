@@ -1,10 +1,10 @@
 package wrappers;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class MathWrapper {
 	public int getRandomInteger(int maximum) {
-		return new Random().nextInt(maximum - 1) + 1;
+		return new SecureRandom().nextInt(maximum - 1) + 1;
 
 	}
 

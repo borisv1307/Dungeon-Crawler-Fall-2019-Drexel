@@ -26,7 +26,7 @@ public class PopupMessagesStepDefs extends LevelCreationStepDefHelper {
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), new MathWrapper(),
 				frame);
-		gameEngine.numberOfEnemiesKilled = 1;
+		gameEngine.setNumberOfEnemiesKilled(1);
 	}
 
 	@When("^the player moves up and kill enemy$")
@@ -47,7 +47,7 @@ public class PopupMessagesStepDefs extends LevelCreationStepDefHelper {
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), new MathWrapper(),
 				frame);
-		gameEngine.numberOfEnemiesKilled = 9;
+		gameEngine.setNumberOfEnemiesKilled(9);
 	}
 
 	@Then("^Pop up message should display once$")

@@ -21,7 +21,7 @@ public class GameEngine {
 	private Point opponent;
 	private final int level;
 	private MathWrapper mathWrapper;
-	public static int numberOfEnemiesKilled = 0;
+	private int numberOfEnemiesKilled;
 	private GameFrame frame;
 
 	public GameEngine(LevelCreator levelCreator, MathWrapper mathWrapper, GameFrame frame) {
@@ -120,6 +120,14 @@ public class GameEngine {
 		return exit;
 	}
 
+	public int getNumberOfEnemiesKilled() {
+		return numberOfEnemiesKilled;
+	}
+
+	public void setNumberOfEnemiesKilled(int numberOfEnemiesKilled) {
+		this.numberOfEnemiesKilled = numberOfEnemiesKilled;
+	}
+
 	private void movePlayer(int xDiff, int yDiff) {
 		tiles.put(new Point(getPlayerXCoordinate(), getPlayerYCoordinate()), TileType.PASSABLE);
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
@@ -135,9 +143,9 @@ public class GameEngine {
 
 	private void displayGameOverMessage() {
 		numberOfEnemiesKilled++;
-		if (numberOfEnemiesKilled == 10) {
+		if (getNumberOfEnemiesKilled() == 10) {
 			frame.displayPopupMessage();
-			numberOfEnemiesKilled = 0;
+			setNumberOfEnemiesKilled(0);
 		}
 	}
 
