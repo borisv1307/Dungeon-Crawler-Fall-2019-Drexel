@@ -27,6 +27,10 @@ public class GameExitStepDef {
 	@When("^the player reaches (\\d+),(\\d+) of final level$")
 	public void the_player_reaches_of_final_level(int x, int y) throws Throwable {
 		engine.jumpPlayer(x - 1, y - 1);
+		engine.jumpPlayer(x - 1, y - 1);
+		engine.jumpPlayer(x - 1, y - 1);
+		engine.jumpPlayer(x - 1, y - 1);
+		engine.jumpPlayer(x - 1, y - 1);
 
 	}
 
