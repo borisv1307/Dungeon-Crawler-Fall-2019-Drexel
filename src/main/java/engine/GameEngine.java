@@ -18,7 +18,7 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private final int level;
-	private int numberOfDots = 0;
+	private int totalNumberOfDots = 0;
 	private int numberOfDotsRemoved = 0;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -40,7 +40,7 @@ public class GameEngine {
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else if (tileType.equals(TileType.DOT)) {
 			tiles.put(new Point(x, y), tileType);
-			numberOfDots += 1;
+			totalNumberOfDots += 1;
 		} else
 			tiles.put(new Point(x, y), tileType);
 	}
@@ -107,7 +107,7 @@ public class GameEngine {
 	}
 
 	public void restartLevel() {
-		if (numberOfDotsRemoved == numberOfDots) {
+		if (numberOfDotsRemoved == totalNumberOfDots) {
 			this.levelCreator.createLevel(this, level);
 		}
 	}
