@@ -73,10 +73,6 @@ public class GameEngine {
 		player = new Point(x, y);
 	}
 
-	public void sendPlayerToInlet(int inletXCoordinate, int inletYCoordinate) {
-		movePlayer(-1, -2);
-	}
-
 	private void setInlet(int x, int y) {
 		inlet = new Point(x, y);
 
