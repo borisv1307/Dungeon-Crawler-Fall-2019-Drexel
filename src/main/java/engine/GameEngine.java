@@ -21,7 +21,7 @@ public class GameEngine {
 	private Point player;
 	private final int level;
 	private int p = 0;
-	public TileType tile;
+	private TileType tile;
 	private GameFrame gameFrame;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -95,19 +95,20 @@ public class GameEngine {
 			for (int i = 1; i < 9; i++) {
 				tile = getTileFromCoordinates(x, i);
 				if (x != i) {
-					if (tile != TileType.Enemy)
+					if (tile != TileType.ENEMY) {
 						tiles.put(new Point(x, i), TileType.PASSABLE);
+					}
 				}
 			}
 			for (int i = 0; i < p; i++) {
 				tiles.put(new Point(x - 1 + i, y), TileType.PLAYER);
 				tiles.put(new Point(x + i, y), TileType.PASSABLE);
 			}
-		} else if (player1.equals(TileType.Enemy)) {
+		} else if (player1.equals(TileType.ENEMY)) {
 			setPlayer(x - 1, y);
 			p++;
 			setEnemy(getPlayerXCoordinate(), getPlayerYCoordinate());
-			count();
+			count(p);
 		}
 	}
 
@@ -120,8 +121,9 @@ public class GameEngine {
 			for (int i = 1; i < 9; i++) {
 				tile = getTileFromCoordinates(x, i);
 				if (x != i) {
-					if (tile != TileType.Enemy)
+					if (tile != TileType.ENEMY) {
 						tiles.put(new Point(x, i), TileType.PASSABLE);
+					}
 
 				}
 			}
@@ -130,12 +132,12 @@ public class GameEngine {
 				tiles.put(new Point(x - i, y), TileType.PASSABLE);
 
 			}
-		} else if (player1.equals(TileType.Enemy)) {
+		} else if (player1.equals(TileType.ENEMY)) {
 			setPlayer(x + 1, y);
 			p++;
 
 			setEnemy(getPlayerXCoordinate(), getPlayerYCoordinate());
-			count();
+			count(p);
 		}
 	}
 
@@ -148,8 +150,9 @@ public class GameEngine {
 			for (int i = 1; i < 18; i++) {
 				tile = getTileFromCoordinates(i, y);
 				if (y != i) {
-					if (tile != TileType.Enemy)
+					if (tile != TileType.ENEMY) {
 						tiles.put(new Point(i, y), TileType.PASSABLE);
+					}
 
 				}
 			}
@@ -159,11 +162,11 @@ public class GameEngine {
 				tiles.put(new Point(x, y + i), TileType.PASSABLE);
 
 			}
-		} else if (player1.equals(TileType.Enemy)) {
+		} else if (player1.equals(TileType.ENEMY)) {
 			setPlayer(x, y - 1);
 			p++;
 			setEnemy(getPlayerXCoordinate(), getPlayerYCoordinate());
-			count();
+			count(p);
 		}
 	}
 
@@ -177,8 +180,9 @@ public class GameEngine {
 			for (int i = 1; i < 18; i++) {
 				tile = getTileFromCoordinates(i, y);
 				if (y != i) {
-					if (tile != TileType.Enemy)
+					if (tile != TileType.ENEMY) {
 						tiles.put(new Point(i, y), TileType.PASSABLE);
+					}
 
 				}
 			}
@@ -188,24 +192,17 @@ public class GameEngine {
 				tiles.put(new Point(x, y - i), TileType.PASSABLE);
 
 			}
-		} else if (player1.equals(TileType.Enemy)) {
+		} else if (player1.equals(TileType.ENEMY)) {
 			setPlayer(x, y + 1);
 			p++;
 			setEnemy(getPlayerXCoordinate(), getPlayerYCoordinate());
-			count();
+			count(p);
 		}
 	}
 
-	public void count() {
-		int enemy_count = 0;
-		for (int i = 1; i < 18; i++) {
-			for (int j = 1; j < 18; j++) {
-				tile = getTileFromCoordinates(i, j);
-				if (tile == TileType.Enemy)
-					enemy_count++;
-			}
-		}
-		if (enemy_count == 0) {
+	public void count(int p) {
+
+		if (p == 3) {
 			gameFrame.popup(p);
 			exit = true;
 		}
