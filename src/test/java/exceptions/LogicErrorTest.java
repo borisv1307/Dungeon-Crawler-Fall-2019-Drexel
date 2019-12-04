@@ -11,7 +11,7 @@ public class LogicErrorTest {
 	public void error_message_is_set() {
 		String message = "error message";
 		Exception ex = new LogicError(message);
-
+		
 		String actual = ex.getMessage();
 		assertThat(actual, equalTo(message));
 	}
