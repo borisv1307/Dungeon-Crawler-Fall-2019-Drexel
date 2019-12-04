@@ -68,8 +68,8 @@ public class OpponentMovementStepDefs extends LevelCreationStepDefHelper {
 	public void the_opponent_should_move_to_random_position() throws Throwable {
 		assertFalse(gameEngine.getPlayerXCoordinate() == gameEngine.getOpponentXCoordinate());
 		assertFalse(gameEngine.getPlayerYCoordinate() == gameEngine.getOpponentYCoordinate());
-		Mockito.verify(mathWrapper, Mockito.times(1)).getRandomInteger(19, 1);
-		Mockito.verify(mathWrapper, Mockito.times(1)).getRandomInteger(9, 1);
+		Mockito.verify(mathWrapper, Mockito.times(1)).getRandomInteger(19);
+		Mockito.verify(mathWrapper, Mockito.times(1)).getRandomInteger(9);
 	}
 
 	void setUp(List<String> levelStrings) throws FileNotFoundException, UnsupportedEncodingException {

@@ -13,7 +13,7 @@ Feature: Move the player into Opponent space
 |X         O        X|
 |X         P        X|
 |X                  X|
-|XXXXXXXXXXXXXXXXXXXX|
+|XXXXXXXXXXXXXXXXXXXX| 
     	When the player moves up to opponent area
     	Then the player is located at new position 10,6
     

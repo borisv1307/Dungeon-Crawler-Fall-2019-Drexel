@@ -11,6 +11,10 @@ public class GameFrame extends Frame {
 
 	private static final long serialVersionUID = 1L;
 
+	public GameFrame() {
+
+	}
+
 	public GameFrame(GamePanel gamePanel, WindowAdapterSystemExit windowAdapterSystemExit) {
 		setResizable(false);
 		addWindowListener(windowAdapterSystemExit);
@@ -21,13 +25,8 @@ public class GameFrame extends Frame {
 		setVisible(true);
 	}
 
-	public GameFrame() {
-
-	}
-
 	public void displayPopupMessage() {
 		JOptionPane.showMessageDialog(getFrames()[0], "Game Completed Successfully. Click OK to Play Again");
-
 	}
 
 }

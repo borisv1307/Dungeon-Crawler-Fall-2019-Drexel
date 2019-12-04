@@ -21,11 +21,7 @@ public class GameEngine {
 	private Point opponent;
 	private final int level;
 	private MathWrapper mathWrapper;
-	public int numberOfEnemiesKilled = 0;
-	int minimumXCoordinate = 1;
-	int minimumYCoordinate = 1;
-	int maximumXCoordinate = 20;
-	int maximumYCoordinate = 10;
+	public static int numberOfEnemiesKilled = 0;
 	private GameFrame frame;
 
 	public GameEngine(LevelCreator levelCreator, MathWrapper mathWrapper, GameFrame frame) {
@@ -53,11 +49,6 @@ public class GameEngine {
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
-	}
-
-	public void setOpponent(int x, int y) {
-		opponent = new Point(x, y);
-		tiles.put(new Point(x, y), TileType.OPPONENT);
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -92,6 +83,19 @@ public class GameEngine {
 		return (int) player.getY();
 	}
 
+	public void setOpponent(int x, int y) {
+		opponent = new Point(x, y);
+		tiles.put(new Point(x, y), TileType.OPPONENT);
+	}
+
+	public int getOpponentXCoordinate() {
+		return (int) opponent.getX();
+	}
+
+	public int getOpponentYCoordinate() {
+		return (int) opponent.getY();
+	}
+
 	public void keyLeft() {
 		movePlayer(-1, 0);
 	}
@@ -106,6 +110,14 @@ public class GameEngine {
 
 	public void keyDown() {
 		movePlayer(0, 1);
+	}
+
+	public void setExit(boolean exit) {
+		this.exit = exit;
+	}
+
+	public boolean isExit() {
+		return exit;
 	}
 
 	private void movePlayer(int xDiff, int yDiff) {
@@ -130,25 +142,8 @@ public class GameEngine {
 	}
 
 	private void moveOpponent() {
-		maximumXCoordinate = getLevelHorizontalDimension() - 1;
-		maximumYCoordinate = getLevelVerticalDimension() - 1;
-		setOpponent(mathWrapper.getRandomInteger(maximumXCoordinate, minimumXCoordinate),
-				mathWrapper.getRandomInteger(maximumYCoordinate, minimumYCoordinate));
+		setOpponent(mathWrapper.getRandomInteger(getLevelHorizontalDimension() - 1),
+				mathWrapper.getRandomInteger(getLevelVerticalDimension() - 1));
 	}
 
-	public void setExit(boolean exit) {
-		this.exit = exit;
-	}
-
-	public boolean isExit() {
-		return exit;
-	}
-
-	public int getOpponentXCoordinate() {
-		return (int) opponent.getX();
-	}
-
-	public int getOpponentYCoordinate() {
-		return (int) opponent.getY();
-	}
 }
