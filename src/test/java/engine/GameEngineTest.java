@@ -158,7 +158,7 @@ public void mocking_random_number_method() {
 @Test
 public void displaying_number_of_moves_once_game_is_over() {
 	GameEngine  gameEngine = Mockito.mock(GameEngine.class);
-	gameEngine.displayStatus(10);
+	gameEngine.displayStatus(10); 
 	Mockito.verify(gameEngine,Mockito.times(1)).displayStatus(10);	
 }
 
