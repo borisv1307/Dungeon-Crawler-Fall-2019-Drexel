@@ -6,7 +6,6 @@ import java.awt.Point;
 import java.io.Serializable;
 
 import characters.CharacterClass;
-import exceptions.LogicError;
 
 public class CharacterPainter implements Serializable {
 
