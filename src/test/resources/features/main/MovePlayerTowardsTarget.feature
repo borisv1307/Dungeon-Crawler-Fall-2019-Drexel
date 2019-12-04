@@ -6,7 +6,7 @@ Feature: Move the player to kill the target
 
 		|XXXXX|
 		|X OPX|
-		|X   X|
+		|X O X|
 		|XXXXX|
     
   Scenario: Verify that target does not exist after killing the target

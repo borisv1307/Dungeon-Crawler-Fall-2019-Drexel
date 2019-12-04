@@ -18,6 +18,8 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private final int level;
+	private int numberOfDots = 0;
+	private int numberOfDotsRemoved = 0;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -36,9 +38,11 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
-		} else {
+		} else if (tileType.equals(TileType.DOT)) {
 			tiles.put(new Point(x, y), tileType);
-		}
+			numberOfDots += 1;
+		} else
+			tiles.put(new Point(x, y), tileType);
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -97,6 +101,14 @@ public class GameEngine {
 		} else if (attempedLocation.equals(TileType.DOT)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 			tiles.replace(player, attempedLocation, TileType.PASSABLE);
+			numberOfDotsRemoved += 1;
+			this.restartLevel();
+		}
+	}
+
+	public void restartLevel() {
+		if (numberOfDotsRemoved == numberOfDots) {
+			this.levelCreator.createLevel(this, level);
 		}
 	}
 

@@ -52,8 +52,19 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
 	}
 
+	@When("^the target is located at \\((\\d+), (\\d+)\\)$")
+	public void the_enemy_s_coorninates_are(int x, int y) throws Throwable {
+		assertThat(gameEngine.getTileFromCoordinates(x - COORDINATE_OFFSET, y - COORDINATE_OFFSET),
+				equalTo(TileType.DOT));
+	}
+
 	@Then("^target is removed from location \\((\\d+), (\\d+)\\)$")
 	public void target_is_removed_from_location(int x, int y) throws Throwable {
 		assertThat(gameEngine.getTileFromCoordinates(x, y), equalTo(TileType.PASSABLE));
+	}
+
+	@Then("^the level gets restarted after final target is removed by the player$")
+	public void the_level_gets_restarted_after_final_target_is_removed_by_the_player() throws Throwable {
+		gameEngine.restartLevel();
 	}
 }
