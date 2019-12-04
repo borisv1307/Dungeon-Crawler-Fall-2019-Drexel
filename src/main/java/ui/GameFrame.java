@@ -3,6 +3,8 @@ package ui;
 import java.awt.Dimension;
 import java.awt.Frame;
 
+import javax.swing.JOptionPane;
+
 import values.TunableParameters;
 
 public class GameFrame extends Frame {
@@ -17,5 +19,9 @@ public class GameFrame extends Frame {
 		pack();
 		gamePanel.init();
 		setVisible(true);
+	}
+
+	public void popup(int count) {
+		JOptionPane.showConfirmDialog(null, count, "Collectable Tiles", JOptionPane.DEFAULT_OPTION);
 	}
 }
