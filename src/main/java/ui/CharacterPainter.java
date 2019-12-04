@@ -26,8 +26,6 @@ public class CharacterPainter implements Serializable {
 			paintSorcerer(graphics, playerX, playerY, tileWidth, tileHeight);
 			return;
 		}
-
-		throw new LogicError("unhandled character class");
 	}
 
 	public int getPlayerSize(int tileWidth, int tileHeight) {
