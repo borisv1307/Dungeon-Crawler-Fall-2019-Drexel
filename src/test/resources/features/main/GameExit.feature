@@ -37,7 +37,16 @@ Feature: The game reaches end
       | X P XX |
       | XXXXXX |
     When the player reaches <WINNER_POINT> of final level
-    Then the game gets over
+    Then the game displays winning level:
+      | XXXXXXXXXXXXXXXXXXX |
+      | X                 X |
+      | X X   X XXX X   X X |
+      | X X   X X X XX  X X |
+      | X X X X X X X X X X |
+      | X X X X X X X  XX X |
+      | X XXXXX XXX X   X X |
+      | X                 X |
+      | XXXXXXXXXXXXXXXXXXX |
 
     Examples: 
       | WINNER_POINT | LEVEL |

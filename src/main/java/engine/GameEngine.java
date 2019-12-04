@@ -19,12 +19,15 @@ public class GameEngine {
 	private Point player;
 	private Point startPosition;
 	private int level;
+	private int winningLevel;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
+		winningLevel = 6;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -116,8 +119,10 @@ public class GameEngine {
 
 			setPlayer((int) startPosition.getX(), (int) startPosition.getY());
 		} else if (attempedLocation.equals(TileType.WINNER)) {
-			setExit(true);
-			System.out.println("GameWon!!");
+			setPlayer(9, 4);
+			this.level = winningLevel;
+			this.levelCreator.createLevel(this, level);
+
 		}
 	}
 
