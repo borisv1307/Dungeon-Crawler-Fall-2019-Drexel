@@ -28,10 +28,7 @@ public class TileColorMapTest {
 	public void blocker() {
 		assertSame(Color.RED, TileColorMap.get(TileType.BLOCKER));
 	}
-	@Test
-	public void blocker1() {
-		assertSame(Color.RED, TileColorMap.get(TileType.BLOCKER1));
-	}
+
 	
 }
  

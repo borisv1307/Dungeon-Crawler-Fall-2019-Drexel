@@ -21,7 +21,7 @@ public class LevelCreator {
 	public LevelCreator(String fileLocationPrefix, ReaderWrapper readerWrapper) {
 		this.fileLocationPrefix = fileLocationPrefix;
 		this.readerWrapper = readerWrapper;
-	}
+	} 
 
 	public void createLevel(GameEngine gameEngine, int level) {
 		BufferedReader reader;

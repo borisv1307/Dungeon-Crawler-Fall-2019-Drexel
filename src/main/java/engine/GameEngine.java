@@ -2,13 +2,12 @@ package engine;
 
 import java.awt.Component;
 import java.awt.Point;
-import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.JOptionPaneWrapper;
 
 
 
@@ -20,16 +19,17 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
-	private Point blocker;
-	private Point blocker1;
-	private Point blocker2;
-	private Point blocker3;
+	private Map<Point, TileType> blocker=new HashMap<Point,TileType>() ;
 	public final int level;
 	private int numberOfMoves;
-	private int[] randomYCoordinatesArray= new int[4];
-	private int[] randomXCoordinatesArray=new int[4];
+	private int blockerXCoordinate;
+	private int blockerYCoordinate;
+	private int blockerCount=4;
+	RandomNumberGenerator randomNumber= new RandomNumberGenerator();
+	public int[] randomYCoordinatesArray= new int[4];
+	public int[] randomXCoordinatesArray=new int[4];
 	
-
+	
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level=1;
@@ -44,40 +44,19 @@ public class GameEngine {
 	}
 
 	public void addTile(int x, int y, TileType tileType) {
-		if (IsPlayer(tileType)) {
+		if (tileType.equals(TileType.PLAYER)) {
 			
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
-			
-		} 
-		if(IsBlocker(tileType)){
-				
-			  setBlocker(x, y); 
-			  tiles.put(new Point(x,y), TileType.BLOCKER);
-			  
-		 }
-		if(IsBlocker1(tileType)){ 
-				  
-				setBlocker1(x, y);
-				tiles.put(new Point(x,y), TileType.BLOCKER1);
-		 } 
-		if (IsBlocker2(tileType)){ 
-				  
-				  setBlocker2(x, y);
-				  tiles.put(new Point(x,y), TileType.BLOCKER2); 
-		  }
-		if (IsBlocker3(tileType)){
-					  
-				  setBlocker3(x, y); 
-				  tiles.put(new Point(x,y), TileType.BLOCKER3);
-				  
-		  }
-		if(tileType==TileType.PASSABLE||tileType==TileType.NOT_PASSABLE) {
-				  
-		tiles.put(new Point(x, y), tileType);
-		  }
+		}
+		else if(tileType.equals(TileType.BLOCKER)){
+			setBlocker(x,y);
+			tiles.put(new Point(x, y), TileType.BLOCKER);
+		}
+		else {
+			  tiles.put(new Point(x, y), tileType);
+			  }
 	}
-
 
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -104,17 +83,7 @@ public class GameEngine {
 		player = new Point(x, y);
 	}
 	public void setBlocker(int x, int y) {
-		blocker = new Point(x, y);
-	}
-	public void setBlocker1(int x, int y) {
-		blocker1 = new Point(x, y);
-	}
-	public void setBlocker2(int x, int y) {
-		blocker2 = new Point(x, y);
-	}	
-	public void setBlocker3(int x, int y) {
-		blocker3 = new Point(x, y);
-		
+		blocker.put( new Point(x, y),TileType.BLOCKER);
 	}
 	
 	public int getPlayerXCoordinate() {
@@ -124,90 +93,79 @@ public class GameEngine {
 	public int getPlayerYCoordinate() {
 		return (int) player.getY();
 	}
-	public int getBlockerXCoordinate() {
-		return (int) blocker.getX();
+	public int getBlockerXCoordinate(int blockerNumber) {
+		int blockeroffset=1;
+		for(Point p: blocker.keySet()) {
+			
+			if(blockeroffset == blockerNumber) {
+				blockerXCoordinate= (int)p.getX();
+			}
+			blockeroffset++;
+		  }
+		return blockerXCoordinate;
+		
 	}
 
-	public int getBlockerYCoordinate() {
-		return (int) blocker.getY();
-	} 
-	public int getBlocker1XCoordinate() {
-		return (int) blocker1.getX();
+	public int getBlockerYCoordinate(int blockerNumber) {
+		int blockeroffset=1;
+		for(Point p: blocker.keySet()) {
+			
+			if(blockeroffset == blockerNumber) {
+				blockerYCoordinate= (int)p.getY();
+			}
+			blockeroffset++;
+		  }
+		return blockerYCoordinate;
+		
 	}
-
-	public int getBlocker1YCoordinate() {
-		return (int) blocker1.getY();
-	}
-	public int getBlocker2XCoordinate() {
-		return (int) blocker2.getX();
-	}
-
-	public int getBlocker2YCoordinate() {
-		return (int) blocker2.getY();
-	}
-	public int getBlocker3XCoordinate() {
-		return (int) blocker3.getX();
-	}
-
-	public int getBlocker3YCoordinate() {
-		return (int) blocker3.getY();
-	}
-	
 
 	public void keyLeft() {
 		
-		movePlayer(-1,0);
+		movePlayer(-1,0,randomNumber);
 	}
 
 	public void keyRight() {
 		
-		movePlayer(1,0);
+		movePlayer(1,0,randomNumber);
 	}
 		
 
 	public void keyUp() {
-		movePlayer(0,-1);
+		movePlayer(0,-1,randomNumber);
 	}
 
 	public void keyDown() {		
-		movePlayer(0, 1);
+		movePlayer(0, 1,randomNumber);
 	}
 	
-	public void movePlayer(int xDiff, int yDiff) {
+	public void movePlayer(int xDiff, int yDiff,RandomNumberGenerator randomNumber) {
 		int maxXCoordinate=16;
 		int maxYCoordinate=8;
-	
 		TileType tile =getTileFromCoordinates(getPlayerXCoordinate()+xDiff, getPlayerYCoordinate()+yDiff );
-		
 	
 		if(tile!=TileType.NOT_PASSABLE)
 		{
-			if(tile==TileType.BLOCKER||tile==TileType.BLOCKER1||tile==TileType.BLOCKER2||tile==TileType.BLOCKER3)	{	
+			if(tile==TileType.BLOCKER)	{	
 				setPlayer(50, 50);
-				updateBlockerTile();
-				setBlocker(50,50);
-				setBlocker1(50,50);
-				setBlocker2(50,50);
-				setBlocker3(50,50);
-				updateBlockerPosition();	
-				displayStatus(numberOfMoves);
-				exit=true;
-				
-		}
+				updateBlockerTile();	
+				JOptionPaneWrapper jOptionPaneWrapper=new JOptionPaneWrapper();
+				displayStatus(numberOfMoves,jOptionPaneWrapper);
+				exit=true; 	
+		    }
 			else {
 				setPlayer(getPlayerXCoordinate()+xDiff, getPlayerYCoordinate()+yDiff);
 				updateBlockerTile();
-				numberOfMoves++;
-				randomXCoordinatesForBlockers(maxXCoordinate);
-				randomYCoordinatesForBlockers(maxYCoordinate);
-				setBlocker(randomXCoordinatesArray[0], randomYCoordinatesArray[0]);
-				setBlocker1(randomXCoordinatesArray[1], randomYCoordinatesArray[1]);
-				setBlocker2(randomXCoordinatesArray[2], randomYCoordinatesArray[2]);
-				setBlocker3(randomXCoordinatesArray[3], randomYCoordinatesArray[3]);
-					
+				blocker.clear();
+				numberOfMoves++;				
+				for(int i=0;i<4;i++) { 
+					randomXCoordinatesArray[i]=randomNumber.randomCoordinatesForBlockers(maxXCoordinate);
+					randomYCoordinatesArray[i]=randomNumber.randomCoordinatesForBlockers(maxYCoordinate);
+					setBlocker(randomXCoordinatesArray[i], randomYCoordinatesArray[i]);
+				
+				}	
 				updateBlockerPosition();
 			}
-			}
+		 }
 		
 		else {
 			setPlayer(getPlayerXCoordinate(), getPlayerYCoordinate());
@@ -215,76 +173,26 @@ public class GameEngine {
 		}
 	
 	
-	public void displayStatus(int numberOfMoves) {
-		JOptionPane.showMessageDialog(null, "Number of Moves:"+numberOfMoves+"\n"+"Game Over", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+	public void displayStatus(int numberOfMoves,JOptionPaneWrapper jOptionPaneWrapper) {
+		jOptionPaneWrapper.showDialoge(numberOfMoves);
 		
-	}
+		}
 
 	private void updateBlockerPosition() {
-		addTile(getBlockerXCoordinate(), getBlockerYCoordinate(), TileType.BLOCKER);
-		addTile(getBlocker1XCoordinate(), getBlocker1YCoordinate(), TileType.BLOCKER1);
-		addTile(getBlocker2XCoordinate(), getBlocker2YCoordinate(), TileType.BLOCKER2);
-		addTile(getBlocker3XCoordinate(), getBlocker3YCoordinate(), TileType.BLOCKER3);
 		
-	}
+		for(int i=1;i<=blockerCount;i++) {
+		addTile(getBlockerXCoordinate(i), getBlockerYCoordinate(i), TileType.BLOCKER); 
+		}
+		
+	} 
 
 	private void updateBlockerTile() {
-		addTile(getBlockerXCoordinate(), getBlockerYCoordinate(), TileType.PASSABLE);
-		addTile(getBlocker1XCoordinate(), getBlocker1YCoordinate(), TileType.PASSABLE);
-		addTile(getBlocker2XCoordinate(), getBlocker2YCoordinate(), TileType.PASSABLE);
-		addTile(getBlocker3XCoordinate(), getBlocker3YCoordinate(), TileType.PASSABLE);
+		
+		for(int i=1;i<=blockerCount;i++) {
+			addTile(getBlockerXCoordinate(i), getBlockerYCoordinate(i), TileType.PASSABLE);
+		}
 		
 	}
-
-	public void randomXCoordinatesForBlockers(int max) {
-
-		for (int i=0;i<4;i++) {
-			randomXCoordinatesArray[i]=new SecureRandom().nextInt(max)+1;
-		}		
-		
-	}
-	public void randomYCoordinatesForBlockers(int max) {
-		
-		for (int i=0;i<4;i++) {
-			randomYCoordinatesArray[i]=new SecureRandom().nextInt(max)+1;
-		}		
-		
-	}
-	
-	public boolean IsPlayer(TileType tileType) {
-		if (tileType.equals(TileType.PLAYER)) 
-			return true;	
-		else 
-			return false;
-	}
-	public boolean IsBlocker(TileType tileType) {
-		if (tileType.equals(TileType.BLOCKER)) 
-			return true;	
-		else 
-			return false;
-		
-	}
-	public boolean IsBlocker1(TileType tileType) {
-			
-		if (tileType.equals(TileType.BLOCKER1)) 
-			return true;
-		else 
-			return false;
-	}
-	public boolean IsBlocker2(TileType tileType) {
-			
-		if (tileType.equals(TileType.BLOCKER2)) 
-			return true;	
-		else 
-			return false;
-	}
-	public boolean IsBlocker3(TileType tileType) {
-		if (tileType.equals(TileType.BLOCKER3)) 
-			return true;	
-		else 
-			return false;
-	}
-
 
 	public void setExit(boolean exit) {
 		this.exit = exit;

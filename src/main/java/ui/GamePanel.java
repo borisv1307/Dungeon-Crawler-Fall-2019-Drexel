@@ -37,7 +37,7 @@ public class GamePanel extends Panel {
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
 	}
-
+ 
 	@Override
 	public void update(Graphics graphics) {
 		if (dbImage == null) {

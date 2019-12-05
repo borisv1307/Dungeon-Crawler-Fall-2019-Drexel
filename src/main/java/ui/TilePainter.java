@@ -23,7 +23,7 @@ public class TilePainter {
 
 	private void paintTile(Graphics graphics, int tileWidth, int tileHeight, int x, int y, TileType tileType) {
 		handleTile(graphics, tileType);
-		if(tileType==TileType.BLOCKER||tileType==TileType.BLOCKER1||tileType==TileType.BLOCKER2||tileType==TileType.BLOCKER3)
+		if(tileType==TileType.BLOCKER)
 
 			graphics.fillOval(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
 		else 
