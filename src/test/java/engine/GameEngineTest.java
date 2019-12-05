@@ -77,4 +77,25 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(exit));
 	}
 
+	@Test
+	public void checking_score() {
+		gameEngine.addTile(ZERO, ONE, TileType.PLAYER);
+		gameEngine.addTile(ONE, ONE, TileType.ENERGY);
+		gameEngine.addTile(ONE, ZERO, TileType.ENERGY);
+		gameEngine.movePlayer(1, 0);
+		gameEngine.movePlayer(0, -1);
+		assertThat(2, equalTo(gameEngine.game_score));
+
+	}
+
+	@Test
+	public void checking_player_killing_status() {
+		gameEngine.addTile(ZERO, ONE, TileType.PLAYER);
+		gameEngine.addTile(ONE, ONE, TileType.ENEMY);
+		gameEngine.movePlayer(1, 0);
+		assertThat(11, equalTo(gameEngine.getPlayerXCoordinate()));
+		assertThat(11, equalTo(gameEngine.getPlayerYCoordinate()));
+
+	}
+
 }

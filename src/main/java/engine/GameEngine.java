@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
@@ -18,6 +20,7 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private final int level;
+	public static int game_score = 0;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -39,6 +42,7 @@ public class GameEngine {
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
+
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -89,11 +93,31 @@ public class GameEngine {
 		movePlayer(0, 1);
 	}
 
-	private void movePlayer(int xDiff, int yDiff) {
+	public void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
-		if (attempedLocation.equals(TileType.PASSABLE)) {
-			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+
+		if (attempedLocation != TileType.NOT_PASSABLE) {
+			if (attempedLocation == TileType.ENEMY) {
+				setPlayer(11, 11);
+				JOptionPane.showMessageDialog(null, "GAME END ..Lets try again!!! YOUR SCORE:" + game_score,
+						"ENERGY SCORE", JOptionPane.ERROR_MESSAGE);
+				exit = true;
+
+			} else if (attempedLocation == TileType.ENERGY) {
+				addTile(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff, TileType.PASSABLE);
+				setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+				game_score++;
+				if (game_score == 5) {
+					JOptionPane.showMessageDialog(null, "Reached Max Score:5", "ENERGY SCORE",
+							JOptionPane.ERROR_MESSAGE);
+					exit = true;
+				}
+
+			} else {
+				setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+			}
+
 		}
 	}
 
