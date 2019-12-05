@@ -28,7 +28,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	@When("^the player moves left$")
 	public void the_player_moves_left() throws Throwable {
 		gameEngine.keyLeft();
-	}
+	} 
 
 	@When("^the player moves right$")
 	public void the_player_moves_right() throws Throwable {
