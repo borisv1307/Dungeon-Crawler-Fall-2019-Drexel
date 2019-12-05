@@ -18,7 +18,6 @@ public class GameEngine {
 	private int levelVerticalDimension;
 
 	private Point player;
-	private Point movable;
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -39,19 +38,17 @@ public class GameEngine {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else if (tileType.equals(TileType.MOVABLE)) {
-			setMovable(x, y);
 			tiles.put(new Point(x, y), TileType.MOVABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
 	}
 
-	public void resetMovableTile(int xCoordinateMovable, int yCoordinateMovable) {
+	public void resetMovableTileToPassable(int xCoordinateMovable, int yCoordinateMovable) {
 		tiles.put(new Point(xCoordinateMovable, yCoordinateMovable), TileType.PASSABLE);
 	}
 
 	public void setNewMovableTilePosition(int xCoordinateMovable, int yCoordinateMovable) {
-		setMovable(xCoordinateMovable, yCoordinateMovable);
 		tiles.put(new Point(xCoordinateMovable, yCoordinateMovable), TileType.MOVABLE);
 	}
 
@@ -79,24 +76,12 @@ public class GameEngine {
 		player = new Point(x, y);
 	}
 
-	public void setMovable(int x, int y) {
-		movable = new Point(x, y);
-	}
-
 	public int getPlayerXCoordinate() {
 		return (int) player.getX();
 	}
 
 	public int getPlayerYCoordinate() {
 		return (int) player.getY();
-	}
-
-	public int getMovableXCoordinate() {
-		return (int) movable.getX();
-	}
-
-	public int getMovableYCoordinate() {
-		return (int) movable.getY();
 	}
 
 	public void setExit(boolean exit) {
