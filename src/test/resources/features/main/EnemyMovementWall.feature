@@ -1,46 +1,25 @@
 @IntegrationTest
-Feature: Enemy should not move across the wall.
+Feature: When player moves Enemy moves
 
   Background: 
     Given the level design is:
-      | XXXXXXXXX |
-      | XE      X |
-      | X       X |
-      | X     P X |
-      | XXXXXXXXX |
+      | XXXXX |
+      | XEXXX |
+      | XX PX |
+      | XXXXX |
 
-  Scenario Outline: Move player left and enemy moves
+  Scenario: Move player left and enemy moves
     When the player moves left
-    Then the Enemy is not located at (<x>, <y>)
+    Then the Enemy located at (2,2)
 
-    Examples: 
-      | x | y |
-      | 1 | 2 |
-      | 2 | 1 |
-
-  Scenario Outline: Move player right and enemy moves
+  Scenario: Move player right and enemy moves
     When the player moves right
-    Then the Enemy is not located at (<x>, <y>)
+    Then the Enemy located at (2,2)
 
-    Examples: 
-      | x | y |
-      | 1 | 2 |
-      | 2 | 1 |
-
-  Scenario Outline: Move player up and enemy moves
+  Scenario: Move player up and enemy moves
     When the player moves up
-    Then the Enemy is not located at (<x>, <y>)
+    Then the Enemy located at (2,2)
 
-    Examples: 
-      | x | y |
-      | 1 | 2 |
-      | 2 | 1 |
-
-  Scenario Outline: Move player down and enemy moves
+  Scenario: Move player down and enemy moves
     When the player moves down
-    Then the Enemy is not located at (<x>, <y>)
-
-    Examples: 
-      | x | y |
-      | 1 | 2 |
-      | 2 | 1 |
+    Then the Enemy located at (2,2)

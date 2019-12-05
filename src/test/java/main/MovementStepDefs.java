@@ -53,13 +53,29 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
 	}
 
-	@Then("^the Enemy is not located at \\((\\d+), (\\d+)\\)$")
-	public void the_Enemy_is_not_located_at(int enemyX, int enemyY) throws Throwable {
-		boolean a, b;
-		a = (gameEngine.getEnemyXCoordinate() != (enemyX - COORDINATE_OFFSET));
-		b = (gameEngine.getEnemyYCoordinate() != (enemyY - COORDINATE_OFFSET));
+	@Then("^the Enemy located at \\((\\d+), (\\d+)\\) or \\((\\d+),(\\d+)\\) or \\((\\d+),(\\d+)\\)$")
+	public void the_Enemy_located_at_or_or(int enemyX1, int enemyY1, int enemyX2, int enemyY2, int enemyX3, int enemyY3)
+			throws Throwable {
+		boolean atX1, atX2, atY1, atY2, atX3, atY3, checkAtX1Y1, checkAtX2Y2, checkAtX3Y3;
+		atX1 = (gameEngine.getEnemyXCoordinate() == (enemyX1 - COORDINATE_OFFSET));
+		atX2 = (gameEngine.getEnemyXCoordinate() == (enemyX2 - COORDINATE_OFFSET));
+		atX3 = (gameEngine.getEnemyXCoordinate() == (enemyX3 - COORDINATE_OFFSET));
+		atY1 = (gameEngine.getEnemyYCoordinate() == (enemyY1 - COORDINATE_OFFSET));
+		atY2 = (gameEngine.getEnemyYCoordinate() == (enemyY2 - COORDINATE_OFFSET));
+		atY3 = (gameEngine.getEnemyYCoordinate() == (enemyY3 - COORDINATE_OFFSET));
+		checkAtX1Y1 = atX1 && atY1;
+		checkAtX2Y2 = atX2 && atY2;
+		checkAtX3Y3 = atX3 && atY3;
+		assertTrue((checkAtX1Y1 || checkAtX2Y2) || checkAtX3Y3);
 
-		assertTrue(a || b);
+	}
+
+	@Then("^the Enemy located at \\((\\d+),(\\d+)\\)$")
+	public void the_Enemy_located_at(int enemyX1, int enemyY1) throws Throwable {
+		boolean atX1, atY1;
+		atX1 = (gameEngine.getEnemyXCoordinate() == (enemyX1 - COORDINATE_OFFSET));
+		atY1 = (gameEngine.getEnemyYCoordinate() == (enemyY1 - COORDINATE_OFFSET));
+		assertTrue(atX1 && atY1);
 
 	}
 }
