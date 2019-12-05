@@ -14,7 +14,6 @@ public class Launcher {
 		GameEngine gameEngine = ObjectFactory.getDefaultGameEngine();
 		GameFrame gameFrame = ObjectFactory.getDefaultGameFrame();
 		FramesPerSecondHandler framesPerSecondHandler = ObjectFactory.getDefaultFramesPerSecondHandler();
-
 		new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler);
 	}
 }

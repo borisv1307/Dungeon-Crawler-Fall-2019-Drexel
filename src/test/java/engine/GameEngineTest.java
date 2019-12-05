@@ -2,6 +2,7 @@ package engine;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.Component;
 
@@ -75,6 +76,33 @@ public class GameEngineTest {
 		gameEngine.setExit(exit);
 		boolean actual = gameEngine.isExit();
 		assertThat(actual, equalTo(exit));
+	}
+
+	@Test
+	public void player_hits_obstacle() {
+		TileType playerTile = TileType.PLAYER;
+		TileType obstacle = TileType.OBSTACLE;
+		gameEngine.addTile(ZERO, ONE, playerTile);
+		gameEngine.addTile(ZERO, ZERO, obstacle);
+		int actualX = gameEngine.getPlayerXCoordinate();
+		int actualY = gameEngine.getPlayerYCoordinate();
+		gameEngine.keyUp();
+
+		assertEquals(gameEngine.getPlayerXCoordinate(), gameEngine.getObstacleXCoordinate(1));
+		assertEquals(gameEngine.getPlayerXCoordinate(), gameEngine.getObstacleXCoordinate(1));
+	}
+
+	@Test
+	public void obstacle_hits_player() {
+		TileType playerTile = TileType.PLAYER;
+		TileType obstacle = TileType.OBSTACLE;
+		gameEngine.addTile(ZERO, ONE, playerTile);
+		gameEngine.addTile(ONE, ZERO, obstacle);
+		gameEngine.moveObstacleLeft(1);
+		int actualX = gameEngine.getPlayerXCoordinate();
+		int actualY = gameEngine.getPlayerYCoordinate();
+		assertEquals(gameEngine.getPlayerXCoordinate(), gameEngine.getObstacleXCoordinate(1));
+		assertEquals(gameEngine.getPlayerXCoordinate(), gameEngine.getObstacleXCoordinate(1));
 	}
 
 }

@@ -15,6 +15,9 @@ public final class TileColorMap {
 		tileColors.put(TileType.PASSABLE, Color.WHITE);
 		tileColors.put(TileType.NOT_PASSABLE, Color.BLACK);
 		tileColors.put(TileType.PLAYER, Color.GREEN);
+		tileColors.put(TileType.OBSTACLE, Color.RED);
+		tileColors.put(TileType.WALL, Color.GRAY);
+		tileColors.put(TileType.EXIT, Color.YELLOW);
 	}
 
 	public static Color get(TileType key) {

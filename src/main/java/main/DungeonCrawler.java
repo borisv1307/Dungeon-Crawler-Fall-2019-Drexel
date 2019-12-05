@@ -24,6 +24,7 @@ public class DungeonCrawler implements Runnable {
 		this.gameFrame = gameFrame;
 		this.framesPerSecondHandler = framesPerSecondHandler;
 		this.threadWrapper.createNewThreadWithDungeonCrawler(this);
+		gameEngine.moveObstacles(true);
 	}
 
 	@Override
