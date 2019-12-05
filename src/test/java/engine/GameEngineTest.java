@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.SystemWrapper;
 
 public class GameEngineTest {
 
@@ -75,6 +76,13 @@ public class GameEngineTest {
 		gameEngine.setExit(exit);
 		boolean actual = gameEngine.isExit();
 		assertThat(actual, equalTo(exit));
+	}
+
+	@Test
+	public void game_win_exit() {
+		SystemWrapper sy = Mockito.mock(SystemWrapper.class);
+		gameEngine.displaywin(sy);
+		Mockito.verify(sy).println("Game won");
 	}
 
 }

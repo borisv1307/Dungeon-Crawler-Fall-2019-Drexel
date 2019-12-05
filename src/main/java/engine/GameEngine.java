@@ -8,6 +8,7 @@ import java.util.Map;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.SystemWrapper;
 
 public class GameEngine {
 
@@ -17,11 +18,15 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
-	private final int level;
+	private int level;
+	private int winat;
+	private int count = 0;
+	SystemWrapper systemwrapper;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
+		winat = 2;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
 	}
@@ -89,12 +94,97 @@ public class GameEngine {
 		movePlayer(0, 1);
 	}
 
+	public int win() {
+		return this.level;
+	}
+
+	public void setLocation(int x, int y) {
+		setPlayer(x, y);
+
+	}
+
 	private void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
+
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+		} else if (attempedLocation.equals(TileType.COIN)) {
+			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+
+			if (getPlayerXCoordinate() == 4 && getPlayerYCoordinate() == 1) {
+				count++;
+				tiles.remove(new Point(4, 1), TileType.COIN);
+				tiles.put(new Point(4, 1), TileType.PASSABLE);
+				if (count == 7) {
+					tiles.remove(new Point(18, 1), TileType.WINDOW);
+					tiles.put(new Point(18, 1), TileType.PASSABLE);
+				}
+
+			} else if (getPlayerXCoordinate() == 4 && getPlayerYCoordinate() == 7) {
+				count++;
+				tiles.remove(new Point(4, 7), TileType.COIN);
+				tiles.put(new Point(4, 7), TileType.PASSABLE);
+				if (count == 7) {
+					tiles.remove(new Point(18, 1), TileType.WINDOW);
+					tiles.put(new Point(18, 1), TileType.PASSABLE);
+				}
+			} else if (getPlayerXCoordinate() == 10 && getPlayerYCoordinate() == 5) {
+				count++;
+				tiles.remove(new Point(10, 5), TileType.COIN);
+				tiles.put(new Point(10, 5), TileType.PASSABLE);
+				if (count == 7) {
+					tiles.remove(new Point(18, 1), TileType.WINDOW);
+					tiles.put(new Point(18, 1), TileType.PASSABLE);
+				}
+
+			} else if (getPlayerXCoordinate() == 10 && getPlayerYCoordinate() == 3) {
+				count++;
+				tiles.remove(new Point(10, 3), TileType.COIN);
+				tiles.put(new Point(10, 3), TileType.PASSABLE);
+				if (count == 7) {
+					tiles.remove(new Point(18, 1), TileType.WINDOW);
+					tiles.put(new Point(18, 1), TileType.PASSABLE);
+				}
+
+			} else if (getPlayerXCoordinate() == 10 && getPlayerYCoordinate() == 1) {
+				count++;
+				tiles.remove(new Point(10, 1), TileType.COIN);
+				tiles.put(new Point(10, 1), TileType.PASSABLE);
+				if (count == 7) {
+					tiles.remove(new Point(18, 1), TileType.WINDOW);
+					tiles.put(new Point(18, 1), TileType.PASSABLE);
+				}
+
+			} else if (getPlayerXCoordinate() == 16 && getPlayerYCoordinate() == 1) {
+				count++;
+				tiles.remove(new Point(16, 1), TileType.COIN);
+				tiles.put(new Point(16, 1), TileType.PASSABLE);
+				if (count == 7) {
+					tiles.remove(new Point(18, 1), TileType.WINDOW);
+					tiles.put(new Point(18, 1), TileType.PASSABLE);
+				}
+
+			} else if (getPlayerXCoordinate() == 16 && getPlayerYCoordinate() == 3) {
+				count++;
+				tiles.remove(new Point(16, 3), TileType.COIN);
+				tiles.put(new Point(16, 3), TileType.PASSABLE);
+				if (count == 7) {
+					tiles.remove(new Point(18, 1), TileType.WINDOW);
+					tiles.put(new Point(18, 1), TileType.PASSABLE);
+					displaywin(systemwrapper);
+
+				}
+			}
+
 		}
+
+	}
+
+	public void displaywin(SystemWrapper sy) {
+
+		sy.println("Game won");
+
 	}
 
 	public void setExit(boolean exit) {
