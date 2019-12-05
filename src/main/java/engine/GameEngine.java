@@ -61,7 +61,7 @@ public class GameEngine {
 		return tiles.get(new Point(x, y));
 	}
 
-	public void setPlayer(int x, int y) {
+	private void setPlayer(int x, int y) {
 		player = new Point(x, y);
 	}
 
@@ -96,8 +96,8 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		} else if (attempedLocation.equals(TileType.KEY)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-			tiles.remove(new Point(11, 7), TileType.KEY);
-			tiles.put(new Point(11, 7), TileType.PASSABLE);
+			tiles.remove(new Point(1, 2), TileType.KEY);
+			tiles.put(new Point(1, 2), TileType.PASSABLE);
 		}
 
 	}

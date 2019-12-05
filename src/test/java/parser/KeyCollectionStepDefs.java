@@ -16,8 +16,6 @@ import wrappers.ReaderWrapper;
 public class KeyCollectionStepDefs extends LevelCreationStepDefHelper {
 
 	private GameEngine gameEngine;
-	int keyXCoordinate;
-	int keyYCoordinate;
 
 	@Given("^the level of game is:$")
 	public void the_level_of_game_is(List<String> levelStrings) throws Throwable {
@@ -28,17 +26,21 @@ public class KeyCollectionStepDefs extends LevelCreationStepDefHelper {
 
 	@When("^the player moves on top of key$")
 	public void the_player_moves_on_top_of_key() throws Throwable {
-		gameEngine.keyRight();
+		gameEngine.keyUp();
 
 	}
 
-	@Then("^the player is located on location \\((\\d+), (\\d+)\\) and key dissappears$")
-	public void the_player_is_located_on_location_and_key_dissappears(int keyXCoordinate, int keyYCoordinate)
-			throws Throwable {
+	@Then("^the player is located on location \\((\\d+), (\\d+)\\)$")
+	public void the_player_is_located_on_location(int keyXCoordinate, int keyYCoordinate) throws Throwable {
 		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(keyXCoordinate - COORDINATE_OFFSET));
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(keyYCoordinate - COORDINATE_OFFSET));
+	}
+
+	@Then("^key dissappears from location \\((\\d+), (\\d+)\\)$")
+	public void key_dissappears_from_location(int keyXCoordinate, int keyYCoordinate) throws Throwable {
 		assertThat(gameEngine.getTileFromCoordinates(keyXCoordinate - COORDINATE_OFFSET,
 				keyYCoordinate - COORDINATE_OFFSET), equalTo(TileType.PASSABLE));
+
 	}
 
 }

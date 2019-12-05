@@ -2,15 +2,11 @@ Feature: Player collects the key
 
 Scenario: Player moves on key to collect it
     Given the level of game is:
-| XXXXXXXXXXXXXXXXXXXX |
-| X                  X |
-| X                  X |
-| X                  X |
-| X                  X |
-| X                  X |
-| X                  X |
-| X         PK       X |
-| X                  X |
-| XXXXXXXXXXXXXXXXXXXX |
+| XXXXXXXXXXX |
+| X         X |
+| XK        X |
+| XP        X |
+| XXXXXXXXXXX |
     When the player moves on top of key
-    Then the player is located on location (12, 8) and key dissappears
+    Then the player is located on location (2, 3) 
+    And key dissappears from location (2, 3)
