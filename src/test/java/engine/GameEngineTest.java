@@ -126,4 +126,16 @@ public class GameEngineTest {
 		assertThat(actualX, equalTo(3));
 		assertThat(actualY, equalTo(4));
 	}
+
+	@Test
+	public void mock_random_return_4_enemy_doesnt_move() {
+		TileType tileType = TileType.ENEMY;
+		gameEngine.addTile(3, 3, tileType);
+		Mockito.when(randomWrapper.nextInt(4)).thenReturn(4);
+		gameEngine.generateMoveForEnemy();
+		int actualX = gameEngine.getEnemyXCoordinate();
+		int actualY = gameEngine.getEnemyYCoordinate();
+		assertThat(actualX, equalTo(3));
+		assertThat(actualY, equalTo(3));
+	}
 }
