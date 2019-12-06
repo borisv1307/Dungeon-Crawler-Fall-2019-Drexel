@@ -1,4 +1,4 @@
-package main;
+package movement;
 
 import java.util.ArrayList;
 import java.util.List;

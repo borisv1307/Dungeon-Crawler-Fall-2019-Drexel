@@ -17,9 +17,21 @@ public class Movement {
 	Point pointOfTileAfterMovable;
 
 	TileType nextTile;
-	TileType nextTileToTheLeft;
+	TileType tileAfterAllMovable;
 
 	String direction;
+
+	int numberOfMovableTilesLeft;
+	int numberOfTilesLeftFromPlayer;
+
+	int numberOfMovableTilesRight;
+	int numberOfTilesRightFromPlayer;
+
+	int numberOfMovableTilesUp;
+	int numberOfTilesUpFromPlayer;
+
+	int numberOfMovableTilesDown;
+	int numberOfTilesDownFromPlayer;
 
 	public Movement(GameEngine gameEngine) {
 		this.gameEngine = gameEngine;
@@ -32,10 +44,12 @@ public class Movement {
 		if (!isPassable(nextTile)) {
 			setPlayerToSamePosition();
 		} else if (isMovable(nextTile)) {
-			if (isPassable(gameEngine.getTileFromCoordinates(xCoordinatePlayer - 2, yCoordinatePlayer))) {
+			countMovableTilesLeft();
+			tileAfterAllMovable = gameEngine.getTileFromCoordinates(xCoordinatePlayer - numberOfTilesLeftFromPlayer,
+					yCoordinatePlayer);
+			if (isPassable(tileAfterAllMovable)) {
 				movePlayerLeft();
-				gameEngine.setNewMovableTilePosition(xCoordinatePlayer - 2, yCoordinatePlayer);
-				gameEngine.resetMovableTileToPassable(xCoordinatePlayer - 1, yCoordinatePlayer);
+				moveAllMovableLeft();
 			}
 		} else {
 			movePlayerLeft();
@@ -49,10 +63,12 @@ public class Movement {
 		if (!isPassable(nextTile)) {
 			setPlayerToSamePosition();
 		} else if (isMovable(nextTile)) {
-			if (isPassable(gameEngine.getTileFromCoordinates(xCoordinatePlayer + 2, yCoordinatePlayer))) {
+			countMovableTilesRight();
+			tileAfterAllMovable = gameEngine.getTileFromCoordinates(xCoordinatePlayer + numberOfTilesRightFromPlayer,
+					yCoordinatePlayer);
+			if (isPassable(tileAfterAllMovable)) {
 				movePlayerRight();
-				gameEngine.setNewMovableTilePosition(xCoordinatePlayer + 2, yCoordinatePlayer);
-				gameEngine.resetMovableTileToPassable(xCoordinatePlayer + 1, yCoordinatePlayer);
+				moveAllMovableRight();
 			}
 		} else {
 			movePlayerRight();
@@ -66,10 +82,12 @@ public class Movement {
 		if (!isPassable(nextTile)) {
 			setPlayerToSamePosition();
 		} else if (isMovable(nextTile)) {
-			if (isPassable(gameEngine.getTileFromCoordinates(xCoordinatePlayer, yCoordinatePlayer - 2))) {
+			countMovableTilesUp();
+			tileAfterAllMovable = gameEngine.getTileFromCoordinates(xCoordinatePlayer,
+					yCoordinatePlayer - numberOfTilesUpFromPlayer);
+			if (isPassable(tileAfterAllMovable)) {
 				movePlayerUp();
-				gameEngine.setNewMovableTilePosition(xCoordinatePlayer, yCoordinatePlayer - 2);
-				gameEngine.resetMovableTileToPassable(xCoordinatePlayer, yCoordinatePlayer - 1);
+				moveAllMovableUp();
 			}
 		} else {
 			movePlayerUp();
@@ -83,10 +101,12 @@ public class Movement {
 		if (!isPassable(nextTile)) {
 			setPlayerToSamePosition();
 		} else if (isMovable(nextTile)) {
-			if (isPassable(gameEngine.getTileFromCoordinates(xCoordinatePlayer, yCoordinatePlayer + 2))) {
+			countMovableTilesDown();
+			tileAfterAllMovable = gameEngine.getTileFromCoordinates(xCoordinatePlayer,
+					yCoordinatePlayer + numberOfTilesDownFromPlayer);
+			if (isPassable(tileAfterAllMovable)) {
 				movePlayerDown();
-				gameEngine.setNewMovableTilePosition(xCoordinatePlayer, yCoordinatePlayer + 2);
-				gameEngine.resetMovableTileToPassable(xCoordinatePlayer, yCoordinatePlayer + 1);
+				moveAllMovableDown();
 			}
 		} else {
 			movePlayerDown();
@@ -110,9 +130,9 @@ public class Movement {
 		gameEngine.setPlayer(xCoordinatePlayer, yCoordinatePlayer);
 	}
 
-	public boolean isMovable(TileType nextTile) {
+	public boolean isMovable(TileType tile) {
 		boolean state = false;
-		if (nextTile.equals(TileType.MOVABLE)) {
+		if (tile.equals(TileType.MOVABLE)) {
 			return true;
 		}
 		return state;
@@ -133,4 +153,109 @@ public class Movement {
 	private void movePlayerDown() {
 		gameEngine.setPlayer(xCoordinatePlayer, yCoordinatePlayer + 1);
 	}
+
+	public void countMovableTilesLeft() {
+		numberOfMovableTilesLeft = 0;
+		numberOfTilesLeftFromPlayer = 1;
+
+		while (isMovable(nextTile)) {
+			if (isMovable(nextTile)) {
+				numberOfMovableTilesLeft++;
+				numberOfTilesLeftFromPlayer++;
+				nextTile = gameEngine.getTileFromCoordinates(xCoordinatePlayer - numberOfTilesLeftFromPlayer,
+						yCoordinatePlayer);
+			}
+		}
+	}
+
+	public void countMovableTilesRight() {
+		numberOfMovableTilesRight = 0;
+		numberOfTilesRightFromPlayer = 1;
+
+		while (isMovable(nextTile)) {
+			if (isMovable(nextTile)) {
+				numberOfMovableTilesRight++;
+				numberOfTilesRightFromPlayer++;
+				nextTile = gameEngine.getTileFromCoordinates(xCoordinatePlayer + numberOfTilesRightFromPlayer,
+						yCoordinatePlayer);
+			}
+		}
+	}
+
+	public void countMovableTilesUp() {
+		numberOfMovableTilesUp = 0;
+		numberOfTilesUpFromPlayer = 1;
+
+		while (isMovable(nextTile)) {
+			if (isMovable(nextTile)) {
+				numberOfMovableTilesUp++;
+				numberOfTilesUpFromPlayer++;
+				nextTile = gameEngine.getTileFromCoordinates(xCoordinatePlayer,
+						yCoordinatePlayer - numberOfTilesUpFromPlayer);
+			}
+		}
+	}
+
+	public void countMovableTilesDown() {
+		numberOfMovableTilesDown = 0;
+		numberOfTilesDownFromPlayer = 1;
+
+		while (isMovable(nextTile)) {
+			if (isMovable(nextTile)) {
+				numberOfMovableTilesDown++;
+				numberOfTilesDownFromPlayer++;
+				nextTile = gameEngine.getTileFromCoordinates(xCoordinatePlayer,
+						yCoordinatePlayer + numberOfTilesDownFromPlayer);
+			}
+		}
+	}
+
+	public void moveAllMovableLeft() {
+		while (numberOfMovableTilesLeft > 0) {
+			moveEachMovableLeft(numberOfMovableTilesLeft);
+			numberOfMovableTilesLeft--;
+		}
+	}
+
+	public void moveAllMovableRight() {
+		while (numberOfMovableTilesRight > 0) {
+			moveEachMovableRight(numberOfMovableTilesRight);
+			numberOfMovableTilesRight--;
+		}
+	}
+
+	public void moveAllMovableUp() {
+		while (numberOfMovableTilesUp > 0) {
+			moveEachMovableUp(numberOfMovableTilesUp);
+			numberOfMovableTilesUp--;
+		}
+	}
+
+	public void moveAllMovableDown() {
+		while (numberOfMovableTilesDown > 0) {
+			moveEachMovableDown(numberOfMovableTilesDown);
+			numberOfMovableTilesDown--;
+		}
+	}
+
+	public void moveEachMovableLeft(int numberOfTilesFromPlayer) {
+		gameEngine.setNewMovableTilePosition(xCoordinatePlayer - (numberOfTilesFromPlayer + 1), yCoordinatePlayer);
+		gameEngine.resetMovableTileToPassable(xCoordinatePlayer - numberOfTilesFromPlayer, yCoordinatePlayer);
+	}
+
+	public void moveEachMovableRight(int numberOfTilesFromPlayer) {
+		gameEngine.setNewMovableTilePosition(xCoordinatePlayer + (numberOfTilesFromPlayer + 1), yCoordinatePlayer);
+		gameEngine.resetMovableTileToPassable(xCoordinatePlayer + numberOfTilesFromPlayer, yCoordinatePlayer);
+	}
+
+	public void moveEachMovableUp(int numberOfTilesFromPlayer) {
+		gameEngine.setNewMovableTilePosition(xCoordinatePlayer, yCoordinatePlayer - (numberOfTilesFromPlayer + 1));
+		gameEngine.resetMovableTileToPassable(xCoordinatePlayer, yCoordinatePlayer - numberOfTilesFromPlayer);
+	}
+
+	public void moveEachMovableDown(int numberOfTilesFromPlayer) {
+		gameEngine.setNewMovableTilePosition(xCoordinatePlayer, yCoordinatePlayer + (numberOfTilesFromPlayer + 1));
+		gameEngine.resetMovableTileToPassable(xCoordinatePlayer, yCoordinatePlayer + numberOfTilesFromPlayer);
+	}
+
 }
