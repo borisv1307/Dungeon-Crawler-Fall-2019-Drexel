@@ -25,9 +25,4 @@ public class TileColorMapTest {
 		assertSame(Color.GREEN, TileColorMap.get(TileType.PLAYER));
 	}
 
-	@Test
-	public void moveable() {
-		assertSame(Color.RED, TileColorMap.get(TileType.MOVABLE));
-	}
-
 }

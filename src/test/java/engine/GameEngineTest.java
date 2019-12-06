@@ -77,4 +77,21 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(exit));
 	}
 
+	@Test
+	public void add_movable_tile_and_get_movable_id_one() {
+		int firstMovableID = 0;
+		gameEngine.addTile(ZERO, ONE, TileType.MOVABLE);
+		int actual = gameEngine.getMovableID(ZERO, ONE);
+		assertThat(actual, equalTo(firstMovableID));
+	}
+
+	@Test
+	public void add_second_movable_tile_and_get_movable_id_two() {
+		int secondMovableID = 1;
+		gameEngine.addTile(ZERO, ONE, TileType.MOVABLE);
+		gameEngine.addTile(ONE, ONE, TileType.MOVABLE);
+		int actual = gameEngine.getMovableID(ONE, ONE);
+		assertThat(actual, equalTo(secondMovableID));
+	}
+
 }

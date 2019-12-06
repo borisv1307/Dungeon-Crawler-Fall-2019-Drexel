@@ -11,6 +11,7 @@ public class Movement {
 
 	int xCoordinatePlayer;
 	int yCoordinatePlayer;
+	int movableID;
 
 	Point pointOfPlayer;
 	Point pointOfMovable;
@@ -239,22 +240,38 @@ public class Movement {
 	}
 
 	public void moveEachMovableLeft(int numberOfTilesFromPlayer) {
+		movableID = gameEngine.getMovableID(xCoordinatePlayer - numberOfTilesFromPlayer, yCoordinatePlayer);
+
 		gameEngine.setNewMovableTilePosition(xCoordinatePlayer - (numberOfTilesFromPlayer + 1), yCoordinatePlayer);
+		gameEngine.setNewMovableTileID(xCoordinatePlayer - (numberOfTilesFromPlayer + 1), yCoordinatePlayer, movableID);
+
 		gameEngine.resetMovableTileToPassable(xCoordinatePlayer - numberOfTilesFromPlayer, yCoordinatePlayer);
 	}
 
 	public void moveEachMovableRight(int numberOfTilesFromPlayer) {
+		movableID = gameEngine.getMovableID(xCoordinatePlayer + numberOfTilesFromPlayer, yCoordinatePlayer);
+
 		gameEngine.setNewMovableTilePosition(xCoordinatePlayer + (numberOfTilesFromPlayer + 1), yCoordinatePlayer);
+		gameEngine.setNewMovableTileID(xCoordinatePlayer + (numberOfTilesFromPlayer + 1), yCoordinatePlayer, movableID);
+
 		gameEngine.resetMovableTileToPassable(xCoordinatePlayer + numberOfTilesFromPlayer, yCoordinatePlayer);
 	}
 
 	public void moveEachMovableUp(int numberOfTilesFromPlayer) {
+		movableID = gameEngine.getMovableID(xCoordinatePlayer, yCoordinatePlayer - numberOfTilesFromPlayer);
+
 		gameEngine.setNewMovableTilePosition(xCoordinatePlayer, yCoordinatePlayer - (numberOfTilesFromPlayer + 1));
+		gameEngine.setNewMovableTileID(xCoordinatePlayer, yCoordinatePlayer - (numberOfTilesFromPlayer + 1), movableID);
+
 		gameEngine.resetMovableTileToPassable(xCoordinatePlayer, yCoordinatePlayer - numberOfTilesFromPlayer);
 	}
 
 	public void moveEachMovableDown(int numberOfTilesFromPlayer) {
+		movableID = gameEngine.getMovableID(xCoordinatePlayer, yCoordinatePlayer + numberOfTilesFromPlayer);
+
 		gameEngine.setNewMovableTilePosition(xCoordinatePlayer, yCoordinatePlayer + (numberOfTilesFromPlayer + 1));
+		gameEngine.setNewMovableTileID(xCoordinatePlayer, yCoordinatePlayer + (numberOfTilesFromPlayer + 1), movableID);
+
 		gameEngine.resetMovableTileToPassable(xCoordinatePlayer, yCoordinatePlayer + numberOfTilesFromPlayer);
 	}
 

@@ -14,11 +14,13 @@ public class GameEngine {
 	private boolean exit;
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
+	private final Map<Point, Integer> movableID = new HashMap<>();
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 
 	private Point player;
 	private final int level;
+	private int movableTileID = 0;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -39,6 +41,8 @@ public class GameEngine {
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else if (tileType.equals(TileType.MOVABLE)) {
 			tiles.put(new Point(x, y), TileType.MOVABLE);
+			movableID.put(new Point(x, y), movableTileID);
+			movableTileID++;
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
@@ -50,6 +54,10 @@ public class GameEngine {
 
 	public void setNewMovableTilePosition(int xCoordinateMovable, int yCoordinateMovable) {
 		tiles.put(new Point(xCoordinateMovable, yCoordinateMovable), TileType.MOVABLE);
+	}
+
+	public void setNewMovableTileID(int xCoordinateMovable, int yCoordinateMovable, int id) {
+		movableID.put(new Point(xCoordinateMovable, yCoordinateMovable), id);
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -90,6 +98,10 @@ public class GameEngine {
 
 	public boolean isExit() {
 		return exit;
+	}
+
+	public int getMovableID(int x, int y) {
+		return movableID.get(new Point(x, y));
 	}
 
 }
