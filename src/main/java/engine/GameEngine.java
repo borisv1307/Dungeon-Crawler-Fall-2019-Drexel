@@ -78,46 +78,46 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		boolean keepMoving = true;
-		while (keepMoving) {
-			keepMoving = movePlayer(-1, 0);
-		}
+		movement(-1, 0);
 	}
 
 	public void keyRight() {
-		boolean keepMoving = true;
-		while (keepMoving) {
-			keepMoving = movePlayer(1, 0);
-		}
-
+		movement(1, 0);
 	}
 
 	public void keyUp() {
-		boolean keepMoving = true;
-		while (keepMoving) {
-			keepMoving = movePlayer(0, -1);
-		}
-
+		movement(0, -1);
 	}
 
 	public void keyDown() {
+		movement(0, 1);
+	}
+
+	public void movement(int x, int y) {
 		boolean keepMoving = true;
 		while (keepMoving) {
-			keepMoving = movePlayer(0, 1);
+			keepMoving = movePlayer(x, y);
 		}
-
 	}
 
 	private boolean movePlayer(int xDiff, int yDiff) {
 
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
-		if (attempedLocation.equals(TileType.PASSABLE) || attempedLocation.equals(TileType.PASSED)) {
+		if (isMovable(attempedLocation)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 			setTileType(getPlayerXCoordinate() - xDiff, getPlayerYCoordinate() - yDiff);
 			return true;
 		}
 		return false;
+	}
+
+	public boolean isMovable(TileType location) {
+		if (location.equals(TileType.PASSABLE) || location.equals(TileType.PASSED)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void setExit(boolean exit) {

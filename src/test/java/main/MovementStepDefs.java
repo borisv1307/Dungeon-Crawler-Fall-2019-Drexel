@@ -57,5 +57,4 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	public void the_tiles_are_BLUE(int x, int y) throws Throwable {
 		assertEquals(TileType.PASSED, gameEngine.getTileFromCoordinates(x - COORDINATE_OFFSET, y - COORDINATE_OFFSET));
 	}
-
 }
