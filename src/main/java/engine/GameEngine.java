@@ -98,21 +98,25 @@ public class GameEngine {
 
 		checkForWallMovePlayer(-1, 0);
 		generateMoveForEnemy();
+		checkForKill();
 	}
 
 	public void keyRight() {
 		checkForWallMovePlayer(1, 0);
 		generateMoveForEnemy();
+		checkForKill();
 	}
 
 	public void keyUp() {
 		checkForWallMovePlayer(0, -1);
 		generateMoveForEnemy();
+		checkForKill();
 	}
 
 	public void keyDown() {
 		checkForWallMovePlayer(0, 1);
 		generateMoveForEnemy();
+		checkForKill();
 	}
 
 	public void setExit(boolean exit) {
@@ -127,7 +131,6 @@ public class GameEngine {
 		if (getTileFromCoordinates(getPlayerXCoordinate() + xCoordinate,
 				getPlayerYCoordinate() + yCoordinate) != TileType.NOT_PASSABLE) {
 			setPlayer(getPlayerXCoordinate() + xCoordinate, getPlayerYCoordinate() + yCoordinate);
-
 		}
 	}
 
@@ -148,6 +151,12 @@ public class GameEngine {
 			moveEnemyWhenPLayerMoves(0, -1);
 		} else if (randomizer == 3) {
 			moveEnemyWhenPLayerMoves(0, 1);
+		}
+	}
+
+	public void checkForKill() {
+		if ((getEnemyXCoordinate() == getPlayerXCoordinate()) && (getEnemyYCoordinate() == getPlayerYCoordinate())) {
+			this.levelCreator.createLevel(this, level);
 		}
 	}
 

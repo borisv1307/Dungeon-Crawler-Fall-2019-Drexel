@@ -21,12 +21,12 @@ public class GameEngineTest {
 	private RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
 
 	GameEngine gameEngine;
+	LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
+	int level = 1;
 
 	@Before
 	public void setUp() throws Exception {
-		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
 		gameEngine = new GameEngine(levelCreator, randomWrapper);
-		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
 	}
 
@@ -137,5 +137,15 @@ public class GameEngineTest {
 		int actualY = gameEngine.getEnemyYCoordinate();
 		assertThat(actualX, equalTo(3));
 		assertThat(actualY, equalTo(3));
+	}
+
+	@Test
+	public void enemy_kills_player() {
+		TileType tileTypeEnemy = TileType.ENEMY;
+		gameEngine.addTile(3, 3, tileTypeEnemy);
+		TileType tileTypePlayer = TileType.PLAYER;
+		gameEngine.addTile(3, 3, tileTypePlayer);
+		gameEngine.checkForKill();
+		Mockito.verify(levelCreator, Mockito.times(2)).createLevel(gameEngine, level);
 	}
 }

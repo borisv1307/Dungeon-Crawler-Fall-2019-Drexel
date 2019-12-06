@@ -2,6 +2,7 @@ package main;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 
@@ -77,6 +78,13 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		int actualY = gameEngine.getEnemyYCoordinate();
 		assertThat(actualX, equalTo(enemyX1 - COORDINATE_OFFSET));
 		assertThat(actualY, equalTo(enemyY1 - COORDINATE_OFFSET));
+	}
+
+	@Then("^the level is restarted$")
+	public void the_level_is_restarted() throws Throwable {
+		gameEngine.checkForKill();
+		assertFalse((gameEngine.getPlayerXCoordinate() == gameEngine.getEnemyXCoordinate())
+				&& (gameEngine.getPlayerYCoordinate() == gameEngine.getEnemyYCoordinate()));
 	}
 
 }
