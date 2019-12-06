@@ -2,9 +2,10 @@ package main;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+
+import org.mockito.Mockito;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -13,18 +14,21 @@ import engine.GameEngine;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
 import values.TestingTunableParameters;
+import wrappers.RandomWrapper;
 import wrappers.ReaderWrapper;
 
 public class MovementStepDefs extends LevelCreationStepDefHelper {
 
 	private GameEngine gameEngine;
-	wrappers.RandomWrapper randomWrapper = new wrappers.RandomWrapper();
+	RandomWrapper randomWrapper = new RandomWrapper();
+	private RandomWrapper randomWrapperMock = Mockito.mock(RandomWrapper.class);
 
 	@Given("^the level design is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), randomWrapper);
+				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()),
+				randomWrapperMock);
 	}
 
 	@When("^the player moves left$")
@@ -53,29 +57,26 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
 	}
 
-	@Then("^the Enemy located at \\((\\d+), (\\d+)\\) or \\((\\d+),(\\d+)\\) or \\((\\d+),(\\d+)\\)$")
-	public void the_Enemy_located_at_or_or(int enemyX1, int enemyY1, int enemyX2, int enemyY2, int enemyX3, int enemyY3)
-			throws Throwable {
-		boolean atX1, atX2, atY1, atY2, atX3, atY3, checkAtX1Y1, checkAtX2Y2, checkAtX3Y3;
-		atX1 = (gameEngine.getEnemyXCoordinate() == (enemyX1 - COORDINATE_OFFSET));
-		atX2 = (gameEngine.getEnemyXCoordinate() == (enemyX2 - COORDINATE_OFFSET));
-		atX3 = (gameEngine.getEnemyXCoordinate() == (enemyX3 - COORDINATE_OFFSET));
-		atY1 = (gameEngine.getEnemyYCoordinate() == (enemyY1 - COORDINATE_OFFSET));
-		atY2 = (gameEngine.getEnemyYCoordinate() == (enemyY2 - COORDINATE_OFFSET));
-		atY3 = (gameEngine.getEnemyYCoordinate() == (enemyY3 - COORDINATE_OFFSET));
-		checkAtX1Y1 = atX1 && atY1;
-		checkAtX2Y2 = atX2 && atY2;
-		checkAtX3Y3 = atX3 && atY3;
-		assertTrue((checkAtX1Y1 || checkAtX2Y2) || checkAtX3Y3);
-
+	@When("^the enemy tries to move \"([^\"]*)\"$")
+	public void the_enemy_tries_to_move(String direction) throws Throwable {
+		if (direction.equals("left")) {
+			Mockito.when(randomWrapperMock.nextInt(4)).thenReturn(0);
+		} else if (direction.equals("right")) {
+			Mockito.when(randomWrapperMock.nextInt(4)).thenReturn(1);
+		} else if (direction.equals("up")) {
+			Mockito.when(randomWrapperMock.nextInt(4)).thenReturn(2);
+		} else if (direction.equals("down")) {
+			Mockito.when(randomWrapperMock.nextInt(4)).thenReturn(3);
+		}
+		gameEngine.generateMoveForEnemy();
 	}
 
 	@Then("^the Enemy located at \\((\\d+),(\\d+)\\)$")
 	public void the_Enemy_located_at(int enemyX1, int enemyY1) throws Throwable {
-		boolean atX1, atY1;
-		atX1 = (gameEngine.getEnemyXCoordinate() == (enemyX1 - COORDINATE_OFFSET));
-		atY1 = (gameEngine.getEnemyYCoordinate() == (enemyY1 - COORDINATE_OFFSET));
-		assertTrue(atX1 && atY1);
-
+		int actualX = gameEngine.getEnemyXCoordinate();
+		int actualY = gameEngine.getEnemyYCoordinate();
+		assertThat(actualX, equalTo(enemyX1 - COORDINATE_OFFSET));
+		assertThat(actualY, equalTo(enemyY1 - COORDINATE_OFFSET));
 	}
+
 }

@@ -52,7 +52,7 @@ public class LevelCreatorITHelper {
 	protected void createLevel() throws Throwable {
 		LevelCreator levelCreator = new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX,
 				new ReaderWrapper());
-		RandomWrapper randomWrapper = new RandomWrapper();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
 		try {
 			gameEngine = new GameEngine(levelCreator, randomWrapper);
 		} catch (IllegalArgumentException e) {
@@ -90,7 +90,7 @@ public class LevelCreatorITHelper {
 	protected void createLevelWithMalfunctioningFileReader() throws Throwable {
 		ioException = Mockito.mock(IOException.class);
 		readerWrapper = Mockito.mock(ReaderWrapper.class);
-		RandomWrapper randomWrapper = new RandomWrapper();
+		RandomWrapper randomWrapper = Mockito.mock(RandomWrapper.class);
 		BufferedReader bufferedReader = Mockito.mock(BufferedReader.class);
 		Mockito.when(readerWrapper.createBufferedReader(Mockito.anyString())).thenReturn(bufferedReader);
 		Mockito.doThrow(ioException).when(bufferedReader).readLine();
