@@ -5,11 +5,10 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.JOptionPaneWrapper;
 
 public class GameEngine {
 
@@ -21,6 +20,7 @@ public class GameEngine {
 	private Point player;
 	private final int level;
 	public static int game_score = 0;
+	JOptionPaneWrapper joptionPaneWrapper = new JOptionPaneWrapper();
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -100,25 +100,31 @@ public class GameEngine {
 		if (attempedLocation != TileType.NOT_PASSABLE) {
 			if (attempedLocation == TileType.ENEMY) {
 				setPlayer(11, 11);
-				JOptionPane.showMessageDialog(null, "GAME END ..Lets try again!!! YOUR SCORE:" + game_score,
-						"ENERGY SCORE", JOptionPane.ERROR_MESSAGE);
+				messageDisplay(joptionPaneWrapper, game_score);
 				exit = true;
-
-			} else if (attempedLocation == TileType.ENERGY) {
+			} else {
 				addTile(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff, TileType.PASSABLE);
 				setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-				game_score++;
+				if (attempedLocation == TileType.ENERGY)
+					game_score++;
 				if (game_score == 5) {
-					JOptionPane.showMessageDialog(null, "Reached Max Score:5", "ENERGY SCORE",
-							JOptionPane.ERROR_MESSAGE);
+					messageDisplay(joptionPaneWrapper, game_score);
 					exit = true;
 				}
 
-			} else {
-				setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 			}
 
 		}
+	}
+
+	public void messageDisplay(JOptionPaneWrapper joptionPaneWrapper, int game_score) {
+		if (game_score != 5)
+			joptionPaneWrapper.showMessageDialog(null, "GAME END ..Lets try again!!! YOUR SCORE:" + game_score,
+					"ENERGY SCORE", joptionPaneWrapper.ERROR_MESSAGE);
+		else
+			joptionPaneWrapper.showMessageDialog(null, "Reached Max Score:5", "ENERGY SCORE",
+					joptionPaneWrapper.ERROR_MESSAGE);
+
 	}
 
 	public void setExit(boolean exit) {

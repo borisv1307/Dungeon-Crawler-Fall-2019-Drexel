@@ -12,11 +12,14 @@ import org.mockito.Mockito;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.JOptionPaneWrapper;
 
 public class GameEngineTest {
+	JOptionPaneWrapper joptionPaneWrapper = Mockito.mock(JOptionPaneWrapper.class);
 
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
+	private int game_score;
 
 	GameEngine gameEngine;
 
@@ -95,6 +98,56 @@ public class GameEngineTest {
 		gameEngine.movePlayer(1, 0);
 		assertThat(11, equalTo(gameEngine.getPlayerXCoordinate()));
 		assertThat(11, equalTo(gameEngine.getPlayerYCoordinate()));
+
+	}
+
+	@Test
+	public void display_score_box_when_reached_max() {
+
+		game_score = 5;
+		gameEngine.messageDisplay(joptionPaneWrapper, game_score);
+		Mockito.verify(joptionPaneWrapper, Mockito.times(1)).showMessageDialog(null, "Reached Max Score:5",
+				"ENERGY SCORE", joptionPaneWrapper.ERROR_MESSAGE);
+
+	}
+
+	@Test
+	public void display_score_box_when_player_killed_after_one_energy_gained() {
+		game_score = 1;
+		gameEngine.messageDisplay(joptionPaneWrapper, game_score);
+		Mockito.verify(joptionPaneWrapper, Mockito.times(1)).showMessageDialog(null,
+				"GAME END ..Lets try again!!! YOUR SCORE:" + game_score, "ENERGY SCORE",
+				joptionPaneWrapper.ERROR_MESSAGE);
+
+	}
+
+	@Test
+	public void display_score_box_when_player_killed_after_two_energy_gained() {
+		game_score = 2;
+		gameEngine.messageDisplay(joptionPaneWrapper, game_score);
+		Mockito.verify(joptionPaneWrapper, Mockito.times(1)).showMessageDialog(null,
+				"GAME END ..Lets try again!!! YOUR SCORE:" + game_score, "ENERGY SCORE",
+				joptionPaneWrapper.ERROR_MESSAGE);
+
+	}
+
+	@Test
+	public void display_score_box_when_player_killed_after_three_energy_gained() {
+		game_score = 3;
+		gameEngine.messageDisplay(joptionPaneWrapper, game_score);
+		Mockito.verify(joptionPaneWrapper, Mockito.times(1)).showMessageDialog(null,
+				"GAME END ..Lets try again!!! YOUR SCORE:" + game_score, "ENERGY SCORE",
+				joptionPaneWrapper.ERROR_MESSAGE);
+
+	}
+
+	@Test
+	public void display_score_box_when_player_killed_after_four_energy_gained() {
+		game_score = 4;
+		gameEngine.messageDisplay(joptionPaneWrapper, game_score);
+		Mockito.verify(joptionPaneWrapper, Mockito.times(1)).showMessageDialog(null,
+				"GAME END ..Lets try again!!! YOUR SCORE:" + game_score, "ENERGY SCORE",
+				joptionPaneWrapper.ERROR_MESSAGE);
 
 	}
 

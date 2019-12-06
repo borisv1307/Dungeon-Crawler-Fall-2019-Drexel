@@ -3,7 +3,7 @@ package launcher;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import wrappers.PrintWritterWrapper;
+import wrappers.PrintWriterWrapper;
 import wrappers.SecureRandomWrapper;
 
 public class RandomFile {
@@ -12,13 +12,13 @@ public class RandomFile {
 	ArrayList<Integer> column_line = getRandomNonRepeatingIntegers(50, 2, 19, secureRandomWrapper);
 	ArrayList<Integer> row_line = getRandomNonRepeatingIntegers(50, 2, 9, secureRandomWrapper);
 
-	public void generateFile(PrintWritterWrapper printWritterWrapper) throws IOException {
+	public void generateFile(PrintWriterWrapper printWriterWrapper) throws IOException {
 		row_line.sort(null);
 		for (row = 1; row <= 10; row++) {
 			for (column = 1; column <= 20; column++) {
 
 				if (row == 1 || row == 10 || column == 1 || column == 20)
-					printWritterWrapper.print("X");
+					printWriterWrapper.print("X");
 				else {
 
 					if (row_line.get(random_position_count) == row) {
@@ -28,14 +28,14 @@ public class RandomFile {
 							if (random_position_count <= 8) {
 
 								if (random_position_count == 4) {
-									printWritterWrapper.print("P");
+									printWriterWrapper.print("P");
 									random_position_count++;
 								} else if (random_position_count == 1 || random_position_count == 3) {
-									printWritterWrapper.print("T");
+									printWriterWrapper.print("T");
 									random_position_count++;
 
 								} else {
-									printWritterWrapper.print("E");
+									printWriterWrapper.print("E");
 									if (random_position_count != 7)
 										random_position_count++;
 
@@ -44,17 +44,17 @@ public class RandomFile {
 							}
 
 						} else
-							printWritterWrapper.print(" ");
+							printWriterWrapper.print(" ");
 
 					} else
-						printWritterWrapper.print(" ");
+						printWriterWrapper.print(" ");
 
 				}
 
 			}
-			printWritterWrapper.print("\n");
+			printWriterWrapper.print("\n");
 		}
-		printWritterWrapper.close();
+		printWriterWrapper.close();
 
 	}
 

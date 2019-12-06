@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import launcher.RandomFile;
-import wrappers.PrintWritterWrapper;
+import wrappers.PrintWriterWrapper;
 import wrappers.SecureRandomWrapper;
 
 public class RandomFileTest {
@@ -32,45 +32,45 @@ public class RandomFileTest {
 
 	@Test
 	public void verifying_player_writing_status() throws IOException {
-		PrintWritterWrapper printWritterWrapper = Mockito.mock(PrintWritterWrapper.class);
-		randomfile.generateFile(printWritterWrapper);
-		Mockito.verify(printWritterWrapper, Mockito.times(1)).print("P");
+		PrintWriterWrapper printWriterWrapper = Mockito.mock(PrintWriterWrapper.class);
+		randomfile.generateFile(printWriterWrapper);
+		Mockito.verify(printWriterWrapper, Mockito.times(1)).print("P");
 
 	}
 
 	@Test
 	public void verifying_enemy_writing_status() throws IOException {
-		PrintWritterWrapper printWritterWrapper = Mockito.mock(PrintWritterWrapper.class);
-		randomfile.generateFile(printWritterWrapper);
-		Mockito.verify(printWritterWrapper, Mockito.times(2)).print("T");
+		PrintWriterWrapper printWriterWrapper = Mockito.mock(PrintWriterWrapper.class);
+		randomfile.generateFile(printWriterWrapper);
+		Mockito.verify(printWriterWrapper, Mockito.times(2)).print("T");
 	}
 
 	@Test
 	public void verifying_energy_writing_status() throws IOException {
-		PrintWritterWrapper printWritterWrapper = Mockito.mock(PrintWritterWrapper.class);
-		randomfile.generateFile(printWritterWrapper);
-		Mockito.verify(printWritterWrapper, Mockito.times(5)).print("E");
+		PrintWriterWrapper printWriterWrapper = Mockito.mock(PrintWriterWrapper.class);
+		randomfile.generateFile(printWriterWrapper);
+		Mockito.verify(printWriterWrapper, Mockito.times(5)).print("E");
 	}
 
 	@Test
 	public void verifying_wall_tile_writing_status() throws IOException {
-		PrintWritterWrapper printWritterWrapper = Mockito.mock(PrintWritterWrapper.class);
-		randomfile.generateFile(printWritterWrapper);
-		Mockito.verify(printWritterWrapper, Mockito.times(56)).print("X");
+		PrintWriterWrapper printWriterWrapper = Mockito.mock(PrintWriterWrapper.class);
+		randomfile.generateFile(printWriterWrapper);
+		Mockito.verify(printWriterWrapper, Mockito.times(56)).print("X");
 	}
 
 	@Test
 	public void verifying_empty_tile_writing_status() throws IOException {
-		PrintWritterWrapper printWritterWrapper = Mockito.mock(PrintWritterWrapper.class);
-		randomfile.generateFile(printWritterWrapper);
-		Mockito.verify(printWritterWrapper, Mockito.times(136)).print(" ");
+		PrintWriterWrapper printWriterWrapper = Mockito.mock(PrintWriterWrapper.class);
+		randomfile.generateFile(printWriterWrapper);
+		Mockito.verify(printWriterWrapper, Mockito.times(136)).print(" ");
 	}
 
 	@Test
 	public void verifying_next_line_writing_status() throws IOException {
-		PrintWritterWrapper printWritterWrapper = Mockito.mock(PrintWritterWrapper.class);
-		randomfile.generateFile(printWritterWrapper);
-		Mockito.verify(printWritterWrapper, Mockito.times(10)).print("\n");
+		PrintWriterWrapper printWriterWrapper = Mockito.mock(PrintWriterWrapper.class);
+		randomfile.generateFile(printWriterWrapper);
+		Mockito.verify(printWriterWrapper, Mockito.times(10)).print("\n");
 	}
 
 }
