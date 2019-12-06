@@ -45,8 +45,9 @@ public class GameEngine {
 		} else if (tileType.equals(TileType.DOT)) {
 			tiles.put(new Point(x, y), tileType);
 			totalNumberOfDots += 1;
-		} else
+		} else {
 			tiles.put(new Point(x, y), tileType);
+		}
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
