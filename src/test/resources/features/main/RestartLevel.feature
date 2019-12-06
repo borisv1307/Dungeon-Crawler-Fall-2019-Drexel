@@ -9,13 +9,9 @@ Feature: Restart the level when the final target is killed
       | XXXXX |
 
   Scenario: Verify that level gets restarted after killing the final target
-    When I create the level
-    Then the player is located at (4, 2)
-    And the target is located at (3, 2)
-    When the player moves left
-    Then the player is located at (3, 2)
-    Then target is removed from location (3, 2)
+    Given the player has collected one target from (3, 2)
+    And there is one target left at (3, 3)
     When the player moves down
-    And the level gets restarted after final target is removed by the player
-    Then the player is located at (4, 2)
+    Then the level gets restarted after final target is removed by the player
+    And the player is located at (4, 2)
     And the target is located at (3, 2)

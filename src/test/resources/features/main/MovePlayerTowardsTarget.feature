@@ -3,10 +3,10 @@ Feature: Move the player to kill the target
 
   Background: 
     Given the level design is:
-      | XXXXX |
-      | X OPX |
-      | X O X |
-      | XXXXX |
+	      | XXXXX |
+	      | X OPX |
+	      | X O X |
+	      | XXXXX |
 
   Scenario: Verify that target does not exist after killing the target
     When the player moves left

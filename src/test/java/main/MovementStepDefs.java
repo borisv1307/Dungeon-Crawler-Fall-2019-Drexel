@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.util.List;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -52,7 +53,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerY - COORDINATE_OFFSET));
 	}
 
-	@When("^the target is located at \\((\\d+), (\\d+)\\)$")
+	@And("^the target is located at \\((\\d+), (\\d+)\\)$")
 	public void the_enemy_s_coorninates_are(int x, int y) throws Throwable {
 		assertThat(gameEngine.getTileFromCoordinates(x - COORDINATE_OFFSET, y - COORDINATE_OFFSET),
 				equalTo(TileType.DOT));
@@ -61,6 +62,18 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	@Then("^target is removed from location \\((\\d+), (\\d+)\\)$")
 	public void target_is_removed_from_location(int x, int y) throws Throwable {
 		assertThat(gameEngine.getTileFromCoordinates(x, y), equalTo(TileType.PASSABLE));
+	}
+
+	@Given("^the player has collected one target from \\((\\d+), (\\d+)\\)$")
+	public void the_player_has_collected_one_target_from(int x, int y) throws Throwable {
+		gameEngine.keyLeft();
+		assertThat(gameEngine.getTileFromCoordinates(x, y), equalTo(TileType.PASSABLE));
+	}
+
+	@And("^there is one target left at \\((\\d+), (\\d+)\\)$")
+	public void there_is_one_target_left_at(int x, int y) throws Throwable {
+		assertThat(gameEngine.getTileFromCoordinates(x - COORDINATE_OFFSET, y - COORDINATE_OFFSET),
+				equalTo(TileType.DOT));
 	}
 
 	@Then("^the level gets restarted after final target is removed by the player$")

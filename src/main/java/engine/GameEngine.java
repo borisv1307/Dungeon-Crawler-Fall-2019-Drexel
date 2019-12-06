@@ -25,6 +25,10 @@ public class GameEngine {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
+		createNewLevel();
+	}
+
+	public void createNewLevel() {
 		this.levelCreator.createLevel(this, level);
 	}
 
@@ -108,7 +112,7 @@ public class GameEngine {
 
 	public void restartLevel() {
 		if (numberOfDotsRemoved == totalNumberOfDots) {
-			this.levelCreator.createLevel(this, level);
+			createNewLevel();
 		}
 	}
 
