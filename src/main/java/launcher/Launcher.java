@@ -3,6 +3,7 @@ package launcher;
 import engine.GameEngine;
 import main.DungeonCrawler;
 import main.ObjectFactory;
+import tiles.TileType;
 import timer.FramesPerSecondHandler;
 import ui.GameFrame;
 import wrappers.ThreadWrapper;

@@ -40,7 +40,9 @@ public class LevelCreator {
 				for (char ch : line.toCharArray()) {
 					gameEngine.addTile(x, y, TileType.getTileTypeByChar(ch));
 					x++;
+					System.out.print(ch);
 				}
+				System.out.println();
 				gameEngine.setLevelHorizontalDimension(x);
 				y++;
 			}

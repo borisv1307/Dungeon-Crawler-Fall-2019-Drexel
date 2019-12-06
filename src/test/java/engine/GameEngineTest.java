@@ -77,4 +77,12 @@ public class GameEngineTest {
 		assertThat(actual, equalTo(exit));
 	}
 
+	@Test
+	public void collect_thing_and_get() {
+		TileType tileType = TileType.NPC;
+		gameEngine.addTile(ZERO,ONE,tileType);
+		TileType tileType1 = gameEngine.getTileFromCoordinates(ZERO,ONE);
+		assertThat(tileType1,equalTo(tileType));
+	}
+
 }

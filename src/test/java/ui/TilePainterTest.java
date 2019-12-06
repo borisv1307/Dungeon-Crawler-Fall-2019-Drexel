@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import org.junit.Before;
@@ -12,6 +14,7 @@ import org.mockito.Mockito;
 import engine.GameEngine;
 import tiles.TileType;
 import values.TileColorMap;
+import values.TunableParameters;
 
 public class TilePainterTest {
 
@@ -19,14 +22,21 @@ public class TilePainterTest {
 	private final int TILE_HEIGHT = 20;
 	private final int X = 2;
 	private final int Y = 3;
+	private int tileWidth = 100;
+	private int tileHeight = 120;
 
 	Graphics graphics;
 	TilePainter tilePainter;
+	GameEngine gameEngine;
+	GamePanel gamePanel;
+	TileType tileType = TileType.NPC;
 
 	@Before
 	public void setUp() {
 		tilePainter = new TilePainter();
 		graphics = Mockito.mock(Graphics.class);
+		gamePanel = Mockito.mock(GamePanel.class);
+		gameEngine = Mockito.mock(GameEngine.class);
 	}
 
 	@Test
@@ -58,6 +68,19 @@ public class TilePainterTest {
 		tilePainter.paintPlayer(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
 
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
+	}
+
+	@Test
+	public void show_win() {
+		gamePanel.paint(graphics);
+		if (gameEngine.isWin()) {
+			graphics.setColor(Color.RED);
+			graphics.setFont(new Font("Times New Roman", Font.BOLD, 50));
+			graphics.drawString("YOU WIN", TunableParameters.SCREEN_WIDTH / 2 - 125,
+					TunableParameters.SCREEN_HEIGHT / 2);
+			Mockito.verify(graphics).drawString("YOU WIN", 900, 600);
+		}
+
 	}
 
 }

@@ -2,6 +2,7 @@ package engine;
 
 import java.awt.Component;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,17 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+
+	public boolean isWin() {
+		return win;
+	}
+
+	private boolean win;
+	public ArrayList<Point> getNpcList() {
+		return npcList;
+	}
+
+	private ArrayList<Point> npcList = new ArrayList<>();
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -24,6 +36,9 @@ public class GameEngine {
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+		npcList.add(new Point(3,3));
+		npcList.add(new Point(2,2));
+		npcList.add(new Point(6,3));
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -94,6 +109,11 @@ public class GameEngine {
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+		}
+		npcList.removeIf(a -> a.equals(player));
+		if(npcList.isEmpty()){
+			System.out.println("YOU WIN");
+			win = true;
 		}
 	}
 

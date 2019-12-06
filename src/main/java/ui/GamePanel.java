@@ -1,12 +1,10 @@
 package ui;
 
-import java.awt.Event;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Panel;
+import java.awt.*;
 
 import engine.GameEngine;
 import tiles.TileType;
+import values.TunableParameters;
 
 public class GamePanel extends Panel {
 
@@ -34,8 +32,18 @@ public class GamePanel extends Panel {
 		super.paint(graphics);
 		requestFocusInWindow();
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
+		for(Point a:gameEngine.getNpcList()){
+			tilePainter.paintPlayer(graphics,(int)a.getX() , (int)a.getY(),
+					tileWidth, tileHeight, TileType.NPC);
+		}
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
+		if(gameEngine.isWin()){
+			graphics.setColor(Color.RED);
+			graphics.setFont(new Font("微软雅黑",Font.BOLD, 50));
+			graphics.drawString("YOU WIN", TunableParameters.SCREEN_WIDTH /2-125,
+					TunableParameters.SCREEN_HEIGHT/2);
+		}
 	}
 
 	@Override
