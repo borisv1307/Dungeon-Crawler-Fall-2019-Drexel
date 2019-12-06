@@ -101,7 +101,7 @@ public class GameEngine {
 	private void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
-		if (!attempedLocation.equals(TileType.NOT_PASSABLE)) {
+		if (attempedLocation.equals(TileType.PASSABLE) || attempedLocation.equals(TileType.EXIT)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		}
 	}
@@ -110,12 +110,5 @@ public class GameEngine {
 		return exit;
 	}
 
-	public int getCurrentLevel() {
-		return this.levelManager.getCurrentLevel();
-	}
-
-	public LevelCreator getLevelCreator() {
-		return this.levelCreator;
-	}
 
 }
