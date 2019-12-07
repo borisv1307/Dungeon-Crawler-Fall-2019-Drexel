@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import main.ObjectFactory;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
@@ -23,13 +24,16 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private final int level;
-	private Map<Point, TileType> Obstacles = new HashMap<Point, TileType>();
-	private ArrayList<Thread> threads;
-	private int ObstaclesCount = 0;
+	private Map<Point, TileType> obstacles = new HashMap<Point, TileType>();
+	private ArrayList<Thread> threads = new ArrayList<Thread>();;
+	private int obstaclesCount = 0;
 	private Frame f;
-	private final int ObstacleSpeed = 200;
+	private final int obstacleSpeed = 200;
 	static int nextLevel;
+	public final int finalLevel;
 	ThreadWrapper threadWrapper;
+	private int playerDefaultXCoordinate;
+	private int playerDefaultYCoordinate;
 	static {
 		nextLevel = 1;
 	}
@@ -37,11 +41,13 @@ public class GameEngine {
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
-		this.threadWrapper = new ThreadWrapper();
+		finalLevel = 4;
+		playerDefaultXCoordinate = 9;
+		playerDefaultYCoordinate = 8;
+		this.threadWrapper = ObjectFactory.getDefaultThreadWrapper();
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
-		threads = new ArrayList<Thread>();
-		f = new Frame();
+		f = ObjectFactory.getDefaultFrame();
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -55,7 +61,7 @@ public class GameEngine {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else if (tileType.equals(TileType.OBSTACLE)) {
-			ObstaclesCount++;
+			obstaclesCount++;
 			tiles.put(new Point(x, y), TileType.OBSTACLE);
 			setObstacle(x, y);
 		} else {
@@ -64,7 +70,7 @@ public class GameEngine {
 	}
 
 	private void setObstacle(int x, int y) {
-		Obstacles.put(new Point(x, y), TileType.OBSTACLE);
+		obstacles.put(new Point(x, y), TileType.OBSTACLE);
 	}
 
 	public void setLevelHorizontalDimension(int levelHorizontalDimension) {
@@ -126,13 +132,13 @@ public class GameEngine {
 			}
 			if (attempedLocation.equals(TileType.EXIT)) {
 				setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-				if (nextLevel == 4) {
+				if (nextLevel == finalLevel) {
 					JOptionPane.showMessageDialog(f, "WellDone!!!");
 					setExit(true);
 				} else {
-					JOptionPane.showMessageDialog(f, "WellDone, goto " + nextLevel);
+					JOptionPane.showMessageDialog(f, "WellDone, goto " + (nextLevel + 1));
 					nextLevel++;
-					setPlayer(9, 8);
+					setPlayer(playerDefaultXCoordinate, playerDefaultYCoordinate);
 				}
 
 			}
@@ -141,7 +147,7 @@ public class GameEngine {
 
 	private void checkForCollisionFromPlayer(int playerX, int playerY) {
 
-		for (Object points : Obstacles.keySet()) {
+		for (Object points : obstacles.keySet()) {
 			int ObsX = (int) ((Point) points).getX();
 			int ObsY = (int) ((Point) points).getY();
 			if (ObsX == playerX && ObsY == playerY) {
@@ -167,12 +173,12 @@ public class GameEngine {
 	}
 
 	public void moveObstacles(boolean isHorizontalMovement) {
-		for (Object points : Obstacles.keySet()) {
+		for (Object points : obstacles.keySet()) {
 			int X = ((Point) points).x;
 			int Y = ((Point) points).y;
 			threads.add(new Thread(new Runnable() {
 				public void run() {
-					ObstaclesHandler(X, Y, isHorizontalMovement);
+					obstaclesHandler(X, Y, isHorizontalMovement);
 				}
 			}));
 		}
@@ -182,16 +188,16 @@ public class GameEngine {
 		}
 	}
 
-	private void ObstaclesHandler(int x, int y, boolean isHorizontalMovement) {
+	private void obstaclesHandler(int x, int y, boolean isHorizontalMovement) {
 		int offset = 1;
 		TileType attemptedLocation = getTileFromCoordinates(x + offset, y);
 		while ((attemptedLocation == TileType.PASSABLE)) {
 			try {
-				threadWrapper.sleep(ObstacleSpeed / nextLevel);
+				threadWrapper.sleep(obstacleSpeed / nextLevel);
 			} catch (InterruptedException ie) {
 				ie.printStackTrace();
 			}
-			Obstacles.remove(new Point(x, y));
+			obstacles.remove(new Point(x, y));
 			setObstacle(x + offset, y);
 			checkForCollisionFromObstacle(x + offset, y);
 			addTile(x, y, TileType.PASSABLE);
@@ -218,26 +224,26 @@ public class GameEngine {
 	public int getObstacleXCoordinate(int obstacleNumber) {
 
 		int obstacleCurrentNumber = 0;
-		int ObstacleXCoordinate = -1;
-		for (Object points : Obstacles.keySet()) {
+		int obstacleXCoordinate = -1;
+		for (Object points : obstacles.keySet()) {
 			obstacleCurrentNumber++;
 			if (obstacleNumber == obstacleCurrentNumber) {
-				ObstacleXCoordinate = (int) ((Point) points).getX();
+				obstacleXCoordinate = (int) ((Point) points).getX();
 			}
 		}
-		return ObstacleXCoordinate;
+		return obstacleXCoordinate;
 	}
 
 	public int getObstacleYCoordinate(int obstacleNumber) {
 		int obstacleCurrentNumber = 0;
-		int ObstacleYCoordinate = -1;
-		for (Object points : Obstacles.keySet()) {
+		int obstacleYCoordinate = -1;
+		for (Object points : obstacles.keySet()) {
 			obstacleCurrentNumber++;
 			if (obstacleNumber == obstacleCurrentNumber) {
-				ObstacleYCoordinate = (int) ((Point) points).getY();
+				obstacleYCoordinate = (int) ((Point) points).getY();
 			}
 		}
-		return ObstacleYCoordinate;
+		return obstacleYCoordinate;
 	}
 
 	public void moveObstacleLeft(int obstacleNumber) {
@@ -245,9 +251,21 @@ public class GameEngine {
 		int currentXObstacle = getObstacleXCoordinate(obstacleNumber);
 		int currentYObstacle = getObstacleYCoordinate(obstacleNumber);
 
-		Obstacles.remove(new Point(currentXObstacle, currentYObstacle));
+		obstacles.remove(new Point(currentXObstacle, currentYObstacle));
 		setObstacle(currentXObstacle - 1, currentYObstacle);
 
+	}
+
+	public int getCurrentLevel() {
+		return nextLevel;
+	}
+
+	public int getPlayerDefaultXCoordinate() {
+		return playerDefaultXCoordinate;
+	}
+
+	public int getPlayerDefaultYCoordinate() {
+		return playerDefaultYCoordinate;
 	}
 
 }

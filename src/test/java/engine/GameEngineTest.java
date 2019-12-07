@@ -10,9 +10,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import main.ObjectFactory;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.ThreadWrapper;
 
 public class GameEngineTest {
 
@@ -84,25 +86,80 @@ public class GameEngineTest {
 		TileType obstacle = TileType.OBSTACLE;
 		gameEngine.addTile(ZERO, ONE, playerTile);
 		gameEngine.addTile(ZERO, ZERO, obstacle);
+		gameEngine.keyUp();
 		int actualX = gameEngine.getPlayerXCoordinate();
 		int actualY = gameEngine.getPlayerYCoordinate();
-		gameEngine.keyUp();
+		assertEquals(actualX, gameEngine.getObstacleXCoordinate(1));
+		assertThat(actualY, equalTo(1));
 
-		assertEquals(gameEngine.getPlayerXCoordinate(), gameEngine.getObstacleXCoordinate(1));
-		assertEquals(gameEngine.getPlayerXCoordinate(), gameEngine.getObstacleXCoordinate(1));
 	}
 
 	@Test
 	public void obstacle_hits_player() {
 		TileType playerTile = TileType.PLAYER;
 		TileType obstacle = TileType.OBSTACLE;
-		gameEngine.addTile(ZERO, ONE, playerTile);
+		gameEngine.addTile(ZERO, ZERO, playerTile);
 		gameEngine.addTile(ONE, ZERO, obstacle);
 		gameEngine.moveObstacleLeft(1);
 		int actualX = gameEngine.getPlayerXCoordinate();
 		int actualY = gameEngine.getPlayerYCoordinate();
-		assertEquals(gameEngine.getPlayerXCoordinate(), gameEngine.getObstacleXCoordinate(1));
-		assertEquals(gameEngine.getPlayerXCoordinate(), gameEngine.getObstacleXCoordinate(1));
+		assertEquals(actualX, gameEngine.getObstacleXCoordinate(1));
+		assertEquals(actualY, gameEngine.getObstacleYCoordinate(1));
+	}
+
+	@Test
+	public void when_player_goes_though_exit_player_comes_to_default_postition() {
+		TileType playerTile = TileType.PLAYER;
+		TileType exitTile = TileType.EXIT;
+		gameEngine.addTile(gameEngine.getPlayerDefaultXCoordinate(), gameEngine.getPlayerDefaultYCoordinate(),
+				playerTile);
+		gameEngine.addTile(gameEngine.getPlayerDefaultXCoordinate() + 1, gameEngine.getPlayerDefaultYCoordinate(),
+				exitTile);
+		gameEngine.keyRight();
+		assertEquals(gameEngine.getPlayerYCoordinate(), gameEngine.getPlayerDefaultYCoordinate());
+	}
+
+	@Test
+	public void does_player_goto_next_level() {
+		TileType playerTile = TileType.PLAYER;
+		TileType exitTile = TileType.EXIT;
+		int previousLevel = gameEngine.getCurrentLevel();
+		gameEngine.addTile(ZERO, ZERO, playerTile);
+		gameEngine.addTile(ONE, ZERO, exitTile);
+		gameEngine.keyRight();
+		assertEquals(gameEngine.getCurrentLevel(), previousLevel);
+	}
+
+	@Test
+	public void check_if_obstacles_move_continously() throws InterruptedException {
+		TileType playerTile = TileType.PLAYER;
+		TileType obstacleTile = TileType.OBSTACLE;
+		gameEngine.addTile(ZERO, ZERO, playerTile);
+		gameEngine.addTile(ONE, ZERO, obstacleTile);
+		int previousObstacleXCoordinate = gameEngine.getObstacleXCoordinate(1);
+		int previousObstacleYCoordinate = gameEngine.getObstacleYCoordinate(1);
+		gameEngine.moveObstacles(true);
+		gameEngine.moveObstacleLeft(1);
+		ThreadWrapper threadWrapper = ObjectFactory.getDefaultThreadWrapper();
+		int defaultSpeed = 200;
+		threadWrapper.sleep(defaultSpeed / gameEngine.getCurrentLevel());
+		assertEquals(previousObstacleXCoordinate - 1, gameEngine.getObstacleXCoordinate(1));
+		assertEquals(previousObstacleYCoordinate, gameEngine.getObstacleYCoordinate(1));
+	}
+
+	@Test
+	public void check_if_game_goes_to_final_level() {
+		TileType playerTile = TileType.PLAYER;
+		TileType exitTile = TileType.EXIT;
+		gameEngine.addTile(gameEngine.getPlayerDefaultXCoordinate(), gameEngine.getPlayerDefaultYCoordinate(),
+				playerTile);
+		gameEngine.addTile(gameEngine.getPlayerDefaultXCoordinate() + 1, gameEngine.getPlayerDefaultYCoordinate(),
+				exitTile);
+		while (gameEngine.getCurrentLevel() != gameEngine.finalLevel) {
+			gameEngine.keyRight();
+		}
+		assertEquals(gameEngine.getCurrentLevel(), gameEngine.finalLevel);
+
 	}
 
 }

@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Frame;
+
 import engine.GameEngine;
 import parser.LevelCreator;
 import timer.FramesPerSecondHandler;
@@ -13,9 +15,12 @@ import wrappers.SystemWrapper;
 import wrappers.ThreadWrapper;
 
 public abstract class ObjectFactory {
-	private ObjectFactory() {}
+	private ObjectFactory() {
+	}
 
 	private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
+
+	private static Frame defaultFrameWrapper = new Frame();
 
 	private static LevelCreator defaultLevelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
 			new ReaderWrapper());
@@ -30,6 +35,10 @@ public abstract class ObjectFactory {
 
 	public static ThreadWrapper getDefaultThreadWrapper() {
 		return defaultThreadWrapper;
+	}
+
+	public static Frame getDefaultFrame() {
+		return defaultFrameWrapper;
 	}
 
 	public static GameEngine getDefaultGameEngine() {
