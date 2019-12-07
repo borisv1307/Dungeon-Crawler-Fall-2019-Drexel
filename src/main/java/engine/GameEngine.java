@@ -20,7 +20,7 @@ public class GameEngine {
 	private Point player;
 	private final int level;
 	private int enemiesKilled = 0;
-	public TileType eachTileOfPanelCoordinates;
+	private TileType eachTileOfPanelCoordinates;
 	private GameFrame gameFrame;
 	private int totalEnemyCount = 3;
 
@@ -199,12 +199,12 @@ public class GameEngine {
 		return exit;
 	}
 
-	public int getEnemies_killed() {
+	public int getEnemiesKilled() {
 		return enemiesKilled;
 	}
 
-	public void setEnemies_killed(int enemies_killed) {
-		this.enemiesKilled = enemies_killed;
+	public void setEnemiesKilled(int enemiesKilled) {
+		this.enemiesKilled = enemiesKilled;
 	}
 
 }

@@ -33,10 +33,9 @@ public class PopupDisplayStepDefs extends LevelCreationStepDefHelper {
 		gameEngine.keyUp();
 	}
 
-	@Then("^popup should not displyed$")
-	public void popup_should_not_displyed() throws Throwable {
+	@Then("^popup should not displayed$")
+	public void popup_should_not_displayed() throws Throwable {
 		Mockito.verify(gameFrame, Mockito.times(0)).popup(0);
-
 	}
 
 	@Given("^Popup to display when count is three$")
@@ -45,7 +44,7 @@ public class PopupDisplayStepDefs extends LevelCreationStepDefHelper {
 		gameFrame = Mockito.mock(GameFrame.class);
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()), gameFrame);
-		gameEngine.setEnemies_killed(2);
+		gameEngine.setEnemiesKilled(2);
 
 	}
 
@@ -54,8 +53,9 @@ public class PopupDisplayStepDefs extends LevelCreationStepDefHelper {
 		gameEngine.keyUp();
 	}
 
-	@Then("^popup should displyed$")
-	public void popup_should_displyed() throws Throwable {
+	@Then("^popup should displayed$")
+	public void popup_should_displayed() throws Throwable {
 		Mockito.verify(gameFrame, Mockito.times(1)).popup(3);
 	}
+
 }
