@@ -6,12 +6,15 @@ import wrappers.PrintWriterWrapper;
 import wrappers.SecureRandomWrapper;
 
 public class RandomFile {
-	private int row, column, random_number, random_position_count;
+	private int row;
+	private int column;
+	private int random_number;
+	private int random_position_count;
 	private SecureRandomWrapper secureRandomWrapper;
 	private final String tileType[] = { " ", "E", "T", "E", "P", "E", "T", "E", "E", "X" };
 
-	public RandomFile(SecureRandomWrapper defaultSecureRandomWrapper) {
-		this.secureRandomWrapper = defaultSecureRandomWrapper;
+	public RandomFile(SecureRandomWrapper secureRandomWrapper) {
+		this.secureRandomWrapper = secureRandomWrapper;
 	}
 
 	public void generateFile(PrintWriterWrapper printWriterWrapper) {
