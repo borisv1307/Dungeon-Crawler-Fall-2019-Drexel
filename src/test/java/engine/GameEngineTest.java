@@ -89,6 +89,26 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void add_and_get_coin_coordinates() {
+		TileType tileType = TileType.COIN;
+		gameEngine.addcoins(FOUR, ONE, tileType);
+		int actualX = gameEngine.getPlayerXCoordinate();
+		int actualY = gameEngine.getPlayerYCoordinate();
+		assertThat(actualX, equalTo(FOUR));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
+	public void add_and_get_windows_coordinates() {
+		TileType tileType = TileType.COIN;
+		gameEngine.addcoins(EIGHTEEN, ONE, tileType);
+		int actualX = gameEngine.getPlayerXCoordinate();
+		int actualY = gameEngine.getPlayerYCoordinate();
+		assertThat(actualX, equalTo(EIGHTEEN));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
 	public void set_and_get_exit() {
 		boolean exit = true;
 		gameEngine.setExit(exit);

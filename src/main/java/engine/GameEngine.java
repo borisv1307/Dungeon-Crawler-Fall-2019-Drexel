@@ -20,10 +20,9 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private int level;
-	SystemWrapper systemWrapper;
+	private static final String WON = "Game won";
 	ArrayList<Integer> playerXposition = new ArrayList<>();
 	ArrayList<Integer> playerYposition = new ArrayList<>();
-	private static final String WON = "Game won";
 
 	private int count = 0;
 
@@ -43,6 +42,24 @@ public class GameEngine {
 
 	public void addTile(int x, int y, TileType tileType) {
 		if (tileType.equals(TileType.PLAYER)) {
+			setPlayer(x, y);
+			tiles.put(new Point(x, y), TileType.PASSABLE);
+		} else {
+			tiles.put(new Point(x, y), tileType);
+		}
+	}
+
+	public void addcoins(int x, int y, TileType tileType) {
+		if (tileType.equals(TileType.COIN)) {
+			setPlayer(x, y);
+			tiles.put(new Point(x, y), TileType.PASSABLE);
+		} else {
+			tiles.put(new Point(x, y), tileType);
+		}
+	}
+
+	public void addwindow(int x, int y, TileType tileType) {
+		if (tileType.equals(TileType.WINDOW)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
@@ -104,6 +121,7 @@ public class GameEngine {
 	}
 
 	public void addCordToList() {
+
 		playerXposition.add(4);
 		playerYposition.add(1);
 		playerXposition.add(4);

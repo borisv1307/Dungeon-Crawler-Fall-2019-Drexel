@@ -63,7 +63,15 @@ public class TilePainterTest {
 	@Test
 	public void paint_coins() {
 
-		tilePainter.paintCoin(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.PLAYER);
+		tilePainter.paintCoin(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.COIN);
+
+		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
+	}
+
+	@Test
+	public void paint_window() {
+
+		tilePainter.paintWindow(graphics, X, Y, TILE_WIDTH, TILE_HEIGHT, TileType.WINDOW);
 
 		Mockito.verify(graphics).fillRect(20, 60, 10, 20);
 	}
