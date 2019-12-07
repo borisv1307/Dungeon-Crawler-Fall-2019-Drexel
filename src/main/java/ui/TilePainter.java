@@ -16,7 +16,7 @@ public class TilePainter {
 			}
 		}
 	}
-	
+
 	void paintPlayer(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
 		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
 	}
@@ -28,6 +28,11 @@ public class TilePainter {
 
 	private void handleTile(Graphics graphics, TileType tileType) {
 		graphics.setColor(TileColorMap.get(tileType));
+	}
+
+	public void paintTrap(Graphics graphics, int x, int y, int tileWidth, int tileHeight, TileType tileType) {
+		paintTile(graphics, tileWidth, tileHeight, x, y, tileType);
+
 	}
 
 }

@@ -36,6 +36,8 @@ public class GamePanel extends Panel {
 		tilePainter.paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
+		tilePainter.paintTrap(graphics, gameEngine.getTrapXCoordinate(), gameEngine.getTrapYCoordinate(), tileWidth,
+				tileHeight, TileType.TRAP);
 	}
 
 	@Override
@@ -61,8 +63,12 @@ public class GamePanel extends Panel {
 			gameEngine.keyUp();
 		} else if (key == Event.DOWN) {
 			gameEngine.keyDown();
+		} else if (key == Event.INSERT) {
+			gameEngine.insertKey();
+
 		}
 
 		return true;
 	}
+
 }

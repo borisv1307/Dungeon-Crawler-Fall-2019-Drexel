@@ -8,22 +8,32 @@ import java.util.Map;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import wrappers.SystemWrapper;
 
 public class GameEngine {
 
+	private static final String trapSprung = "You have sprung a trap. <Insert> key to get free.";
+	private static final String noTrapHere = "There is nowhere to insert your key";
+	private static final String disabledTrap = "You have disabled the trap. You are free!";
 	private boolean exit;
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+	private Point trap;
 	private final int level;
+	private final SystemWrapper systemWrapper;
+	public boolean trapSprungBool = false;
+	public boolean trapDisabled = false;
 
 	public GameEngine(LevelCreator levelCreator) {
+		this.systemWrapper = new SystemWrapper();
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -35,6 +45,11 @@ public class GameEngine {
 	public void addTile(int x, int y, TileType tileType) {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
+			tiles.put(new Point(x, y), TileType.PASSABLE);
+		} else if (tileType.equals(TileType.TRAP) && trapDisabled == false) {
+			setTrap(x, y);
+			tiles.put(new Point(x, y), TileType.TRAP);
+		} else if (tileType.equals(TileType.TRAP) && trapDisabled == true) {
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
@@ -74,19 +89,43 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		movePlayer(-1, 0);
+		if (trapSprungBool == false) {
+			movePlayer(-1, 0);
+		}
+
 	}
 
 	public void keyRight() {
-		movePlayer(1, 0);
+		if (trapSprungBool == false) {
+			movePlayer(1, 0);
+		}
+
 	}
 
 	public void keyUp() {
-		movePlayer(0, -1);
+		if (trapSprungBool == false) {
+			movePlayer(0, -1);
+		}
 	}
 
 	public void keyDown() {
-		movePlayer(0, 1);
+		if (trapSprungBool == false) {
+			movePlayer(0, 1);
+		}
+	}
+
+	public void insertKey() {
+		if (trapSprungBool == true) {
+			int disabledTrapX = getTrapXCoordinate();
+			int disabledTrapY = getTrapYCoordinate();
+			trapSprungBool = false;
+			trapDisabled = true;
+			systemWrapper.println(disabledTrap);
+
+		} else {
+			systemWrapper.println(noTrapHere);
+		}
+
 	}
 
 	private void movePlayer(int xDiff, int yDiff) {
@@ -95,6 +134,12 @@ public class GameEngine {
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		}
+		int checkPlayerX = getPlayerXCoordinate();
+		int checkPlayerY = getPlayerYCoordinate();
+		int checkTrapX = getTrapXCoordinate();
+		int checkTrapY = getTrapYCoordinate();
+		checkForTrap(checkPlayerX, checkPlayerY, checkTrapX, checkTrapY);
+
 	}
 
 	public void setExit(boolean exit) {
@@ -104,4 +149,28 @@ public class GameEngine {
 	public boolean isExit() {
 		return exit;
 	}
+
+	public void setTrap(int x, int y) {
+		trap = new Point(x, y);
+
+	}
+
+	public int getTrapXCoordinate() {
+		return (int) trap.getX();
+	}
+
+	public int getTrapYCoordinate() {
+		return (int) trap.getY();
+
+	}
+
+	public boolean checkForTrap(int playerX, int playerY, int trapX, int trapY) {
+		if ((Math.abs(playerX - trapX) < 2) && Math.abs(playerY - trapY) < 2) {
+			trapSprungBool = true;
+			systemWrapper.println(trapSprung);
+		}
+
+		return trapSprungBool;
+	}
+
 }

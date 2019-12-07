@@ -1,3 +1,7 @@
-XXXX
-X&PX
-XXXX
+XXXXXXX
+X     X
+X T   X
+X     X
+X   P X
+X     X
+XXXXXXX

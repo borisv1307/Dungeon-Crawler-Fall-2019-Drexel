@@ -70,6 +70,16 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void add_and_get_trap_coordinates() {
+		TileType tileType = TileType.TRAP;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		int actualX = gameEngine.getTrapXCoordinate();
+		int actualY = gameEngine.getTrapYCoordinate();
+		assertThat(actualX, equalTo(ZERO));
+		assertThat(actualY, equalTo(ONE));
+	}
+
+	@Test
 	public void set_and_get_exit() {
 		boolean exit = true;
 		gameEngine.setExit(exit);

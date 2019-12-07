@@ -16,5 +16,6 @@ public class Launcher {
 		FramesPerSecondHandler framesPerSecondHandler = ObjectFactory.getDefaultFramesPerSecondHandler();
 
 		new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler);
+
 	}
 }

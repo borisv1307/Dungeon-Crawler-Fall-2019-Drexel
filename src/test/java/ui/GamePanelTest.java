@@ -42,12 +42,20 @@ public class GamePanelTest {
 		Graphics graphics = Mockito.mock(Graphics.class);
 		int playerXCoordinate = 2;
 		int playerYCoordinate = 3;
+		int trapXCoordinate = 4;
+		int trapYCoordinate = 5;
+
 		Mockito.when(gameEngine.getPlayerXCoordinate()).thenReturn(playerXCoordinate);
 		Mockito.when(gameEngine.getPlayerYCoordinate()).thenReturn(playerYCoordinate);
+		Mockito.when(gameEngine.getTrapXCoordinate()).thenReturn(trapXCoordinate);
+		Mockito.when(gameEngine.getTrapYCoordinate()).thenReturn(trapYCoordinate);
 		gamePanel.paint(graphics);
 		Mockito.verify(tilePainter).paintTiles(graphics, gameEngine, tileWidth, tileHeight);
 		Mockito.verify(tilePainter).paintPlayer(graphics, playerXCoordinate, playerYCoordinate, tileWidth, tileHeight,
 				TileType.PLAYER);
+		Mockito.verify(tilePainter).paintTrap(graphics, trapXCoordinate, trapYCoordinate, tileWidth, tileHeight,
+				TileType.TRAP);
+
 	}
 
 	@Test
