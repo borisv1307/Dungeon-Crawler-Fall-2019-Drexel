@@ -6,6 +6,7 @@ import java.awt.Frame;
 import javax.swing.JOptionPane;
 
 import values.TunableParameters;
+import wrappers.PaneWrapper;
 
 public class GameFrame extends Frame {
 
@@ -25,8 +26,9 @@ public class GameFrame extends Frame {
 		setVisible(true);
 	}
 
-	public void displayPopupMessage() {
-		JOptionPane.showMessageDialog(getFrames()[0], "Game Completed Successfully. Click OK to Play Again");
+	public void displayPopupMessage(PaneWrapper paneWrapper) {
+		paneWrapper.displayMessage(getFrames()[0], "Game Completed Successfully. Click OK to Play Again");
+		
 	}
 
 }

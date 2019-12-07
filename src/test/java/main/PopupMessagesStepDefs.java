@@ -13,6 +13,7 @@ import parser.LevelCreator;
 import ui.GameFrame;
 import values.TestingTunableParameters;
 import wrappers.MathWrapper;
+import wrappers.PaneWrapper;
 import wrappers.ReaderWrapper;
 
 public class PopupMessagesStepDefs extends LevelCreationStepDefHelper {
@@ -36,7 +37,7 @@ public class PopupMessagesStepDefs extends LevelCreationStepDefHelper {
 
 	@Then("^Pop up message should not display$")
 	public void pop_up_message_should_not_display() throws Throwable {
-		Mockito.verify(frame, Mockito.times(0)).displayPopupMessage();
+		Mockito.verify(frame, Mockito.times(0)).displayPopupMessage(Mockito.any());
 	}
 
 	@Given("^The number of enemies already killed is nine$")
@@ -52,6 +53,6 @@ public class PopupMessagesStepDefs extends LevelCreationStepDefHelper {
 
 	@Then("^Pop up message should display once$")
 	public void pop_up_message_should_display_once() throws Throwable {
-		Mockito.verify(frame, Mockito.times(1)).displayPopupMessage();
+		Mockito.verify(frame, Mockito.times(1)).displayPopupMessage(Mockito.any());
 	}
 }

@@ -9,6 +9,7 @@ import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
 import wrappers.MathWrapper;
+import wrappers.PaneWrapper;
 
 public class GameEngine {
 
@@ -144,7 +145,7 @@ public class GameEngine {
 	private void displayGameOverMessage() {
 		numberOfEnemiesKilled++;
 		if (getNumberOfEnemiesKilled() == 10) {
-			frame.displayPopupMessage();
+			frame.displayPopupMessage(new PaneWrapper());
 			setNumberOfEnemiesKilled(0);
 		}
 	}

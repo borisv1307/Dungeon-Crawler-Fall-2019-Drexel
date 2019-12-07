@@ -3,6 +3,7 @@ package ui;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertNotNull;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import values.TunableParameters;
+import wrappers.PaneWrapper;
 
 public class GameFrameUITest {
 
@@ -40,5 +42,15 @@ public class GameFrameUITest {
 		Mockito.verify(gamePanel).init();
 		assertThat(gameFrame.isResizable(), equalTo(false));
 		assertThat(gameFrame.getWindowListeners(), arrayContaining((WindowListener) windowAdapter));
+	}
+	
+	@Test
+	public void display_popup_message() {
+		gameFrame = new GameFrame();
+		PaneWrapper paneWrapper = Mockito.mock(PaneWrapper.class);
+		gameFrame.displayPopupMessage(paneWrapper);	
+		Mockito.verify(paneWrapper, Mockito.times(1)).displayMessage(Mockito.any(), Mockito.anyString());;
+		
+		
 	}
 }
