@@ -10,7 +10,7 @@ public enum TileType {
 		for (TileType type : TileType.values()) {
 			if (type.asChar == ch) {
 				return type;
-			}
+			} 
 		}
 
 		throw new IllegalArgumentException(INVALID_CHARACTER_PROVIDED_MESSAGE + ch);

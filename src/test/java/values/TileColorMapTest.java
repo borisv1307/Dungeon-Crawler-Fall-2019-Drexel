@@ -14,7 +14,7 @@ public class TileColorMapTest {
 	public void passable() {
 		assertSame(Color.WHITE, TileColorMap.get(TileType.PASSABLE));
 	}
-
+ 
 	@Test
 	public void not_passable() {
 		assertSame(Color.BLACK, TileColorMap.get(TileType.NOT_PASSABLE));

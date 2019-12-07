@@ -12,6 +12,8 @@ import engine.GameEngine;
 import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
 import values.TestingTunableParameters;
+import wrappers.JOptionPaneWrapper;
+import wrappers.RandomNumberWrapper;
 import wrappers.ReaderWrapper;
 
 public class MovementStepDefs extends LevelCreationStepDefHelper {
@@ -22,7 +24,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	public void level_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()),new RandomNumberWrapper(),new JOptionPaneWrapper());
 	}
 
 	@When("^the player moves left$")
@@ -38,7 +40,7 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	@When("^the player moves up$")
 	public void the_player_moves_up() throws Throwable {
 		gameEngine.keyUp();
-	}
+	} 
 
 	@When("^the player moves down$")
 	public void the_player_moves_down() throws Throwable {

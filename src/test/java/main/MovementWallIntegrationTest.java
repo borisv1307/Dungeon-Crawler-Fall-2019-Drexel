@@ -10,6 +10,8 @@ import engine.GameEngine;
 import parser.LevelCreator;
 import parser.LevelCreatorITHelper;
 import values.TestingTunableParameters;
+import wrappers.JOptionPaneWrapper;
+import wrappers.RandomNumberWrapper;
 import wrappers.ReaderWrapper;
 
 public class MovementWallIntegrationTest extends LevelCreatorITHelper {
@@ -22,7 +24,7 @@ public class MovementWallIntegrationTest extends LevelCreatorITHelper {
 		levelStrings.add("XXX");
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
-				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()),new RandomNumberWrapper(),new JOptionPaneWrapper());
 	}
 
 	@Test
