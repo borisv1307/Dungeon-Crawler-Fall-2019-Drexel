@@ -14,6 +14,10 @@ public class TileTypeTest {
 	@Test
 	public void value_of() {
 		assertThat(TileType.valueOf(TileType.PASSABLE.name()), equalTo(TileType.PASSABLE));
+		assertThat(TileType.valueOf(TileType.COIN.name()), equalTo(TileType.COIN));
+		assertThat(TileType.valueOf(TileType.WINDOW.name()), equalTo(TileType.WINDOW));
+		assertThat(TileType.valueOf(TileType.PLAYER.name()), equalTo(TileType.PLAYER));
+
 	}
 
 	@Test

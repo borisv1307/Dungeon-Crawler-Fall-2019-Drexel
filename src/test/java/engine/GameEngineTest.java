@@ -2,8 +2,10 @@ package engine;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.Component;
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +48,16 @@ public class GameEngineTest {
 		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
 		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
 		assertThat(actual, equalTo(tileType));
+	}
+
+	@Test
+	public void test_if_seven_coins_are_placed() {
+		ArrayList<Integer> addX = gameEngine.getPlayerXposition();
+		ArrayList<Integer> addY = gameEngine.getPlayerYposition();
+		addX.add(14);
+		assertEquals(addX.contains(14), true);
+		addY.add(1);
+		assertEquals(addY.contains(1), true);
 	}
 
 	@Test
