@@ -21,10 +21,9 @@ public class GameEngine {
 	private Point player;
 	private int level;
 	SystemWrapper systemWrapper;
-	ArrayList<Integer> Xcoordinates = new ArrayList<>();
-	ArrayList<Integer> Ycoordinates = new ArrayList<>();
-	private boolean compareIndex;
-	private static final String gameWonMsg = "Game won";
+	ArrayList<Integer> playerXposition = new ArrayList<>();
+	ArrayList<Integer> playerYposition = new ArrayList<>();
+	private static final String WON = "Game won";
 
 	private int count = 0;
 
@@ -105,28 +104,28 @@ public class GameEngine {
 	}
 
 	public void addCordToList() {
-		Xcoordinates.add(4);
-		Ycoordinates.add(1);
-		Xcoordinates.add(4);
-		Ycoordinates.add(7);
-		Xcoordinates.add(10);
-		Ycoordinates.add(5);
-		Xcoordinates.add(10);
-		Ycoordinates.add(3);
-		Xcoordinates.add(10);
-		Ycoordinates.add(1);
-		Xcoordinates.add(16);
-		Ycoordinates.add(1);
-		Xcoordinates.add(16);
-		Ycoordinates.add(3);
+		playerXposition.add(4);
+		playerYposition.add(1);
+		playerXposition.add(4);
+		playerYposition.add(7);
+		playerXposition.add(10);
+		playerYposition.add(5);
+		playerXposition.add(10);
+		playerYposition.add(3);
+		playerXposition.add(10);
+		playerYposition.add(1);
+		playerXposition.add(16);
+		playerYposition.add(1);
+		playerXposition.add(16);
+		playerYposition.add(3);
 	}
 
 	public boolean getIndexOfElement(int xcord, int ycord) {
 		boolean returnvalue = false;
 		int indexofX;
 		int indexofY;
-		indexofX = Xcoordinates.indexOf(xcord);
-		indexofY = Ycoordinates.indexOf(ycord);
+		indexofX = playerXposition.indexOf(xcord);
+		indexofY = playerYposition.indexOf(ycord);
 
 		if (indexofX == indexofY) {
 			returnvalue = true;
@@ -143,8 +142,8 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		} else if (attempedLocation.equals(TileType.COIN)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-			compareIndex = getIndexOfElement(getPlayerXCoordinate(), getPlayerYCoordinate());
-			if (compareIndex == true) {
+			boolean compareIndex = getIndexOfElement(getPlayerXCoordinate(), getPlayerYCoordinate());
+			if (compareIndex) {
 				count++;
 				tiles.remove(new Point(getPlayerXCoordinate(), getPlayerYCoordinate()), TileType.COIN);
 				tiles.put(new Point(getPlayerXCoordinate(), getPlayerYCoordinate()), TileType.PASSABLE);
@@ -160,7 +159,7 @@ public class GameEngine {
 
 	public void displayWin(SystemWrapper sy) {
 
-		sy.println(gameWonMsg);
+		sy.println(WON);
 
 	}
 
