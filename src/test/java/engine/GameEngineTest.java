@@ -81,7 +81,7 @@ public class GameEngineTest {
 	@Test
 	public void game_win_exit() {
 		SystemWrapper sy = Mockito.mock(SystemWrapper.class);
-		gameEngine.displaywin(sy);
+		gameEngine.displayWin(sy);
 		Mockito.verify(sy).println("Game won");
 	}
 
