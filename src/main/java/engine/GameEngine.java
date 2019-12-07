@@ -91,6 +91,7 @@ public class GameEngine {
 	public void keyLeft() {
 		if (isTrapSprung == false) {
 			movePlayer(-1, 0);
+			// this if would be better at movePlayer but that breaks testing
 		}
 
 	}
