@@ -13,14 +13,15 @@ import wrappers.SystemWrapper;
 import wrappers.ThreadWrapper;
 
 public abstract class ObjectFactory {
-	private ObjectFactory() {}
+	private ObjectFactory() {
+	}
 
 	private static ThreadWrapper defaultThreadWrapper = new ThreadWrapper();
 
 	private static LevelCreator defaultLevelCreator = new LevelCreator(TunableParameters.FILE_LOCATION_PREFIX,
 			new ReaderWrapper());
 
-	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator);
+	private static GameEngine defaultGameEngine = new GameEngine(defaultLevelCreator, null);
 
 	private static GameFrame defaultGameFrame = new GameFrame(new GamePanel(defaultGameEngine, new TilePainter()),
 			new WindowAdapterSystemExit(defaultGameEngine));
