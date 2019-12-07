@@ -18,6 +18,8 @@ public class GameEngineTest {
 
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
+	private static final int FOUR = 4;
+	private static final int EIGHTEEN = 18;
 
 	GameEngine gameEngine;
 
@@ -43,6 +45,22 @@ public class GameEngineTest {
 		TileType tileType = TileType.PASSABLE;
 		gameEngine.addTile(ZERO, ONE, TileType.PASSABLE);
 		TileType actual = gameEngine.getTileFromCoordinates(ZERO, ONE);
+		assertThat(actual, equalTo(tileType));
+	}
+
+	@Test
+	public void check_if_coin_exists() {
+		TileType tileType = TileType.COIN;
+		gameEngine.addTile(FOUR, ONE, TileType.COIN);
+		TileType actual = gameEngine.getTileFromCoordinates(FOUR, ONE);
+		assertThat(actual, equalTo(tileType));
+	}
+
+	@Test
+	public void check_if_window_exists() {
+		TileType tileType = TileType.WINDOW;
+		gameEngine.addTile(EIGHTEEN, ONE, TileType.WINDOW);
+		TileType actual = gameEngine.getTileFromCoordinates(EIGHTEEN, ONE);
 		assertThat(actual, equalTo(tileType));
 	}
 
