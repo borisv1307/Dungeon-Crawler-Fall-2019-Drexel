@@ -100,7 +100,7 @@ public class GameEngineTest {
 
 	@Test
 	public void add_and_get_windows_coordinates() {
-		TileType tileType = TileType.COIN;
+		TileType tileType = TileType.WINDOW;
 		gameEngine.addwindow(EIGHTEEN, ONE, tileType);
 		int actualX = gameEngine.getPlayerXCoordinate();
 		int actualY = gameEngine.getPlayerYCoordinate();
