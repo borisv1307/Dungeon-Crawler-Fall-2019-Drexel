@@ -4,14 +4,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class PrintWritterWrapper {
+public class PrintWriterWrapper {
 	private FileWriter fileWriter;
 
-	public PrintWritterWrapper(FileWriter fileWriter) {
+	public PrintWriterWrapper(FileWriter fileWriter) {
 		this.fileWriter = fileWriter;
 	}
 
-	@SuppressWarnings("resource")
 	public void print(String c) throws IOException {
 		new PrintWriter(fileWriter).print(c);
 	}

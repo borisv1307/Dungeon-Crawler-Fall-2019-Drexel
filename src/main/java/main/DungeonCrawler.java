@@ -4,8 +4,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import engine.GameEngine;
+import launcher.RandomFile;
 import timer.FramesPerSecondHandler;
 import ui.GameFrame;
+import wrappers.PrintWriterWrapper;
 import wrappers.ThreadWrapper;
 
 public class DungeonCrawler implements Runnable {
@@ -18,12 +20,15 @@ public class DungeonCrawler implements Runnable {
 	private final FramesPerSecondHandler framesPerSecondHandler;
 
 	public DungeonCrawler(ThreadWrapper threadWrapper, GameEngine gameEngine, GameFrame gameFrame,
-			FramesPerSecondHandler framesPerSecondHandler) {
+			FramesPerSecondHandler framesPerSecondHandler, PrintWriterWrapper printWriterWrapper,
+			RandomFile randomFile) {
+		randomFile.generateFile(printWriterWrapper);
 		this.threadWrapper = threadWrapper;
 		this.gameEngine = gameEngine;
 		this.gameFrame = gameFrame;
 		this.framesPerSecondHandler = framesPerSecondHandler;
 		this.threadWrapper.createNewThreadWithDungeonCrawler(this);
+
 	}
 
 	@Override

@@ -15,18 +15,20 @@ import ui.GameFrame;
 import wrappers.JOptionPaneWrapper;
 
 public class GameEngineTest {
-	JOptionPaneWrapper joptionPaneWrapper = Mockito.mock(JOptionPaneWrapper.class);
 
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
 	private int game_score;
 
 	GameEngine gameEngine;
+	JOptionPaneWrapper joptionPaneWrapper;
 
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
-		gameEngine = new GameEngine(levelCreator);
+		JOptionPaneWrapper joptionPaneWrapper = Mockito.mock(JOptionPaneWrapper.class);
+		this.joptionPaneWrapper = joptionPaneWrapper;
+		gameEngine = new GameEngine(levelCreator, joptionPaneWrapper);
 		int level = 1;
 		Mockito.verify(levelCreator, Mockito.times(level)).createLevel(gameEngine, level);
 	}

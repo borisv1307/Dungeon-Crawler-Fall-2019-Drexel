@@ -20,13 +20,14 @@ public class GameEngine {
 	private Point player;
 	private final int level;
 	public static int game_score = 0;
-	JOptionPaneWrapper joptionPaneWrapper = new JOptionPaneWrapper();
+	private JOptionPaneWrapper joptionPaneWrapper;
 
-	public GameEngine(LevelCreator levelCreator) {
+	public GameEngine(LevelCreator levelCreator, JOptionPaneWrapper joptionPaneWrapper) {
 		exit = false;
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+		this.joptionPaneWrapper = joptionPaneWrapper;
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -96,10 +97,10 @@ public class GameEngine {
 	public void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
-
 		if (attempedLocation != TileType.NOT_PASSABLE) {
 			if (attempedLocation == TileType.ENEMY) {
 				setPlayer(11, 11);
+
 				messageDisplay(joptionPaneWrapper, game_score);
 				exit = true;
 			} else {

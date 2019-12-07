@@ -1,6 +1,5 @@
 package launcher;
 
-import java.io.FileWriter;
 import java.io.IOException;
 
 import engine.GameEngine;
@@ -12,16 +11,16 @@ import wrappers.PrintWriterWrapper;
 import wrappers.ThreadWrapper;
 
 public class Launcher {
-	public static String name = "src/main/resources/levels/1.txt";
 
 	public static void main(String[] args) throws IOException {
 
-		PrintWriterWrapper printWriterWrapper = new PrintWriterWrapper(new FileWriter(name));
-		new RandomFile().generateFile(printWriterWrapper);
+		PrintWriterWrapper printWriterWrapper = ObjectFactory.getDefaultPrintWriterWrapper();
+		RandomFile randomFile = ObjectFactory.getDefaultRandomFile();
 		ThreadWrapper threadWrapper = ObjectFactory.getDefaultThreadWrapper();
 		GameEngine gameEngine = ObjectFactory.getDefaultGameEngine();
 		GameFrame gameFrame = ObjectFactory.getDefaultGameFrame();
 		FramesPerSecondHandler framesPerSecondHandler = ObjectFactory.getDefaultFramesPerSecondHandler();
-		new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler);
+		new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler, printWriterWrapper,
+				randomFile);
 	}
 }

@@ -2,6 +2,7 @@ package main;
 
 import java.io.IOException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -10,20 +11,16 @@ import wrappers.PrintWriterWrapper;
 import wrappers.SecureRandomWrapper;
 
 public class RandomFileTest {
-	RandomFile randomfile = new RandomFile();
+	RandomFile randomfile;
 
-	@Test
-	public void rows_random_number_check() {
+	@Before
+	public void setUp() {
 
-		SecureRandomWrapper secureRandomWrapper = Mockito.mock(SecureRandomWrapper.class);
-		randomfile.getRandomNonRepeatingIntegers(50, 2, 9, secureRandomWrapper);
-		Mockito.verify(secureRandomWrapper, Mockito.times(50)).nextInt(9, 2);
-
+		this.randomfile = new RandomFile(new SecureRandomWrapper());
 	}
 
 	@Test
 	public void coulms_random_number_check() {
-
 		SecureRandomWrapper secureRandomWrapper = Mockito.mock(SecureRandomWrapper.class);
 		randomfile.getRandomNonRepeatingIntegers(50, 2, 19, secureRandomWrapper);
 		Mockito.verify(secureRandomWrapper, Mockito.times(50)).nextInt(19, 2);

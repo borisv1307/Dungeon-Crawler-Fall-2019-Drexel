@@ -5,8 +5,10 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import engine.GameEngine;
+import launcher.RandomFile;
 import timer.FramesPerSecondHandler;
 import ui.GameFrame;
+import wrappers.PrintWriterWrapper;
 import wrappers.ThreadWrapper;
 
 public class DungeonCrawlerTest {
@@ -15,6 +17,8 @@ public class DungeonCrawlerTest {
 	private ThreadWrapper threadWrapper;
 	private GameEngine gameEngine;
 	private GameFrame gameFrame;
+	private RandomFile randomFile;
+	private PrintWriterWrapper printWriterWrapper;
 	private FramesPerSecondHandler framesPerSecondHandler;
 
 	private DungeonCrawler dungeonCrawler;
@@ -22,10 +26,13 @@ public class DungeonCrawlerTest {
 	@Before
 	public void setUp() {
 		threadWrapper = Mockito.mock(ThreadWrapper.class);
+		printWriterWrapper = Mockito.mock(PrintWriterWrapper.class);
 		gameEngine = Mockito.mock(GameEngine.class);
 		gameFrame = Mockito.mock(GameFrame.class);
+		randomFile = Mockito.mock(RandomFile.class);
 		framesPerSecondHandler = Mockito.mock(FramesPerSecondHandler.class);
-		dungeonCrawler = new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler);
+		dungeonCrawler = new DungeonCrawler(threadWrapper, gameEngine, gameFrame, framesPerSecondHandler,
+				printWriterWrapper, randomFile);
 		Mockito.when(gameEngine.isExit()).thenReturn(false, true);
 		Mockito.when(framesPerSecondHandler.hasEnoughTimeElapsed()).thenReturn(true);
 		Mockito.when(framesPerSecondHandler.calculateSleepDurationInMilliSeconds()).thenReturn(SLEEP_TIME);
