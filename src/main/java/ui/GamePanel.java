@@ -37,11 +37,11 @@ public class GamePanel extends Panel {
 		tilePainter.paintPlayer(graphics, gameEngine.getPlayerXCoordinate(), gameEngine.getPlayerYCoordinate(),
 				tileWidth, tileHeight, TileType.PLAYER);
 
-		tilePainter.paintInlet(graphics, gameEngine.getInletXCoordinate(), gameEngine.getInletYCoordinate(), tileWidth,
-				tileHeight, TileType.INLET);
+		tilePainter.paintTile(graphics, tileWidth, tileHeight, gameEngine.getInletXCoordinate(),
+				gameEngine.getInletYCoordinate(), TileType.INLET);
 
-		tilePainter.paintOutlet(graphics, gameEngine.getOutletXCoordinate(), gameEngine.getOutletYCoordinate(),
-				tileWidth, tileHeight, TileType.OUTLET);
+		tilePainter.paintTile(graphics, tileWidth, tileHeight, gameEngine.getOutletXCoordinate(),
+				gameEngine.getOutletYCoordinate(), TileType.OUTLET);
 	}
 
 	@Override
