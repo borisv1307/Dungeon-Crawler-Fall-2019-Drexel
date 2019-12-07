@@ -21,10 +21,10 @@ public class GameEngine {
 	private Point player;
 	private int level;
 	SystemWrapper systemWrapper;
-	ArrayList<Integer> Xcoord = new ArrayList<>();
-	ArrayList<Integer> Ycoord = new ArrayList<>();
+	ArrayList<Integer> Xcoordinates = new ArrayList<>();
+	ArrayList<Integer> Ycoordinates = new ArrayList<>();
 	private boolean compareIndex;
-	final String gameWonMsg = "Game won";
+	private static final String gameWonMsg = "Game won";
 
 	private int count = 0;
 
@@ -105,33 +105,33 @@ public class GameEngine {
 	}
 
 	public void addCordToList() {
-		Xcoord.add(4);
-		Ycoord.add(1);
-		Xcoord.add(4);
-		Ycoord.add(7);
-		Xcoord.add(10);
-		Ycoord.add(5);
-		Xcoord.add(10);
-		Ycoord.add(3);
-		Xcoord.add(10);
-		Ycoord.add(1);
-		Xcoord.add(16);
-		Ycoord.add(1);
-		Xcoord.add(16);
-		Ycoord.add(3);
+		Xcoordinates.add(4);
+		Ycoordinates.add(1);
+		Xcoordinates.add(4);
+		Ycoordinates.add(7);
+		Xcoordinates.add(10);
+		Ycoordinates.add(5);
+		Xcoordinates.add(10);
+		Ycoordinates.add(3);
+		Xcoordinates.add(10);
+		Ycoordinates.add(1);
+		Xcoordinates.add(16);
+		Ycoordinates.add(1);
+		Xcoordinates.add(16);
+		Ycoordinates.add(3);
 	}
 
 	public boolean getIndexOfElement(int xcord, int ycord) {
+		boolean returnvalue = false;
 		int indexofX;
 		int indexofY;
-		indexofX = Xcoord.indexOf(xcord);
-		indexofY = Ycoord.indexOf(ycord);
+		indexofX = Xcoordinates.indexOf(xcord);
+		indexofY = Ycoordinates.indexOf(ycord);
 
 		if (indexofX == indexofY) {
-			return true;
-		} else {
-			return false;
+			returnvalue = true;
 		}
+		return returnvalue;
 
 	}
 
