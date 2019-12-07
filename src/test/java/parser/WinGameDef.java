@@ -28,7 +28,7 @@ public class WinGameDef extends LevelCreationStepDefHelper {
 
 	@Then("^the game prints \"([^\"]*)\"$")
 	public void the_game_prints(String message) throws Throwable {
-		assertEquals(message, "Game won");
+		assertEquals("Game won", message);
 	}
 
 }
