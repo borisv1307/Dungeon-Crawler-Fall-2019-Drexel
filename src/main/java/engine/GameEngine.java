@@ -96,9 +96,9 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		} else if (attempedLocation.equals(TileType.KEY)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-			tiles.remove(new Point(1, 2), TileType.KEY);
-			tiles.put(new Point(1, 2), TileType.PASSABLE);
-		} else if (attempedLocation.equals(TileType.DOOR) && getTileFromCoordinates(1, 2) != TileType.KEY) {
+			tiles.remove(new Point(getPlayerXCoordinate(), getPlayerYCoordinate()), TileType.KEY);
+			tiles.put(new Point(getPlayerXCoordinate(), getPlayerYCoordinate()), TileType.PASSABLE);
+		} else if (attempedLocation.equals(TileType.DOOR) && getTileFromCoordinates(1, 1) != TileType.KEY) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		}
 

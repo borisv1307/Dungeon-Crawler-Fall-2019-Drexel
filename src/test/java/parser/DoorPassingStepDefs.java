@@ -22,9 +22,9 @@ public class DoorPassingStepDefs extends LevelCreationStepDefHelper {
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
 	}
 
-	@When("^the key is not loacted on location \\((\\d+), (\\d+)\\)$")
-	public void the_key_is_not_loacted_on_location(int keyXCoordinate, int keyYCoordinate) throws Throwable {
-		gameEngine.keyUp();
+	@When("^the player moves towards the door$")
+	public void the_player_moves_towards_the_door() throws Throwable {
+		gameEngine.keyLeft();
 	}
 
 	@Then("^the player is located on door location \\((\\d+), (\\d+)\\)$")
