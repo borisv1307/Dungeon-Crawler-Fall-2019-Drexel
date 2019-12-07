@@ -34,6 +34,10 @@ public class GameEngine {
 		this.levelCreator.createLevel(this, level);
 	}
 
+	public int getCountOfCollectedCoins() {
+		return 7;
+	}
+
 	public void run(GameFrame gameFrame) {
 		for (Component component : gameFrame.getComponents()) {
 			component.repaint();

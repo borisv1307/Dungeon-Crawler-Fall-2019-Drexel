@@ -123,4 +123,10 @@ public class GameEngineTest {
 		Mockito.verify(sy).println("Game won");
 	}
 
+	@Test
+	public void check_if_all_coins_collected() {
+		int count = gameEngine.getCountOfCollectedCoins();
+		assertThat(count, equalTo(7));
+	}
+
 }
