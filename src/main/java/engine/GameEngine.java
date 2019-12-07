@@ -23,19 +23,19 @@ public class GameEngine {
 	private static final String WON = "Game won";
 	ArrayList<Integer> playerXposition = new ArrayList<>();
 	ArrayList<Integer> playerYposition = new ArrayList<>();
-
 	private int count = 0;
+	private static int coinsCollected = 7;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
 		level = 1;
-
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
+
 	}
 
 	public int getCountOfCollectedCoins() {
-		return 7;
+		return coinsCollected;
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -56,7 +56,7 @@ public class GameEngine {
 	public void addcoins(int x, int y, TileType tileType) {
 		if (tileType.equals(TileType.COIN)) {
 			setPlayer(x, y);
-			tiles.put(new Point(x, y), TileType.PASSABLE);
+			tiles.put(new Point(x, y), TileType.COIN);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
@@ -65,7 +65,7 @@ public class GameEngine {
 	public void addwindow(int x, int y, TileType tileType) {
 		if (tileType.equals(TileType.WINDOW)) {
 			setPlayer(x, y);
-			tiles.put(new Point(x, y), TileType.PASSABLE);
+			tiles.put(new Point(x, y), TileType.WINDOW);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
