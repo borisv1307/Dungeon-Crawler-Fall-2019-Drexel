@@ -1,5 +1,5 @@
 @IntegrationTest
-Feature: Move the player into trap
+Feature: Move the player into trap should not be passable
 
   Background: 
     Given the level design is:

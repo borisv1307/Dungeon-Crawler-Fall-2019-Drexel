@@ -60,17 +60,17 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 
 	@Then("^check for trap$")
 	public void check_for_trap() throws Throwable {
-		assertThat(gameEngine.trapSprungBool, equalTo(true));
+		assertThat(gameEngine.isTrapSprung, equalTo(true));
 	}
 
 	@Then("^trap has sprung$")
 	public void trap_has_sprung() throws Throwable {
-		assertThat(gameEngine.trapSprungBool, equalTo(true));
+		assertThat(gameEngine.isTrapSprung, equalTo(true));
 	}
 
 	@Then("^no trap has sprung$")
 	public void no_trap_has_sprung() throws Throwable {
-		assertThat(gameEngine.trapSprungBool, equalTo(false));
+		assertThat(gameEngine.isTrapSprung, equalTo(false));
 	}
 
 }

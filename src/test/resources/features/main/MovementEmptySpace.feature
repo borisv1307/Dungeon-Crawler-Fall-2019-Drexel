@@ -6,7 +6,7 @@ Feature: Move the player into empty space
       | XXXXX |
       | X   X |
       | X P X |
-      | X   X |
+      | XT  X |
       | XXXXX |
 
   Scenario: Move left into empty space

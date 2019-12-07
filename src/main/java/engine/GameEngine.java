@@ -24,8 +24,8 @@ public class GameEngine {
 	private Point trap;
 	private final int level;
 	private final SystemWrapper systemWrapper;
-	public boolean trapSprungBool = false;
-	public boolean trapDisabled = false;
+	public boolean isTrapSprung = false;
+	public boolean isTrapDisabled = false;
 
 	public GameEngine(LevelCreator levelCreator) {
 		this.systemWrapper = new SystemWrapper();
@@ -46,10 +46,10 @@ public class GameEngine {
 		if (tileType.equals(TileType.PLAYER)) {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
-		} else if (tileType.equals(TileType.TRAP) && trapDisabled == false) {
+		} else if (tileType.equals(TileType.TRAP) && isTrapDisabled == false) {
 			setTrap(x, y);
 			tiles.put(new Point(x, y), TileType.TRAP);
-		} else if (tileType.equals(TileType.TRAP) && trapDisabled == true) {
+		} else if (tileType.equals(TileType.TRAP) && isTrapDisabled == true) {
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else {
 			tiles.put(new Point(x, y), tileType);
@@ -89,37 +89,37 @@ public class GameEngine {
 	}
 
 	public void keyLeft() {
-		if (trapSprungBool == false) {
+		if (isTrapSprung == false) {
 			movePlayer(-1, 0);
 		}
 
 	}
 
 	public void keyRight() {
-		if (trapSprungBool == false) {
+		if (isTrapSprung == false) {
 			movePlayer(1, 0);
 		}
 
 	}
 
 	public void keyUp() {
-		if (trapSprungBool == false) {
+		if (isTrapSprung == false) {
 			movePlayer(0, -1);
 		}
 	}
 
 	public void keyDown() {
-		if (trapSprungBool == false) {
+		if (isTrapSprung == false) {
 			movePlayer(0, 1);
 		}
 	}
 
 	public void insertKey() {
-		if (trapSprungBool == true) {
+		if (isTrapSprung == true) {
 			int disabledTrapX = getTrapXCoordinate();
 			int disabledTrapY = getTrapYCoordinate();
-			trapSprungBool = false;
-			trapDisabled = true;
+			isTrapSprung = false;
+			isTrapDisabled = true;
 			systemWrapper.println(disabledTrap);
 
 		} else {
@@ -165,12 +165,12 @@ public class GameEngine {
 	}
 
 	public boolean checkForTrap(int playerX, int playerY, int trapX, int trapY) {
-		if ((Math.abs(playerX - trapX) < 2) && Math.abs(playerY - trapY) < 2) {
-			trapSprungBool = true;
+		if ((Math.abs(playerX - trapX) < 2) && Math.abs(playerY - trapY) < 2 && isTrapDisabled == false) {
+			isTrapSprung = true;
 			systemWrapper.println(trapSprung);
 		}
 
-		return trapSprungBool;
+		return isTrapSprung;
 	}
 
 }

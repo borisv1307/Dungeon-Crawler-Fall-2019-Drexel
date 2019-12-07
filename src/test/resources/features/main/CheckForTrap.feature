@@ -43,3 +43,10 @@ Feature: Move the player into trap
     And the player moves up
     Then the player is located at (4, 3)
      
+    Scenario: Move left and up and get stuck and free yourself and move up and move up again to ensure the trap did not spring again
+    When the player moves left
+    And the player moves up
+    And the player inserts key
+    And the player moves up
+    And the player moves up
+    Then the player is located at (4, 2)
