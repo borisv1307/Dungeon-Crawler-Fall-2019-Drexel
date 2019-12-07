@@ -38,6 +38,7 @@ public class GameEngine {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else if (tileType.equals(TileType.FOOD)) {
+			setFood(x, y);
 			tiles.put(new Point(x, y), tileType);
 		} else {
 			tiles.put(new Point(x, y), tileType);
