@@ -22,8 +22,8 @@ public class DoorPassingStepDefs extends LevelCreationStepDefHelper {
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
 	}
 
-	@When("^the player moves towards the door$")
-	public void the_player_moves_towards_the_door() throws Throwable {
+	@When("^the key is collected by the player$")
+	public void the_key_is_collected_by_the_player() throws Throwable {
 		gameEngine.keyLeft();
 	}
 

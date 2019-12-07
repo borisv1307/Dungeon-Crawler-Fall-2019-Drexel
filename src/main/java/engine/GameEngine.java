@@ -12,6 +12,7 @@ import ui.GameFrame;
 public class GameEngine {
 
 	private boolean exit;
+	private boolean keyRemoved;
 	private final LevelCreator levelCreator;
 	private final Map<Point, TileType> tiles = new HashMap<>();
 	private int levelHorizontalDimension;
@@ -96,12 +97,18 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		} else if (attempedLocation.equals(TileType.KEY)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-			tiles.remove(new Point(getPlayerXCoordinate(), getPlayerYCoordinate()), TileType.KEY);
-			tiles.put(new Point(getPlayerXCoordinate(), getPlayerYCoordinate()), TileType.PASSABLE);
-		} else if (attempedLocation.equals(TileType.DOOR) && getTileFromCoordinates(1, 1) != TileType.KEY) {
+			RemoveKey();
+
+		} else if (attempedLocation.equals(TileType.DOOR) && keyRemoved) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		}
 
+	}
+
+	public void RemoveKey() {
+		tiles.remove(new Point(getPlayerXCoordinate(), getPlayerYCoordinate()), TileType.KEY);
+		tiles.put(new Point(getPlayerXCoordinate(), getPlayerYCoordinate()), TileType.PASSABLE);
+		keyRemoved = true;
 	}
 
 	public void setExit(boolean exit) {

@@ -6,6 +6,6 @@ Scenario: Player moves towards the door to pass it
 | X  DPX |
 | XXXXXX |
 
-    When the player moves towards the door
-    Then the player is located on door location (4, 2) 
+    When the key is collected by the player
+    Then the player is located on door location (5, 2) 
     
