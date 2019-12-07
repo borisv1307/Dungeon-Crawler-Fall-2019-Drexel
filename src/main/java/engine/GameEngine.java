@@ -38,8 +38,7 @@ public class GameEngine {
 			setPlayer(x, y);
 			tiles.put(new Point(x, y), TileType.PASSABLE);
 		} else if (tileType.equals(TileType.FOOD)) {
-			setFood(x, y);
-			tiles.put(new Point(x, y), TileType.PASSABLE);
+			tiles.put(new Point(x, y), tileType);
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
@@ -110,6 +109,10 @@ public class GameEngine {
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+		}
+		if (attempedLocation.equals(TileType.FOOD)) {
+			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
+			tiles.replace(player, attempedLocation, TileType.PASSABLE);
 		}
 	}
 
