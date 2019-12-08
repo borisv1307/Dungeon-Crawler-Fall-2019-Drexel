@@ -19,7 +19,6 @@ public class GameEngineTest {
 	private static final int ONE = 1;
 
 	GameEngine gameEngine;
-
 	@Before
 	public void setUp() throws Exception {
 		LevelCreator levelCreator = Mockito.mock(LevelCreator.class);
