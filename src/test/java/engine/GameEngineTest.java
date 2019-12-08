@@ -117,6 +117,15 @@ public class GameEngineTest {
 	}
 
 	@Test
+	public void check_if_coin_coordinates_exists() {
+		int valofX = 4;
+		int valofY = 1;
+		gameEngine.addCordToList();
+		assertThat(valofX, equalTo(gameEngine.playerXposition.get(0)));
+		assertThat(valofY, equalTo(gameEngine.playerYposition.get(0)));
+	}
+
+	@Test
 	public void game_win_exit() {
 		SystemWrapper sy = Mockito.mock(SystemWrapper.class);
 		gameEngine.displayWin(sy);
