@@ -1,9 +1,6 @@
 package ui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-
+import java.awt.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.AdditionalMatchers;
@@ -14,7 +11,9 @@ import org.mockito.Mockito;
 import engine.GameEngine;
 import tiles.TileType;
 import values.TileColorMap;
-import values.TunableParameters;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class TilePainterTest {
 
@@ -23,14 +22,13 @@ public class TilePainterTest {
 	private final int X = 2;
 	private final int Y = 3;
 	private int tileWidth = 100;
-	private int tileHeight = 120;
+	private int tileHeight  = 120;
 
 	Graphics graphics;
 	TilePainter tilePainter;
 	GameEngine gameEngine;
 	GamePanel gamePanel;
 	TileType tileType = TileType.NPC;
-
 	@Before
 	public void setUp() {
 		tilePainter = new TilePainter();
@@ -71,16 +69,18 @@ public class TilePainterTest {
 	}
 
 	@Test
-	public void show_win() {
+	public void show_win(){
 		gamePanel.paint(graphics);
-		if (gameEngine.isWin()) {
-			graphics.setColor(Color.RED);
-			graphics.setFont(new Font("Times New Roman", Font.BOLD, 50));
-			graphics.drawString("YOU WIN", TunableParameters.SCREEN_WIDTH / 2 - 125,
-					TunableParameters.SCREEN_HEIGHT / 2);
-			Mockito.verify(graphics).drawString("YOU WIN", 900, 600);
+		Font font = new Font("Times New Roman",Font.BOLD,50);
+		if(gameEngine.isWin()){
+			Mockito.verify(graphics).setColor(Color.RED);
+			Mockito.verify(graphics).setFont(font);
+			Mockito.verify(graphics).drawString("YOU WIN",900,600);
 		}
-
 	}
-
+	@Test
+	public void show_is_win(){
+		boolean exit = gameEngine.isWin();
+		assertThat(exit, equalTo(exit));
+	}
 }
