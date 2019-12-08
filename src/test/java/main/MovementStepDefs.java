@@ -57,4 +57,9 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	public void the_tiles_are_BLUE(int x, int y) throws Throwable {
 		assertEquals(TileType.PASSED, gameEngine.getTileFromCoordinates(x - COORDINATE_OFFSET, y - COORDINATE_OFFSET));
 	}
+
+	@Then("^row (\\d+) is covered and level is Complete$")
+	public void row_is_covered_and_level_is_Complete(int rowNumber) throws Throwable {
+		assertEquals(true, gameEngine.isCurrentRowCovered(rowNumber));
+	}
 }

@@ -2,6 +2,7 @@ package engine;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.Component;
 
@@ -17,6 +18,7 @@ public class GameEngineTest {
 
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
+	private static final int TWO = 2;
 
 	GameEngine gameEngine;
 
@@ -75,6 +77,58 @@ public class GameEngineTest {
 		gameEngine.setExit(exit);
 		boolean actual = gameEngine.isExit();
 		assertThat(actual, equalTo(exit));
+	}
+
+	/*---------------------------------------------*/
+	@Test
+	public void check_if_the_tile_is_passed() {
+		TileType tileType = TileType.PASSED;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		gameEngine.addTile(ONE, ONE, TileType.PLAYER);
+		boolean isPassedOrPlayer = gameEngine.ifPassedOrPlayer(ZERO, ONE);
+		assertEquals(true, isPassedOrPlayer);
+	}
+
+	@Test
+	public void check_if_the_tile_is_player() {
+		TileType tileType = TileType.PLAYER;
+		gameEngine.addTile(ZERO, ONE, tileType);
+		boolean isPassedOrPlayer = gameEngine.ifPassedOrPlayer(ZERO, ONE);
+		assertEquals(true, isPassedOrPlayer);
+	}
+
+	@Test
+	public void check_if_row_1_is_covered() {
+		gameEngine.addTile(ZERO, ONE, TileType.PASSED);
+		gameEngine.addTile(ONE, ONE, TileType.PASSED);
+		gameEngine.addTile(TWO, ONE, TileType.PLAYER);
+		gameEngine.setLevelHorizontalDimension(3);
+		boolean isCurrentRowCovered = gameEngine.isCurrentRowCovered(ONE);
+		assertEquals(true, isCurrentRowCovered);
+	}
+
+	@Test
+	public void check_if_row_0_is_covered() {
+		gameEngine.addTile(ZERO, ZERO, TileType.PASSED);
+		gameEngine.addTile(ONE, ZERO, TileType.PASSED);
+		gameEngine.addTile(TWO, ZERO, TileType.PLAYER);
+		gameEngine.setLevelHorizontalDimension(3);
+		boolean isCurrentRowCovered = gameEngine.isCurrentRowCovered(ZERO);
+		assertEquals(true, isCurrentRowCovered);
+	}
+
+	@Test
+	public void check_if_level_is_complete() {
+		gameEngine.addTile(ZERO, ZERO, TileType.PASSED);
+		gameEngine.addTile(ONE, ZERO, TileType.PASSED);
+		gameEngine.addTile(TWO, ZERO, TileType.PLAYER);
+		gameEngine.addTile(ZERO, ONE, TileType.PASSED);
+		gameEngine.addTile(ONE, ONE, TileType.PASSED);
+		gameEngine.addTile(TWO, ONE, TileType.PASSED);
+		gameEngine.setLevelHorizontalDimension(3);
+		gameEngine.setLevelVerticalDimension(TWO);
+		boolean isLevelComplete = gameEngine.isLevelComplete(gameEngine.getLevelVerticalDimension());
+		assertEquals(true, isLevelComplete);
 	}
 
 }

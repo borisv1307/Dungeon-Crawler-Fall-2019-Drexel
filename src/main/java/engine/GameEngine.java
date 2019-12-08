@@ -96,6 +96,7 @@ public class GameEngine {
 	public void movement(int x, int y) {
 		boolean keepMoving = true;
 		while (keepMoving) {
+			isLevelComplete(getLevelVerticalDimension());
 			keepMoving = movePlayer(x, y);
 		}
 	}
@@ -113,11 +114,7 @@ public class GameEngine {
 	}
 
 	public boolean isMovable(TileType location) {
-		if (location.equals(TileType.PASSABLE) || location.equals(TileType.PASSED)) {
-			return true;
-		} else {
-			return false;
-		}
+		return (location.equals(TileType.PASSABLE) || location.equals(TileType.PASSED));
 	}
 
 	public void setExit(boolean exit) {
@@ -126,5 +123,35 @@ public class GameEngine {
 
 	public boolean isExit() {
 		return exit;
+	}
+
+	public boolean ifPassedOrPlayer(int x, int y) {
+
+		int playerX = getPlayerXCoordinate();
+		int playerY = getPlayerYCoordinate();
+
+		TileType tileType = getTileFromCoordinates(x, y);
+
+		return !tileType.equals(TileType.PASSABLE) || (x == playerX && y == playerY);
+	}
+
+	public boolean isCurrentRowCovered(int currentRowNumber) {
+		boolean flag = true;
+		int i = 0;
+		while (flag && i < getLevelHorizontalDimension()) {
+			flag = ifPassedOrPlayer(i, currentRowNumber);
+			i++;
+		}
+		return flag;
+	}
+
+	public boolean isLevelComplete(int levelVerticalDimension) {
+		boolean isLevelCompleteFlag = true;
+		int i = 0;
+		while (isLevelCompleteFlag && i < levelVerticalDimension) {
+			isLevelCompleteFlag = isCurrentRowCovered(levelVerticalDimension - 1);
+			i++;
+		}
+		return isLevelCompleteFlag;
 	}
 }
