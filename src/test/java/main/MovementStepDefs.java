@@ -25,20 +25,20 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	private TileColorMap tileColorMap;
 
 	@Then("^the player color will be changed at (\\d+)$")
-	public void the_player_color_will_be_changed_at(int arg1) throws Throwable {
-		gameEngine.increaseLevels(0);
+	public void the_player_color_will_be_changed_at(int level) throws Throwable {
+		tileColorMap.changeColor(level - 1);
 		assertSame(Color.RED, TileColorMap.get(TileType.PLAYER));
-		gameEngine.increaseLevels(0);
+		tileColorMap.changeColor(level);
 		assertSame(Color.BLUE, TileColorMap.get(TileType.PLAYER));
-		gameEngine.increaseLevels(0);
+		tileColorMap.changeColor(level + 1);
 		assertSame(Color.CYAN, TileColorMap.get(TileType.PLAYER));
-		gameEngine.increaseLevels(0);
+		tileColorMap.changeColor(level + 2);
 		assertSame(Color.GRAY, TileColorMap.get(TileType.PLAYER));
-		gameEngine.increaseLevels(0);
+		tileColorMap.changeColor(level + 3);
 		assertSame(Color.ORANGE, TileColorMap.get(TileType.PLAYER));
-		gameEngine.increaseLevels(0);
+		tileColorMap.changeColor(level + 4);
 		assertSame(Color.MAGENTA, TileColorMap.get(TileType.PLAYER));
-		gameEngine.increaseLevels(0);
+		tileColorMap.changeColor(level + 5);
 		assertSame(Color.GREEN, TileColorMap.get(TileType.PLAYER));
 	}
 
@@ -99,12 +99,6 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	public void the_player_moves_to_level(int currentLevel) throws Throwable {
 		assertEquals(currentLevel, gameEngine.getLevel() + 1);
 	}
-
-//	@Then("^the player color will be RED at (\\d+)$")
-//	public void the_player_color_will_be_RED_at(int level) throws Throwable {
-//		gameEngine.increaseLevels(0);
-//		assertSame(Color.RED, TileColorMap.get(TileType.PLAYER));
-//	}
 
 	@When("^the player moves right of level (\\d+) the level gets restarted$")
 	public void the_player_moves_right_of_level_the_level_gets_restarted(int currentLevel) throws Throwable {

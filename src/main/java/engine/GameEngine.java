@@ -21,7 +21,7 @@ public class GameEngine {
 	private Point food;
 	private int level;
 	private int foodtilecount = 0;
-	TileColorMap tileobj;
+	TileColorMap tileobj = new TileColorMap();
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -125,13 +125,12 @@ public class GameEngine {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 			tiles.replace(player, attempedLocation, TileType.PASSABLE);
 			foodtilecount--;
-			increaseLevels(foodtilecount);
+			increaseLevels(foodtilecount, level);
 		}
 	}
 
-	public void increaseLevels(int foodtilecount) {
+	public void increaseLevels(int foodtilecount, int level) {
 		if (foodtilecount == 0) {
-			tileobj = new TileColorMap();
 			tileobj.changeColor(level);
 			this.level++;
 			if (level <= 7)
