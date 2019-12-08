@@ -3,6 +3,7 @@ package engine;
 import java.awt.Component;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,8 +22,8 @@ public class GameEngine {
 	private Point player;
 	private int level;
 	private static final String WON = "Game won";
-	ArrayList<Integer> playerXposition = new ArrayList<>();
-	ArrayList<Integer> playerYposition = new ArrayList<>();
+	ArrayList<Integer> playerXposition = new ArrayList<Integer>();
+	ArrayList<Integer> playerYposition = new ArrayList<Integer>();;
 	private int count = 0;
 	private static int coinsCollected = 7;
 
@@ -125,21 +126,8 @@ public class GameEngine {
 	}
 
 	public void addCordToList() {
-
-		playerXposition.add(4);
-		playerYposition.add(1);
-		playerXposition.add(4);
-		playerYposition.add(7);
-		playerXposition.add(10);
-		playerYposition.add(5);
-		playerXposition.add(10);
-		playerYposition.add(3);
-		playerXposition.add(10);
-		playerYposition.add(1);
-		playerXposition.add(16);
-		playerYposition.add(1);
-		playerXposition.add(16);
-		playerYposition.add(3);
+		playerXposition.addAll(Arrays.asList(4, 4, 10, 10, 10, 16, 16));
+		playerYposition.addAll(Arrays.asList(1, 7, 5, 3, 1, 1, 3));
 	}
 
 	public boolean getIndexOfElement(int xcord, int ycord) {
