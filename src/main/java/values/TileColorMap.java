@@ -6,8 +6,6 @@ import java.util.EnumMap;
 import tiles.TileType;
 
 public final class TileColorMap {
-	public TileColorMap() {
-	}
 
 	private static final EnumMap<TileType, Color> tileColors = new EnumMap<>(TileType.class);
 
@@ -18,7 +16,7 @@ public final class TileColorMap {
 		tileColors.put(TileType.FOOD, Color.YELLOW);
 	}
 
-	public void changeColor(int stage) {
+	public Color changeColor(int stage) {
 		switch (stage) {
 		case 1:
 			tileColors.put(TileType.PLAYER, Color.RED);
@@ -44,6 +42,7 @@ public final class TileColorMap {
 		default:
 			break;
 		}
+		return tileColors.get(TileType.PLAYER);
 
 	}
 

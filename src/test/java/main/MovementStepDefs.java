@@ -22,12 +22,14 @@ import wrappers.ReaderWrapper;
 public class MovementStepDefs extends LevelCreationStepDefHelper {
 
 	private GameEngine gameEngine;
+	private TileColorMap tileColorMap;
 
 	@Given("^the level design is:$")
 	public void level_is(List<String> levelStrings) throws Throwable {
 		writeLevelFile(levelStrings);
 		gameEngine = new GameEngine(
 				new LevelCreator(TestingTunableParameters.FILE_LOCATION_PREFIX, new ReaderWrapper()));
+		tileColorMap = new TileColorMap();
 	}
 
 	@When("^the player moves left$")
@@ -81,9 +83,9 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 	}
 
 	@Then("^the player color will be RED at (\\d+)$")
-	public void the_player_color_will_be_RED_at(int nextlevel) throws Throwable {
+	public void the_player_color_will_be_RED_at(int level) throws Throwable {
 		gameEngine.increaseLevels(0);
-		assertSame(Color.RED, TileColorMap.get(TileType.PLAYER));
+		assertSame(Color.RED, tileColorMap.changeColor(level - 1));
 	}
 
 	@When("^the player moves right of level (\\d+) the level gets restarted$")
