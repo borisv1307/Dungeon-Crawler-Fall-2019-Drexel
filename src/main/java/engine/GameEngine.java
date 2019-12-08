@@ -8,6 +8,7 @@ import java.util.Map;
 import parser.LevelCreator;
 import tiles.TileType;
 import ui.GameFrame;
+import values.TileColorMap;
 
 public class GameEngine {
 
@@ -18,7 +19,9 @@ public class GameEngine {
 	private int levelVerticalDimension;
 	private Point player;
 	private Point food;
-	private final int level;
+	private int level;
+	private int foodtilecount = 0;
+	TileColorMap tileobj;
 
 	public GameEngine(LevelCreator levelCreator) {
 		exit = false;
@@ -40,6 +43,7 @@ public class GameEngine {
 		} else if (tileType.equals(TileType.FOOD)) {
 			setFood(x, y);
 			tiles.put(new Point(x, y), tileType);
+			foodtilecount = level;
 		} else {
 			tiles.put(new Point(x, y), tileType);
 		}
@@ -105,15 +109,33 @@ public class GameEngine {
 		movePlayer(0, 1);
 	}
 
+	public int getLevel() {
+		return this.level;
+	}
+
 	private void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
-		}
-		if (attempedLocation.equals(TileType.FOOD)) {
+		} else if (attempedLocation.equals(TileType.NOT_PASSABLE)) {
+			if (level <= 7)
+				this.levelCreator.createLevel(this, level);
+		} else if (attempedLocation.equals(TileType.FOOD)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 			tiles.replace(player, attempedLocation, TileType.PASSABLE);
+			foodtilecount--;
+			increaseLevels(foodtilecount);
+		}
+	}
+
+	public void increaseLevels(int foodtilecount) {
+		if (foodtilecount == 0) {
+			tileobj = new TileColorMap();
+			tileobj.changeColor(level);
+			this.level++;
+			if (level <= 7)
+				this.levelCreator.createLevel(this, level);
 		}
 	}
 

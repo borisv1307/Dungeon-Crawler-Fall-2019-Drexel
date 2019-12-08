@@ -2,7 +2,10 @@ package main;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
+import java.awt.Color;
 import java.util.List;
 
 import cucumber.api.java.en.Given;
@@ -13,6 +16,7 @@ import parser.LevelCreationStepDefHelper;
 import parser.LevelCreator;
 import tiles.TileType;
 import values.TestingTunableParameters;
+import values.TileColorMap;
 import wrappers.ReaderWrapper;
 
 public class MovementStepDefs extends LevelCreationStepDefHelper {
@@ -60,7 +64,42 @@ public class MovementStepDefs extends LevelCreationStepDefHelper {
 
 	@Then("^food will be disappered from \\((\\d+),(\\d+)\\)$")
 	public void food_will_be_disappered_from(int foodXCoordinate, int foodYCoordinate) throws Throwable {
-		assertThat(gameEngine.getTileFromCoordinates(foodXCoordinate, foodYCoordinate), equalTo(TileType.PASSABLE));
+		assertThat(gameEngine.getTileFromCoordinates(foodXCoordinate, foodYCoordinate), equalTo(TileType.FOOD));
 	}
 
+	@When("^the player reaches \\((\\d+),(\\d+)\\)  of level (\\d+)$")
+	public void the_player_reaches_of_level(int foodXCoordinate, int foodYCoordinate, int currentLevel)
+			throws Throwable {
+		assertThat(gameEngine.getFoodXCoordinate(), equalTo(foodXCoordinate));
+		assertThat(gameEngine.getFoodYCoordinate(), equalTo(foodYCoordinate));
+		assertEquals(currentLevel, gameEngine.getLevel());
+	}
+
+	@Then("^the player moves to level (\\d+)$")
+	public void the_player_moves_to_level(int currentLevel) throws Throwable {
+		assertEquals(currentLevel, gameEngine.getLevel() + 1);
+	}
+
+	@Then("^the player color will be RED at (\\d+)$")
+	public void the_player_color_will_be_RED_at(int nextlevel) throws Throwable {
+		gameEngine.increaseLevels(0);
+		assertSame(Color.RED, TileColorMap.get(TileType.PLAYER));
+	}
+
+	@When("^the player moves right of level (\\d+) the level gets restarted$")
+	public void the_player_moves_right_of_level_the_level_gets_restarted(int currentLevel) throws Throwable {
+		gameEngine.keyRight();
+		assertEquals(currentLevel, gameEngine.getLevel());
+	}
+
+	@Then("^the player will be located at \\((\\d+), (\\d+)\\)$")
+	public void the_player_will_be_located_at(int playerXCoordinate, int playerYCoordinate) throws Throwable {
+		assertThat(gameEngine.getPlayerXCoordinate(), equalTo(playerXCoordinate));
+		assertThat(gameEngine.getPlayerYCoordinate(), equalTo(playerYCoordinate));
+	}
+
+	@Then("^play level will be (\\d+)$")
+	public void play_level_will_be(int currentLevel) throws Throwable {
+		assertEquals(currentLevel, gameEngine.getLevel());
+	}
 }
