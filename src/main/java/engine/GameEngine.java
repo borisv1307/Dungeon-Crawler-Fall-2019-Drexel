@@ -22,8 +22,8 @@ public class GameEngine {
 	private Point player;
 	private int level;
 	private static final String WON = "Game won";
-	ArrayList<Integer> playerXposition = new ArrayList<Integer>();
-	ArrayList<Integer> playerYposition = new ArrayList<Integer>();;
+	ArrayList<Integer> playerXposition = new ArrayList<>();
+	ArrayList<Integer> playerYposition = new ArrayList<>();
 	private int count = 0;
 	private static int coinsCollected = 7;
 
@@ -136,7 +136,6 @@ public class GameEngine {
 		int indexofY;
 		indexofX = playerXposition.indexOf(xcord);
 		indexofY = playerYposition.indexOf(ycord);
-
 		if (indexofX == indexofY) {
 			returnvalue = true;
 		}
