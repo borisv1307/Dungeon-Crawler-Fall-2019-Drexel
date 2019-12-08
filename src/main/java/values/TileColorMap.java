@@ -6,7 +6,6 @@ import java.util.EnumMap;
 import tiles.TileType;
 
 public final class TileColorMap {
-
 	public TileColorMap() {
 	}
 
@@ -41,6 +40,8 @@ public final class TileColorMap {
 			break;
 		case 7:
 			tileColors.put(TileType.PLAYER, Color.GREEN);
+			break;
+		default:
 			break;
 		}
 
