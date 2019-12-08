@@ -9,7 +9,7 @@ Feature: Move the player to next level
       | XXXXXX |
     When the player reaches (2,1)  of level <CURRENT_LEVEL>
     Then the player moves to level <NEXT_LEVEL>
-    And the player color will be RED at <NEXT_LEVEL>
+    And the player color will be changed at <NEXT_LEVEL>
 
     Examples: 
       | CURRENT_LEVEL | NEXT_LEVEL |

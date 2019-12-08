@@ -16,7 +16,7 @@ public final class TileColorMap {
 		tileColors.put(TileType.FOOD, Color.YELLOW);
 	}
 
-	public Color changeColor(int stage) {
+	public void changeColor(int stage) {
 		switch (stage) {
 		case 1:
 			tileColors.put(TileType.PLAYER, Color.RED);
@@ -42,7 +42,6 @@ public final class TileColorMap {
 		default:
 			break;
 		}
-		return tileColors.get(TileType.PLAYER);
 
 	}
 
