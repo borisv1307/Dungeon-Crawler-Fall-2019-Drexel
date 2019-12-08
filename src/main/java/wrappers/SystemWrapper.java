@@ -11,4 +11,8 @@ public class SystemWrapper {
 	public void JOptionPanelDisplay(String header, String message) {
 		JOptionPane.showMessageDialog(null, message, header, JOptionPane.INFORMATION_MESSAGE);
 	}
+
+	public void println(String message) {
+		System.out.println(message);
+	}
 }

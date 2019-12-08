@@ -162,7 +162,7 @@ public class GameEngine {
 	}
 
 	public void displayWinMessage(SystemWrapper systemWrapper) {
-		systemWrapper.JOptionPanelDisplay("Congratulations!", "You have successfully aligned blocks!");
+		systemWrapper.println("Congratulations! You have successfully aligned blocks!");
 	}
 
 	public void determineNextTile(int xCoordinate, int yCoordinate) {

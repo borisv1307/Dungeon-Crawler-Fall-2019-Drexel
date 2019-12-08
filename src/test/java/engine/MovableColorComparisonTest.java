@@ -78,7 +78,7 @@ public class MovableColorComparisonTest extends LevelCreatorITHelper {
 	public void open_win_message() {
 		SystemWrapper systemWrapper = Mockito.mock(SystemWrapper.class);
 		gameEngine.displayWinMessage(systemWrapper);
-		Mockito.verify(systemWrapper).JOptionPanelDisplay("Congratulations!", "You have successfully aligned blocks!");
+		Mockito.verify(systemWrapper).println("Congratulations! You have successfully aligned blocks!");
 	}
 
 	public void move_right_a_number_of_times(int times) {
