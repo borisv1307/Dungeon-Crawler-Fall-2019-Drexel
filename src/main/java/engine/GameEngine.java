@@ -34,26 +34,6 @@ public class GameEngine {
 
 	}
 
-	public ArrayList<Integer> getPlayerXposition() {
-		return playerXposition;
-	}
-
-	public void setPlayerXposition(ArrayList<Integer> playerXposition) {
-		this.playerXposition = playerXposition;
-	}
-
-	public ArrayList<Integer> getPlayerYposition() {
-		return playerYposition;
-	}
-
-	public void setPlayerYposition(ArrayList<Integer> playerYposition) {
-		this.playerYposition = playerYposition;
-	}
-
-	public Map<Point, TileType> getTiles() {
-		return tiles;
-	}
-
 	public int getCountOfCollectedCoins() {
 		return coinsCollected;
 	}
