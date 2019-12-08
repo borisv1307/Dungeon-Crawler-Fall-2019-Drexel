@@ -182,6 +182,7 @@ public class GameEngine {
 
 	private void cleanTilesHorizontalToPassable(int x) {
 		for (int i = 1; i < levelVerticalDimension - 1; i++) {
+
 			eachTileOfPanelCoordinates = getTileFromCoordinates(x, i);
 			if (x != i) {
 				if (eachTileOfPanelCoordinates != TileType.Enemy) {
