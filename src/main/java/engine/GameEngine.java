@@ -18,8 +18,19 @@ public class GameEngine {
 	private int levelHorizontalDimension;
 	private int levelVerticalDimension;
 	private Point player;
+    private ArrayList<Point> npcList = new ArrayList<Point>(){
+        @Override
+        public boolean add(Point point) {
+            TileType attempedLocation = getTileFromCoordinates((int)point.getX(),
+                    (int)point.getY());
+            if(attempedLocation.equals(TileType.PASSABLE)){
+                return super.add(point);
+            }
+            return false;
+        }
+    };
 
-	public boolean isWin() {
+    public boolean isWin() {
 		return win;
 	}
 
@@ -28,7 +39,6 @@ public class GameEngine {
 		return npcList;
 	}
 
-	private ArrayList<Point> npcList = new ArrayList<>();
 	private final int level;
 
 	public GameEngine(LevelCreator levelCreator) {
@@ -36,9 +46,11 @@ public class GameEngine {
 		level = 1;
 		this.levelCreator = levelCreator;
 		this.levelCreator.createLevel(this, level);
-		npcList.add(new Point(3,3));
-		npcList.add(new Point(2,2));
-		npcList.add(new Point(6,3));
+		if(!exit){
+            npcList.add(new Point(5,5));
+            npcList.add(new Point(2,2));
+            npcList.add(new Point(6,3));
+        }
 	}
 
 	public void run(GameFrame gameFrame) {
@@ -104,17 +116,14 @@ public class GameEngine {
 		movePlayer(0, 1);
 	}
 
-	private void movePlayer(int xDiff, int yDiff) {
+	public void movePlayer(int xDiff, int yDiff) {
 		TileType attempedLocation = getTileFromCoordinates(getPlayerXCoordinate() + xDiff,
 				getPlayerYCoordinate() + yDiff);
 		if (attempedLocation.equals(TileType.PASSABLE)) {
 			setPlayer(getPlayerXCoordinate() + xDiff, getPlayerYCoordinate() + yDiff);
 		}
 		npcList.removeIf(a -> a.equals(player));
-		if(npcList.isEmpty()){
-			System.out.println("YOU WIN");
-			win = true;
-		}
+        win = npcList.isEmpty();
 	}
 
 	public void setExit(boolean exit) {
