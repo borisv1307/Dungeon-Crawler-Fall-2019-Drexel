@@ -1,8 +1,6 @@
 package values;
-
 import java.awt.Color;
 import java.util.EnumMap;
-
 import tiles.TileType;
 
 public final class TileColorMap {
